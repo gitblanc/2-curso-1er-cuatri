@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package proyecto1;
+
+/**
+ * @author blanc
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		System.out.println(TestBench.testAlgorithm("proyecto1.Algoritmos", "fact", 5));
+
+	}
+
+}

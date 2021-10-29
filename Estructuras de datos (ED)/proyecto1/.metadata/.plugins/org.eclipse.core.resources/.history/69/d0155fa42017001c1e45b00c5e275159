@@ -1,0 +1,72 @@
+package proyecto1;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class AlgoritmosTests {
+
+	//REACTIVOS
+	
+	@Test
+	void testFact() {
+		assertEquals(1, Algoritmos.fact(0));
+		assertEquals(120, Algoritmos.fact(5));
+		assertEquals(24, Algoritmos.fact(4));
+		assertEquals(9.33262154439441E157, Algoritmos.fact(100));
+	}
+	
+	
+	
+	@Test
+	void testPot2() {
+		assertEquals(1, Algoritmos.pot2(0));
+		assertEquals(4, Algoritmos.pot2(2));
+		assertEquals(16, Algoritmos.pot2(4));
+		assertEquals(1.2676506002282294E30, Algoritmos.pot2(100));
+	}
+	
+	
+	
+	//ITERATIVOS
+	
+	@Test
+	void testFibo() {
+		assertEquals(0, Algoritmos.fibo(1));
+		assertEquals(1, Algoritmos.fibo(2));
+		assertEquals(1, Algoritmos.fibo(3));
+		assertEquals(2, Algoritmos.fibo(4));
+		assertEquals(3, Algoritmos.fibo(5));
+		assertEquals(5, Algoritmos.fibo(6));
+		assertEquals(8, Algoritmos.fibo(7));
+		assertEquals(7.778742049E9, Algoritmos.fibo(50));  //DA STACK OVERFLOW
+	}
+	
+	@Test
+	void testFactI() {
+		assertEquals(1, Algoritmos.factI(0));
+		assertEquals(120, Algoritmos.factI(5));
+		assertEquals(24, Algoritmos.factI(4));
+	}
+	
+	@Test
+	void testPot2I() {
+		assertEquals(1, Algoritmos.pot2I(0));
+		assertEquals(4, Algoritmos.pot2I(2));
+		assertEquals(16, Algoritmos.pot2I(4));
+		assertEquals(1.2676506002282294E30, Algoritmos.pot2I(100));
+	}
+	
+	@Test
+	void testFiboI() {
+		assertEquals(0, Algoritmos.fiboI(1));
+		assertEquals(1, Algoritmos.fiboI(2));
+		assertEquals(1, Algoritmos.fiboI(3));
+		assertEquals(2, Algoritmos.fiboI(4));
+		assertEquals(3, Algoritmos.fiboI(5));
+		assertEquals(5, Algoritmos.fiboI(6));
+		assertEquals(8, Algoritmos.fiboI(7));
+		//assertEquals(7.778742049E9, Algoritmos.fibo(50));  
+	}
+	
+}

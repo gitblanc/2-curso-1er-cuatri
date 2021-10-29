@@ -1,0 +1,17 @@
+package igu;
+
+import javax.swing.*;
+
+public class Ventana extends JFrame{
+
+	public Ventana() {//constructor
+		this.setTitle("Primera ventana");
+	}
+
+	public static void main(String[] args) {//main
+		Ventana ventana = new Ventana();
+		ventana.setVisible(true);
+
+	}
+
+}

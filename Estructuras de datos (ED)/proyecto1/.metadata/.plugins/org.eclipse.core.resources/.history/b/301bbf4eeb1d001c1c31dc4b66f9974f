@@ -1,0 +1,116 @@
+/**
+ * 
+ */
+package proyecto1;
+
+/**
+ * @author blanc
+ *
+ */
+public class Algoritmos {
+
+	// RECURSIVOS
+
+	public static double factorialRecursivo(double n) {
+		donothing();
+		if (n == 0)
+			return 1;
+		return factorialRecursivo(n - 1) * n;
+
+	}
+
+	public static double potenciaRecursiva_vX(double n) {
+		if (n == 0)
+			return 1;
+		return 2 * potenciaRecursiva_vX(n - 1);
+	}
+
+	public static double fibonacciRecursivo(double n) {
+		if (n == 1)
+			return 0;
+		else if (n == 2)
+			return 1;
+		return fibonacciRecursivo(n - 1) + fibonacciRecursivo(n - 2);
+	}
+
+	// ITERATIVOS
+
+	public static double factorialIterativo(double n) {
+		double num = 1;
+		for (int i = 1; i <= n; i++) {
+			num = num * i;
+		}
+		return num;
+
+	}
+
+	public static double potenciaIterativa(double n) {
+		if (n == 0)
+			return (double) 1;
+		double num = 1;
+		for (int i = 1; i <= n; i++) {
+			num = num * 2;
+		}
+		return num;
+
+	}
+
+	public static double fibonacciIterativo(double n) {
+		if (n == 1)
+			return (double) 0;
+		if (n == 2)
+			return (double) 1;
+		double num = 1;
+		double anterior = 0;
+		double siguiente = 0;
+		for (int i = 3; i <= n; i++) {
+			anterior = siguiente;
+			siguiente = num;
+			num = num + anterior;
+
+		}
+		return num;
+	}
+
+	public static void lineal(double n) {
+		for (int i = 0; i < n; i++) {
+			donothing();
+		}
+	}
+
+	public static void cuadratica(double n) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				donothing();
+			}
+		}
+	}
+
+	public static void cubica(double n) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					donothing();
+				}
+			}
+		}
+	}
+	
+	public static void logaritmica(double n) {
+		int num = (int)n;
+		while(num > 0) {
+			donothing();
+			num=num/2;
+		}
+	}
+
+	private static void doNothing() {
+		try {
+			Thread.sleep(250);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

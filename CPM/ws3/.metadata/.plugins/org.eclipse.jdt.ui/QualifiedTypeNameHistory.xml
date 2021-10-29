@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.swing.JDialog"/>
+    <fullyQualifiedTypeName name="java.io.PrintStream"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="logica.FileUtil"/>
+    <fullyQualifiedTypeName name="logica.Console"/>
+    <fullyQualifiedTypeName name="logica.Articulo"/>
+    <fullyQualifiedTypeName name="logica.UserInterface"/>
+</qualifiedTypeNameHistroy>

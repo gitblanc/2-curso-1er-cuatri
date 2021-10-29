@@ -1,0 +1,268 @@
+package igu;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import logica.Articulo;
+import logica.Carta;
+import logica.Pedido;
+
+public class VentanaPrincipal extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JLabel lblMcDonalds;
+	private JSpinner spinner;
+	private JTextField textPrecioTotal;
+	private JButton btnSiguiente;
+	private JButton btnCancelar;
+	private JLabel lblNewLabel;
+	private JLabel lblUnidades;
+	private JButton btnAñadir;
+	private JLabel lblPrecioPedido;
+	private JComboBox<Articulo> comboBox;
+	private Carta carta;
+	private Pedido pedido;
+	private JLabel lblCantidad;
+	private JLabel lblNewLabel_1;
+	private JLabel lblDescuento;
+
+	/**
+	 * Create the frame.
+	 * 
+	 * @param pedido
+	 * @param carta
+	 */
+	public VentanaPrincipal(Carta carta, Pedido pedido) {
+		this.carta = carta;
+		this.pedido = pedido;
+		setResizable(false);
+		setTitle("McDonald's Espa\u00F1a");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 771, 584);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getLblMcDonalds());
+		contentPane.add(getSpinner());
+		contentPane.add(getTextPrecioTotal());
+		contentPane.add(getBtnSiguiente());
+		contentPane.add(getBtnCancelar());
+		contentPane.add(getLblNewLabel());
+		contentPane.add(getLblUnidades());
+		contentPane.add(getBtnAñadir());
+		contentPane.add(getLblPrecioPedido());
+		contentPane.add(getComboBox());
+		contentPane.add(getLblCantidad());
+		contentPane.add(getLblNewLabel_1());
+		contentPane.add(getLblDescuento());
+		getLblUnidadesArticulo();
+	}
+
+	private JLabel getLblMcDonalds() {
+		if (lblMcDonalds == null) {
+			lblMcDonalds = new JLabel("  McDonald's");
+			lblMcDonalds.setHorizontalAlignment(SwingConstants.LEFT);
+			lblMcDonalds.setFont(new Font("Arial Black", Font.PLAIN, 44));
+			lblMcDonalds.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logo.png")));
+			lblMcDonalds.setBounds(34, 11, 468, 133);
+		}
+		return lblMcDonalds;
+	}
+
+	private JSpinner getSpinner() {
+		if (spinner == null) {
+			spinner = new JSpinner();
+			spinner.setModel(new SpinnerNumberModel(1, 1, null, 1));
+			spinner.setBounds(411, 198, 64, 20);
+		}
+		return spinner;
+	}
+
+	private JTextField getTextPrecioTotal() {
+		if (textPrecioTotal == null) {
+			textPrecioTotal = new JTextField();
+			textPrecioTotal.setEditable(false);
+			textPrecioTotal.setBounds(411, 263, 96, 33);
+			textPrecioTotal.setColumns(10);
+		}
+		return textPrecioTotal;
+	}
+
+	private JButton getBtnSiguiente() {
+		if (btnSiguiente == null) {
+			btnSiguiente = new JButton("Siguiente");
+			btnSiguiente.setBackground(Color.GREEN);
+			btnSiguiente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaRegistro();
+				}
+			});
+			btnSiguiente.setEnabled(false);
+			btnSiguiente.setBounds(469, 479, 116, 41);
+		}
+		return btnSiguiente;
+	}
+
+	private void descuento() {
+		if(pedido.getTotal() >= 50.0) {
+			float total = (float) (pedido.getTotal() * 0.9);
+			lblDescuento.setText("Se te ha aplicado un descuento del 10%");
+			textPrecioTotal.setText(String.format("%.2f", total));
+		}
+	}
+
+	protected void mostrarVentanaRegistro() {
+		VentanaRegistro vr = new VentanaRegistro(this);
+		vr.setLocationRelativeTo(this);
+		vr.setModal(true);
+		vr.setVisible(true);
+
+	}
+
+	private JButton getBtnCancelar() {
+		if (btnCancelar == null) {
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setForeground(Color.WHITE);
+			btnCancelar.setBackground(Color.RED);
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnCancelar.setBounds(595, 479, 116, 41);
+		}
+		return btnCancelar;
+	}
+
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("Art\u00EDculos:");
+			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblNewLabel.setBounds(20, 163, 74, 28);
+		}
+		return lblNewLabel;
+	}
+
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("Unidades:");
+			lblUnidades.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblUnidades.setBounds(411, 167, 74, 20);
+		}
+		return lblUnidades;
+	}
+
+	private JButton getBtnAñadir() {
+		if (btnAñadir == null) {
+			btnAñadir = new JButton("A\u00F1adir");
+			btnAñadir.setBackground(Color.GREEN);
+			btnAñadir.setForeground(Color.WHITE);
+			btnAñadir.setBounds(534, 188, 116, 41);
+			btnAñadir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirAPedido();
+					getLblUnidadesArticulo();
+					descuento();
+				}
+			});
+		}
+		return btnAñadir;
+	}
+
+	private void añadirAPedido() {
+		Articulo articuloSeleccionado = (Articulo) getComboBox().getSelectedItem();
+		int unidadesSolicitadas = (Integer) getSpinner().getValue();
+		pedido.add(articuloSeleccionado, unidadesSolicitadas);
+		String precio = String.format("%.2f", pedido.getTotal());
+		getTextPrecioTotal().setText(precio + " \u20AC");
+		if (!getBtnSiguiente().isEnabled())
+			getBtnSiguiente().setEnabled(true);
+	}
+
+	private JLabel getLblPrecioPedido() {
+		if (lblPrecioPedido == null) {
+			lblPrecioPedido = new JLabel("Precio Pedido:");
+			lblPrecioPedido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblPrecioPedido.setBounds(411, 229, 127, 20);
+		}
+		return lblPrecioPedido;
+	}
+
+	private JComboBox<Articulo> getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox<Articulo>();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					getSpinner().setValue(1);
+					getLblUnidadesArticulo();
+				}
+			});
+			comboBox.setModel(new DefaultComboBoxModel<Articulo>(carta.getArticulos()));
+			comboBox.setBounds(20, 197, 316, 32);
+		}
+		return comboBox;
+	}
+
+	public Pedido getPedido() {
+		return this.pedido;
+	}
+
+	private JLabel getLblCantidad() {
+		if (lblCantidad == null) {
+			lblCantidad = new JLabel("");
+			lblCantidad.setFont(new Font("Arial", Font.BOLD, 14));
+			lblCantidad.setForeground(Color.RED);
+			lblCantidad.setBackground(Color.WHITE);
+			lblCantidad.setBounds(20, 333, 316, 41);
+		}
+		return lblCantidad;
+	}
+
+	private void getLblUnidadesArticulo() {
+		Articulo articulo = (Articulo) comboBox.getSelectedItem();
+		lblCantidad.setText("Hay " + getUnidadesPedido(articulo) + " uds. del artículo en el pedido");
+	}
+
+	private int getUnidadesPedido(Articulo articulo) {
+		return pedido.buscarUnidadesArticulo(articulo);
+	}
+
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("");
+			lblNewLabel_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/descuento.png")));
+			lblNewLabel_1.setBounds(495, 11, 216, 153);
+		}
+		return lblNewLabel_1;
+	}
+	private JLabel getLblDescuento() {
+		if (lblDescuento == null) {
+			lblDescuento = new JLabel();
+			lblDescuento.setFont(new Font("Arial", Font.PLAIN, 14));
+			lblDescuento.setBounds(411, 333, 300, 41);
+		}
+		return lblDescuento;
+	}
+}

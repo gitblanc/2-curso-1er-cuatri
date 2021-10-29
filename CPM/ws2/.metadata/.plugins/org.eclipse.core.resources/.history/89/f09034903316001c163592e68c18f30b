@@ -1,0 +1,51 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaRegistro extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {//se crea un nuevo hilo
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//al cerrar la ventana se finalia completamente la aplicación
+		setBounds(100, 100, 617, 467);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.PINK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnBotonSiguiente = new JButton("Siguiente");
+		btnBotonSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnBotonSiguiente.setBounds(490, 381, 85, 21);
+		contentPane.add(btnBotonSiguiente);
+	}
+}

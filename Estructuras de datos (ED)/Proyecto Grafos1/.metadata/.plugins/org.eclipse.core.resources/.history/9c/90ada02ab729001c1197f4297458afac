@@ -1,0 +1,296 @@
+import java.text.DecimalFormat;
+
+/**
+ * 
+ */
+
+/**
+ * @author blanc
+ *
+ */
+public class Graph<T> {
+	private double[][] weights; // pesos de las aristas
+	private boolean[][] edges; // matriz de aristas
+	private T[] nodes; // nodos
+	private int size; // numero de vértices o tamaño útil
+
+	@SuppressWarnings("unchecked")
+	public Graph(int dimension) {
+		this.nodes = (T[]) new Object[dimension];
+		this.weights = new double[dimension][dimension];
+		this.edges = new boolean[dimension][dimension];
+		this.size = 0; // no hay vértices
+	}
+
+	/*
+	 * Devuelve el número de vértices
+	 */
+	public int getSize() {
+		return this.size;
+	}
+
+	/*
+	 * Devuelve la matriz de pesos
+	 */
+	public double[][] getWeights() {
+		return (this.weights);
+	}
+
+	/*
+	 * Devuelve la matriz de aristas
+	 */
+	public boolean[][] getEdges() {
+		return (this.edges);
+	}
+
+	/*
+	 * Devuelve la posición del nodo pasado como parámetro dentro del vector de
+	 * nodos y 1 si el nodo no existe
+	 */
+	protected int getNode(T node) {
+		for (int i = 0; i < nodes.length; i++) {
+			if (node.equals(nodes[i])) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	/*
+	 * Indica si existe (true) o no (false) el nodo en el grafo
+	 */
+	public boolean existsNode(T node) {
+		if (node == null) {
+			return false;
+		}
+		int pos = getNode(node);
+		if (pos == -1)
+			return false;
+		else
+			return true;
+	}
+
+	/*
+	 * Inserta un nuevo nodo que se le pasa como parámetro. Si lo inserta devuelve 0
+	 * . Si ya existe y además no cabe, no lo inserta y devuelve -3. Si ya existe,
+	 * pero sí cabría, no lo inserta y devuelve -1. Si no existe, pero no cabe, no
+	 * lo inserta y devuelve -2. Si el nodo a insertar no es válido, devuelve -4 en
+	 * cualquier caso.
+	 */
+	public int addNode(T node) {
+		if (size < nodes.length && getNode(node) == -1) {
+			nodes[size] = node;
+			for (int i = 0; i <= size; i++) {
+				edges[size][i] = false;
+				edges[i][size] = false;
+				weights[size][i] = 0;
+				weights[i][size] = 0;
+			}
+			++size;
+			return 0;
+		} else if (existsNode(node) && size >= nodes.length) {
+			return -3;
+		} else if (existsNode(node) && size < nodes.length) {
+			return -1;
+		} else if (!existsNode(node) && size >= nodes.length) {
+			return -2;
+		} else {
+			return -4;
+		}
+	}
+
+	/*
+	 * Devuelve true si existe una arista entre los nodos origen y destino, false en
+	 * caso contrario o no existen los nodos
+	 */
+	public boolean existsEdge(T source, T target) {
+		int i = getNode(source);
+		int j = getNode(target);
+		if (i >= 0 && j >= 0)
+			return edges[i][j];
+		else
+			return false;
+	}
+
+	/*
+	 * Devuelve el peso de la arista que une el nodo origen y el nodos destino.
+	 * devuelve 1, 2 y 3 si no existe origen, destino, ambos. Devuelve 4 si no
+	 * existe la arista.
+	 */
+	public double getEdge(T source, T target) {
+
+		if (!existsNode(target) && !existsNode(source)) {
+			return -3;
+		} else if (!existsNode(source)) {
+			return -1;
+		} else if (!existsNode(target)) {
+			return -2;
+		} else if (!existsEdge(source, target)) {
+			return -4;
+		} else {
+			return weights[getNode(source)][getNode(target)];
+		}
+	}
+
+	/*
+	 * Inserta una arista con el peso indicado (> 0) entre dos nodos. Devuelve 0 si
+	 * la inserta. Devuelve 1, 2 y 3 si no existe nodos origen, destino o ambos
+	 * respectivamente. Devuelve 4 si ya existe y 8 si el peso no es válido
+	 */
+	public int addEdge(T source, T target, double weight) {
+		int i = getNode(source);
+		int j = getNode(target);
+		if (existsEdge(source, target) && weight > 0) {
+			return -4;
+		} else if (!existsNode(target) && !existsNode(source)) {
+			return -3;
+		} else if (!existsNode(source)) {
+			return -1;
+		} else if (!existsNode(target)) {
+			return -2;
+		} else if (weight < 0) {
+			return -8;
+		} else {
+			edges[i][j] = true;
+			weights[i][j] = weight;
+			return 0;
+		}
+	}
+
+	/*
+	 * Borra una arista del grafo que conecta dos nodos. Devuelve 1, 2 y 3 si no
+	 * existe nodos origen, destino o ambos respectivamente. Devuelve 4 si no existe
+	 * la arista. Devuelve 0 si la borra
+	 */
+	public int removeEdge(T source, T target) {
+		if (!existsNode(source) && !existsNode(target)) {
+			return -3;
+		} else if (!existsNode(source)) {
+			return -1;
+		} else if (!existsNode(target)) {
+			return -2;
+		} else if (!existsEdge(source, target)) {
+			return -4;
+		} else {
+			edges[getNode(source)][getNode(target)] = false;
+			weights[getNode(source)][getNode(target)] = 0;
+			return 0;
+		}
+	}
+
+	public int removeNode(T node) {
+		int i = getNode(node);
+
+		if (i >= 0) {
+			--size;
+			if (i != size + 1) { // no es el último nodo
+				nodes[i] = nodes[size];
+			}
+
+			for (int j = 0; j <= size; j++) {
+				edges[j][i] = edges[j][size];
+				edges[i][j] = edges[size][j];
+				weights[i][j] = weights[size][j];
+				weights[j][i] = weights[j][size];
+			}
+			edges[i][i] = edges[size][size]; // elimina el codo
+			weights[i][i] = weights[size][size];
+			return 0;
+		}
+		return -1;
+	}
+
+	public String toString() {
+		DecimalFormat df = new DecimalFormat("#.##");
+		String cadena = "";
+		cadena += "NODOS\n";
+		for (int i = 0; i < size; i++) {
+			cadena += nodes[i].toString() + "\t";
+		}
+		cadena += "\n\nARISTAS\n";
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				if (edges[i][j])
+					cadena += "T\t";
+				else
+					cadena += "F\t";
+			}
+			cadena += "\n";
+		}
+		cadena += "\nPESOS\n";
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				cadena += (edges[i][j] ? df.format(weights[i][j]) : "-") + "\t";
+			}
+			cadena += "\n";
+		}
+		return cadena;
+	}
+
+	public double[] dijkstra(T origen) {
+		if (!existsNode(origen) || origen == null)
+			return null;
+		double[] costes = inicializaCostes(origen);
+		T[] caminos = inicializaCaminos(origen);
+		boolean[] s = new boolean[this.size];// visitados
+		s[getNode(origen)] = true;
+		int w = getPivote(s, costes);// coge el nodo con menor coste y no alcanzado
+
+		while (w != -1) {
+			s[w] = true;
+			for (int m = 0; m < size; m++) {
+				if (!s[m] && existsEdge(nodes[w], nodes[m])) {
+					if ((costes[w] + weights[w][m]) < costes[w]) {
+						caminos[m] = nodes[w];
+					}
+				}
+			}
+			w = getPivote(costes, s);
+		}
+		return costes;
+	}
+
+	private int getPivote(boolean[] s, double[] costes) {
+		double masbarato = Double.POSITIVE_INFINITY;
+		int posicion = -1;// devuelve -1 cuando todos los nodos están visitados
+		for (int i = 0; i < this.size; i++) {
+			if (costes[i] < masbarato && !s[i]) {
+				masbarato = costes[i];
+				posicion = i;
+			}
+		}
+		return posicion;
+	}
+
+	/*
+	 * Inicializa el vector de costes. Ir de un nodo a sí mismo cuesta 0, si ya
+	 * existe la arista se corresponde con su peso y si no existe es infinito
+	 */
+	public double[] inicializaCostes(T origen) {
+		double[] costes = new double[this.size];
+		for (int i = 0; i < this.size; i++) {
+			if (nodes[i].equals(origen)) {
+				costes[i] = 0;
+			} else if (existsEdge(origen, nodes[i])) {
+				costes[i] = getEdge(origen, nodes[i]);
+			} else {
+				costes[i] = Double.POSITIVE_INFINITY;
+			}
+		}
+		return costes;
+	}
+
+	/*
+	 * Si el destino es igual al origen o existe la arista origen y destino, el
+	 * camino es el nodo origen, sino es null
+	 */
+	public T[] inicializaCaminos(T origen) {
+		@SuppressWarnings("unchecked")
+		T[] caminos = (T[]) new Object[this.size];
+		for (int i = 0; i < this.size; i++) {
+			if (nodes[i].equals(origen) || existsEdge(origen, nodes[i]))
+				caminos[i] = origen;
+		}
+		return caminos;
+	}
+}

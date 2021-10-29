@@ -1,0 +1,34 @@
+package proyecto1;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class AlgoritmosTests {
+
+	@Test
+	void testFactWith0() {
+		assertEquals(1, Algoritmos.fact(0));
+	}
+	
+	@Test
+	void testFactWith5() {
+		assertEquals(120, Algoritmos.fact(5));
+	}
+	
+	@Test
+	void testFactWith4() {
+		assertEquals(24, Algoritmos.fact(4));
+	}
+	
+	
+	@Test
+	void testPot2With0() {
+		assertEquals(1, Algoritmos.pot2(0));
+	}
+	
+	@Test
+	void testPot2With2() {
+		assertEquals(4, Algoritmos.pot2(2));
+	}
+}

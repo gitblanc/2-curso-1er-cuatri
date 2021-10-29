@@ -1,0 +1,83 @@
+/**
+ * 
+ */
+package BST;
+
+/**
+ * @author UO285176
+ *
+ */
+public class BSTree<T extends Comparable<T>> {
+	private BSTNode<T> raiz;// nodo raíz del árbol
+
+	public BSTree() {
+		this.raiz = null;
+	}
+
+	/**
+	 * Si no se encuentra devolverá null
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public BSTNode<T> searchNode(T clave) {
+		if (clave == null || this.raiz == null) {
+			return null;
+		}
+		searchNodeRecursivo(raiz, clave);
+	}
+
+	private BSTNode<T> searchNodeRecursivo(BSTNode<T> raiz2, T clave) {
+		if(raiz2 == null) {
+			return null;
+		}
+		if(clave.compareTo(raiz2.getInfo()) ) {
+			searchNodeRecursivo(raiz.getLeft(), clave);
+		}else {
+			searchNodeRecursivo(raiz.getRight(), clave);
+		}
+		
+	}
+
+	/**
+	 * Devuelve 0 si añade correctamente el elemento al árbol. Devuelve -2 si la
+	 * clave es null. Devuelve -1 si intenta insertar una clave ya existente.
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public int addNode(T clave) {
+		if (clave == null) {
+			return -2;
+		}
+
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String preOrder();
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String postOrder();
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String inOrder();
+
+	/**
+	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
+	 * intento borrar es null o el árbol está vacío. Devuelve -1 si intenta borrar
+	 * una clave que no existe.
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public int removeNode(T clave);
+}

@@ -1,0 +1,53 @@
+/**
+ * 
+ */
+package BST;
+
+/**
+ * @author UO285176
+ *
+ */
+public class BSTree<T extends Comparable<T>> {
+	private BSTNode<T> raiz;// nodo raíz del árbol
+	
+	public BSTree() {
+		this.raiz = null;
+	}
+	
+	/**
+	 * Si no se encuentra devolverá null
+	 * @param clave
+	 * @return
+	 */
+	public BSTNode<T> searchNode(T clave){
+		if(clave == null || raiz == null) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Devuelve 0 si añade correctamente el elemento al árbol
+	 * Devuelve -2 si la clave es null
+	 * Devuelve -1 si intenta insertar una clave ya existente
+	 * @param clave
+	 * @return
+	 */
+	public int addNode(T clave) {
+		if(clave == null) {
+			return -2;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String preOrder();
+	
+	public String postOrder();
+	
+	public String inOrder();
+	
+	public int removeNode(T clave);
+}

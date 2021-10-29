@@ -1,0 +1,56 @@
+/**
+ * 
+ */
+package logica;
+
+/**
+ * @author blanc
+ *
+ */
+public class UserInterface {
+	
+	private static final int EXIT = 0;
+	private Menu menu = new Menu();
+	
+	public static void main(String[] args) {
+		show();
+	}
+	
+	public void show() {
+		int option = EXIT;
+		do {
+			menu.show();
+			option = menu.readOption();
+			processOption(option);
+		}
+		while (option != EXIT);
+		
+		
+	}
+
+	private void processOption(int option) {
+		switch(option) {
+		case EXIT:
+			return;
+		case 1:
+			añadirPedido();
+			break;
+		case 2:
+			verPrecio();
+			break;
+		case 3:
+			grabarPedido();
+			break;	
+		case 4:
+			obtenerCodigoPedido();
+			break;	
+		}
+		
+	}
+
+	private void añadirPedido() {
+		String fileName = Console.readInteger(null)
+		
+	}
+
+}

@@ -1,0 +1,108 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaRegistro extends JFrame {
+
+	private JPanel contentPane;
+	private JButton btnSiguiente;
+	private JPanel pnPedido;
+	private JRadioButton rdbtnLocal;
+	private JRadioButton rdbtnLLevar;
+	private JTextField txtPedido;
+	private JButton btnCancelar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {//se crea un nuevo hilo
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//al cerrar la ventana se finaliza completamente la aplicación
+		setBounds(100, 100, 617, 467);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.PINK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getTxtPedido());
+		contentPane.add(getBtnSiguiente());
+		contentPane.add(getBtnCancelar());
+		contentPane.add(getPnPedido());
+	}
+	private JButton getBtnSiguiente() {
+		if (btnSiguiente == null) {
+			btnSiguiente = new JButton("Siguiente");
+			btnSiguiente.setBackground(new Color(0, 128, 0));
+			btnSiguiente.setForeground(Color.WHITE);
+			btnSiguiente.setBounds(312, 394, 89, 23);
+		}
+		return btnSiguiente;
+	}
+	private JPanel getPnPedido() {
+		if (pnPedido == null) {
+			pnPedido = new JPanel();
+			pnPedido.setBackground(new Color(255, 255, 255));
+			pnPedido.setBounds(41, 307, 185, 110);
+			pnPedido.setLayout(null);
+			pnPedido.add(getRdbtnLocal());
+			pnPedido.add(getRdbtnLLevar());
+		}
+		return pnPedido;
+	}
+	private JRadioButton getRdbtnLocal() {
+		if (rdbtnLocal == null) {
+			rdbtnLocal = new JRadioButton("Local");
+			rdbtnLocal.setSelected(true);
+			rdbtnLocal.setBackground(new Color(255, 255, 255));
+			rdbtnLocal.setBounds(6, 42, 76, 23);
+		}
+		return rdbtnLocal;
+	}
+	private JRadioButton getRdbtnLLevar() {
+		if (rdbtnLLevar == null) {
+			rdbtnLLevar = new JRadioButton("Llevar");
+			rdbtnLLevar.setBackground(new Color(255, 255, 255));
+			rdbtnLLevar.setBounds(109, 42, 83, 23);
+		}
+		return rdbtnLLevar;
+	}
+	private JTextField getTxtPedido() {
+		if (txtPedido == null) {
+			txtPedido = new JTextField();
+			txtPedido.setText("Pedido");
+			txtPedido.setBounds(41, 297, 86, 20);
+			txtPedido.setColumns(10);
+		}
+		return txtPedido;
+	}
+	private JButton getBtnCancelar() {
+		if (btnCancelar == null) {
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setForeground(Color.WHITE);
+			btnCancelar.setBackground(Color.RED);
+			btnCancelar.setBounds(431, 394, 89, 23);
+		}
+		return btnCancelar;
+	}
+}

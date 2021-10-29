@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package proyecto1;
+
+/**
+ * @author blanc
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		TestBench.test(10, 0, 9, "proyecto1.Algoritmos", "fact", "fichero.csv");
+
+	}
+
+	
+
+}

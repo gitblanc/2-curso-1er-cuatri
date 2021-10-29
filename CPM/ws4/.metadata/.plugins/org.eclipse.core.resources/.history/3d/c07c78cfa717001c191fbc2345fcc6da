@@ -1,0 +1,193 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+
+public class VentanaRegistro extends JFrame {
+
+	private JPanel contentPane;
+	private JButton btnSiguiente;
+	private JPanel pnPedido;
+	private JRadioButton rdbtnLocal;
+	private JRadioButton rdbtnLLevar;
+	private JButton btnCancelar;
+	private JPanel pnDatosCliente;
+	private JLabel lblNombreApellidos;
+	private JLabel lblYear;
+	private JLabel lblPassword;
+	private JLabel lblReintroduzcaPassword;
+	private JTextField textNombreApellidos;
+	private JPasswordField passwordField;
+	private JComboBox comboBox;
+	private JPasswordField passwordField_1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {//se crea un nuevo hilo
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//al cerrar la ventana se finaliza completamente la aplicación
+		setBounds(100, 100, 617, 467);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.PINK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtnSiguiente());
+		contentPane.add(getBtnCancelar());
+		contentPane.add(getPnPedido());
+		contentPane.add(getPnDatosCliente());
+	}
+	private JButton getBtnSiguiente() {
+		if (btnSiguiente == null) {
+			btnSiguiente = new JButton("Siguiente");
+			btnSiguiente.setBackground(new Color(0, 128, 0));
+			btnSiguiente.setForeground(Color.WHITE);
+			btnSiguiente.setBounds(312, 394, 89, 23);
+		}
+		return btnSiguiente;
+	}
+	private JPanel getPnPedido() {
+		if (pnPedido == null) {
+			pnPedido = new JPanel();
+			pnPedido.setBorder(new TitledBorder(null, "Pedido", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnPedido.setBackground(new Color(255, 255, 255));
+			pnPedido.setBounds(39, 338, 185, 79);
+			pnPedido.setLayout(null);
+			pnPedido.add(getRdbtnLocal());
+			pnPedido.add(getRdbtnLLevar());
+		}
+		return pnPedido;
+	}
+	private JRadioButton getRdbtnLocal() {
+		if (rdbtnLocal == null) {
+			rdbtnLocal = new JRadioButton("Local");
+			buttonGroup.add(rdbtnLocal);
+			rdbtnLocal.setSelected(true);
+			rdbtnLocal.setBackground(new Color(255, 255, 255));
+			rdbtnLocal.setBounds(6, 42, 76, 23);
+		}
+		return rdbtnLocal;
+	}
+	private JRadioButton getRdbtnLLevar() {
+		if (rdbtnLLevar == null) {
+			rdbtnLLevar = new JRadioButton("Llevar");
+			buttonGroup.add(rdbtnLLevar);
+			rdbtnLLevar.setBackground(new Color(255, 255, 255));
+			rdbtnLLevar.setBounds(109, 42, 70, 23);
+		}
+		return rdbtnLLevar;
+	}
+	private JButton getBtnCancelar() {
+		if (btnCancelar == null) {
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			btnCancelar.setForeground(Color.WHITE);
+			btnCancelar.setBackground(Color.RED);
+			btnCancelar.setBounds(431, 394, 89, 23);
+		}
+		return btnCancelar;
+	}
+	private JPanel getPnDatosCliente() {
+		if (pnDatosCliente == null) {
+			pnDatosCliente = new JPanel();
+			pnDatosCliente.setBorder(new TitledBorder(null, "Datos del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnDatosCliente.setBounds(31, 28, 543, 282);
+			pnDatosCliente.setLayout(null);
+			pnDatosCliente.add(getLblNombreApellidos());
+			pnDatosCliente.add(getLblYear());
+			pnDatosCliente.add(getLblPassword());
+			pnDatosCliente.add(getLblReintroduzcaPassword());
+			pnDatosCliente.add(getTextNombreApellidos());
+			pnDatosCliente.add(getPasswordField());
+			pnDatosCliente.add(getComboBox());
+			pnDatosCliente.add(getPasswordField_1());
+		}
+		return pnDatosCliente;
+	}
+	private JLabel getLblNombreApellidos() {
+		if (lblNombreApellidos == null) {
+			lblNombreApellidos = new JLabel("Nombre y Apellidos: ");
+			lblNombreApellidos.setBounds(10, 46, 110, 27);
+		}
+		return lblNombreApellidos;
+	}
+	private JLabel getLblYear() {
+		if (lblYear == null) {
+			lblYear = new JLabel("A\u00F1o de Nacimiento: ");
+			lblYear.setBounds(10, 107, 110, 27);
+		}
+		return lblYear;
+	}
+	private JLabel getLblPassword() {
+		if (lblPassword == null) {
+			lblPassword = new JLabel("Password: ");
+			lblPassword.setBounds(10, 169, 110, 27);
+		}
+		return lblPassword;
+	}
+	private JLabel getLblReintroduzcaPassword() {
+		if (lblReintroduzcaPassword == null) {
+			lblReintroduzcaPassword = new JLabel("Reintroduzca password: ");
+			lblReintroduzcaPassword.setBounds(10, 228, 137, 27);
+		}
+		return lblReintroduzcaPassword;
+	}
+	private JTextField getTextNombreApellidos() {
+		if (textNombreApellidos == null) {
+			textNombreApellidos = new JTextField();
+			textNombreApellidos.setBounds(194, 49, 308, 20);
+			textNombreApellidos.setColumns(10);
+		}
+		return textNombreApellidos;
+	}
+	private JPasswordField getPasswordField() {
+		if (passwordField == null) {
+			passwordField = new JPasswordField();
+			passwordField.setBounds(194, 172, 308, 20);
+		}
+		return passwordField;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950"}));
+			comboBox.setBounds(194, 109, 179, 22);
+		}
+		return comboBox;
+	}
+	private JPasswordField getPasswordField_1() {
+		if (passwordField_1 == null) {
+			passwordField_1 = new JPasswordField();
+			passwordField_1.setBounds(194, 231, 308, 20);
+		}
+		return passwordField_1;
+	}
+}

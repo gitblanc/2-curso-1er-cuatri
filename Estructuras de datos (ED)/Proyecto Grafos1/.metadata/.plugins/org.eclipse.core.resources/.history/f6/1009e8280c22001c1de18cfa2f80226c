@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+
+/**
+ * @author blanc
+ *
+ */
+public class Graph<T> {
+	private double[][] weights;
+	private boolean[][] edges;	//matriz de aristas
+	private T[] nodes;	//nodos
+	private int size;	//numero de vértices o tamaño útil
+	
+	public Graph(int dimension) {
+		
+	}
+}

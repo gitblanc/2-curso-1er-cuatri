@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.swing.JDialog"/>
+    <fullyQualifiedTypeName name="java.io.PrintStream"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="logica.FileUtil"/>
+    <fullyQualifiedTypeName name="logica.Console"/>
+    <fullyQualifiedTypeName name="logica.UserInterface"/>
+    <fullyQualifiedTypeName name="igu.VentanaConfirmacion"/>
+    <fullyQualifiedTypeName name="org.graalvm.compiler.lir.amd64.AMD64Arithmetic.FPDivRemOp"/>
+    <fullyQualifiedTypeName name="logica.Carta"/>
+    <fullyQualifiedTypeName name="logica.Pedido"/>
+    <fullyQualifiedTypeName name="com.sun.jdi.event.EventQueue"/>
+    <fullyQualifiedTypeName name="java.awt.EventQueue"/>
+    <fullyQualifiedTypeName name="igu.VentanaRegistro"/>
+    <fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
+    <fullyQualifiedTypeName name="logica.Articulo"/>
+    <fullyQualifiedTypeName name="igu.VentanaPrincipal"/>
+    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+</qualifiedTypeNameHistroy>

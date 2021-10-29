@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package proyecto1;
+
+/**
+ * @author blanc
+ *
+ */
+public class TestBench {
+
+		public static Object testAlgorithm(String className, String methodName, int n) { //n = carga a la que voy a someter al método
+			Object obj = Class.forName(className).getDeclaredConstructor().newInstance();
+			Method method = obj.getClass().getMethod(methodName, int.class);
+		}
+}

@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+package proyecto1;
+
+import java.io.IOException;
+
+/**
+ * @author blanc
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			TestBench.test("potenciav0.csv",1, 10, 5, "proyecto1.Algoritmos", "potenciaRecursiva_v0doNothing" );
+			TestBench.test("potenciav1.csv",1, 10, 5, "proyecto1.Algoritmos", "potenciaRecursiva_v1doNothing" );
+			TestBench.test("potenciav2.csv",1, 10, 5, "proyecto1.Algoritmos", "potenciaRecursiva_v2doNothing" );
+			TestBench.test("potenciav3.csv",1, 10, 5, "proyecto1.Algoritmos", "potenciaRecursiva_v3doNothing" );
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+
+}

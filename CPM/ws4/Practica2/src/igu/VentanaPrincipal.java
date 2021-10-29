@@ -1,0 +1,330 @@
+package igu;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import logica.Articulo;
+import logica.Carta;
+import logica.Pedido;
+
+public class VentanaPrincipal extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JLabel lblMcDonalds;
+	private JSpinner spinnerUnidades;
+	private JTextField textPrecioTotal;
+	private JButton btnSiguiente;
+	private JButton btnCancelar;
+	private JLabel lblArticulos;
+	private JLabel lblUnidades;
+	private JButton btnAñadir;
+	private JLabel lblPrecioPedido;
+	private JComboBox<Articulo> comboBoxArticulos;
+	private Carta carta;
+	private Pedido pedido;
+	private JLabel lblCantidad;
+	private JLabel lblImagenDescuento;
+	private JLabel lblDescuento;
+
+	/**
+	 * Constructor que crea el frame
+	 * 
+	 * @param pedido
+	 * @param carta
+	 */
+	public VentanaPrincipal(Carta carta, Pedido pedido) {
+		this.carta = carta;
+		this.pedido = pedido;
+		setResizable(false);
+		setTitle("McDonald's Espa\u00F1a");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 771, 584);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getLblMcDonalds());
+		contentPane.add(getSpinnerUnidades());
+		contentPane.add(getTextPrecioTotal());
+		contentPane.add(getBtnSiguiente());
+		contentPane.add(getBtnCancelar());
+		contentPane.add(getLblArticulos());
+		contentPane.add(getLblUnidades());
+		contentPane.add(getBtnAñadir());
+		contentPane.add(getLblPrecioPedido());
+		contentPane.add(getComboBoxArticulos());
+		contentPane.add(getLblCantidad());
+		contentPane.add(getLblImagenDescuento());
+		contentPane.add(getLblDescuento());
+		getLblUnidadesArticulo();
+	}
+
+	/*
+	 * Getter para el JLabel del texto McDonald's
+	 */
+	private JLabel getLblMcDonalds() {
+		if (lblMcDonalds == null) {
+			lblMcDonalds = new JLabel("  McDonald's");
+			lblMcDonalds.setHorizontalAlignment(SwingConstants.LEFT);
+			lblMcDonalds.setFont(new Font("Arial Black", Font.PLAIN, 44));
+			lblMcDonalds.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logo.png")));
+			lblMcDonalds.setBounds(34, 11, 468, 133);
+		}
+		return lblMcDonalds;
+	}
+
+	/*
+	 * Getter para el JSpinner de las unidades
+	 */
+	private JSpinner getSpinnerUnidades() {
+		if (spinnerUnidades == null) {
+			spinnerUnidades = new JSpinner();
+			spinnerUnidades.setModel(new SpinnerNumberModel(1, 1, null, 1));
+			spinnerUnidades.setBounds(411, 198, 64, 20);
+		}
+		return spinnerUnidades;
+	}
+
+	/*
+	 * Getter para el JTextField del precio total
+	 */
+	private JTextField getTextPrecioTotal() {
+		if (textPrecioTotal == null) {
+			textPrecioTotal = new JTextField();
+			textPrecioTotal.setEditable(false);
+			textPrecioTotal.setBounds(411, 263, 96, 33);
+			textPrecioTotal.setColumns(10);
+		}
+		return textPrecioTotal;
+	}
+
+	/*
+	 * Getter para el JButton siguiente con la acción de pasar a la ventana de
+	 * registro
+	 */
+	private JButton getBtnSiguiente() {
+		if (btnSiguiente == null) {
+			btnSiguiente = new JButton("Siguiente");
+			btnSiguiente.setBackground(Color.GREEN);
+			btnSiguiente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarVentanaRegistro();
+				}
+			});
+			btnSiguiente.setEnabled(false);
+			btnSiguiente.setBounds(469, 479, 116, 41);
+		}
+		return btnSiguiente;
+	}
+
+	/*
+	 * Método que aplica el descuento
+	 */
+	private void descuento() {
+		if (pedido.getTotal() >= 50.0) {
+			float total = (float) (pedido.getTotal() * 0.9);
+			lblDescuento.setText("Se te ha aplicado un descuento del 10%");
+			textPrecioTotal.setText(String.format("%.2f", total));
+		}
+	}
+
+	/*
+	 * Método que muestra la ventana registro sin cerrar la ventana principal
+	 */
+	protected void mostrarVentanaRegistro() {
+		VentanaRegistro vr = new VentanaRegistro(this);
+		vr.setLocationRelativeTo(this);
+		vr.setModal(true);
+		vr.setVisible(true);
+
+	}
+
+	/*
+	 * Getter para el JButton cancelar con la acción de cerrar la aplicación
+	 */
+	private JButton getBtnCancelar() {
+		if (btnCancelar == null) {
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setForeground(Color.WHITE);
+			btnCancelar.setBackground(Color.RED);
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			btnCancelar.setBounds(595, 479, 116, 41);
+		}
+		return btnCancelar;
+	}
+
+	/*
+	 * Getter para el JLabel artículos
+	 */
+	private JLabel getLblArticulos() {
+		if (lblArticulos == null) {
+			lblArticulos = new JLabel("Art\u00EDculos:");
+			lblArticulos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblArticulos.setBounds(20, 163, 74, 28);
+		}
+		return lblArticulos;
+	}
+
+	/*
+	 * Getter para el JLabel unidades
+	 */
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("Unidades:");
+			lblUnidades.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblUnidades.setBounds(411, 167, 74, 20);
+		}
+		return lblUnidades;
+	}
+
+	/*
+	 * Getter para el JButton añadir con las acciones de añadir pedido, mostrar las
+	 * unidades del artículo y aplicar el descuento
+	 */
+	private JButton getBtnAñadir() {
+		if (btnAñadir == null) {
+			btnAñadir = new JButton("A\u00F1adir");
+			btnAñadir.setBackground(Color.GREEN);
+			btnAñadir.setForeground(Color.WHITE);
+			btnAñadir.setBounds(534, 188, 116, 41);
+			btnAñadir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirAPedido();
+					getLblUnidadesArticulo();
+					descuento();
+				}
+			});
+		}
+		return btnAñadir;
+	}
+
+	/*
+	 * Método que añade un pedido
+	 */
+	private void añadirAPedido() {
+		Articulo articuloSeleccionado = (Articulo) getComboBoxArticulos().getSelectedItem();
+		int unidadesSolicitadas = (Integer) getSpinnerUnidades().getValue();
+		pedido.add(articuloSeleccionado, unidadesSolicitadas);
+		String precio = String.format("%.2f", pedido.getTotal());
+		getTextPrecioTotal().setText(precio + " \u20AC");
+		if (!getBtnSiguiente().isEnabled())
+			getBtnSiguiente().setEnabled(true);
+	}
+
+	/*
+	 * Getter para el JLabel precio del pedido
+	 */
+	private JLabel getLblPrecioPedido() {
+		if (lblPrecioPedido == null) {
+			lblPrecioPedido = new JLabel("Precio Pedido:");
+			lblPrecioPedido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblPrecioPedido.setBounds(411, 229, 127, 20);
+		}
+		return lblPrecioPedido;
+	}
+
+	/*
+	 * Getter para el JComboBox de artículos
+	 */
+	private JComboBox<Articulo> getComboBoxArticulos() {
+		if (comboBoxArticulos == null) {
+			comboBoxArticulos = new JComboBox<Articulo>();
+			comboBoxArticulos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					getSpinnerUnidades().setValue(1);
+					getLblUnidadesArticulo();
+				}
+			});
+			comboBoxArticulos.setModel(new DefaultComboBoxModel<Articulo>(carta.getArticulos()));
+			comboBoxArticulos.setBounds(20, 197, 316, 32);
+		}
+		return comboBoxArticulos;
+	}
+
+	/*
+	 * Getter del pedido
+	 */
+	public Pedido getPedido() {
+		return this.pedido;
+	}
+
+	/*
+	 * Getter para el JLable cantidad
+	 */
+	private JLabel getLblCantidad() {
+		if (lblCantidad == null) {
+			lblCantidad = new JLabel("");
+			lblCantidad.setFont(new Font("Arial", Font.BOLD, 14));
+			lblCantidad.setForeground(Color.RED);
+			lblCantidad.setBackground(Color.WHITE);
+			lblCantidad.setBounds(20, 333, 316, 41);
+		}
+		return lblCantidad;
+	}
+
+	/*
+	 * Método que devuelve las unidades de cada artículo seleccionado en el combobox
+	 */
+	private void getLblUnidadesArticulo() {
+		Articulo articulo = (Articulo) comboBoxArticulos.getSelectedItem();
+		lblCantidad.setText("Hay " + getUnidadesPedido(articulo) + " uds. del artículo en el pedido");
+	}
+
+	/*
+	 * Método que devuelve el número de unidades de un artículo
+	 */
+	private int getUnidadesPedido(Articulo articulo) {
+		return pedido.buscarUnidadesArticulo(articulo);
+	}
+
+	/*
+	 * Getter para el JLabel imagen del descuento
+	 */
+	private JLabel getLblImagenDescuento() {
+		if (lblImagenDescuento == null) {
+			lblImagenDescuento = new JLabel("");
+			lblImagenDescuento.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/descuento.png")));
+			lblImagenDescuento.setBounds(495, 11, 216, 153);
+		}
+		return lblImagenDescuento;
+	}
+	
+	/*
+	 * Getter para el JLabel del descuento
+	 */
+	private JLabel getLblDescuento() {
+		if (lblDescuento == null) {
+			lblDescuento = new JLabel();
+			lblDescuento.setForeground(Color.RED);
+			lblDescuento.setFont(new Font("Arial", Font.BOLD, 14));
+			lblDescuento.setBounds(411, 333, 300, 41);
+		}
+		return lblDescuento;
+	}
+}

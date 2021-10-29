@@ -1,0 +1,92 @@
+/**
+ * 
+ */
+package logica;
+
+/**
+ * @author blanc
+ *
+ */
+public class UserInterface {
+	
+	private static final int EXIT = 0;
+	private Menu menu = new Menu();
+	private Carta carta = new Carta();
+	private Pedido pedido = new Pedido();
+	
+	
+	public void show() {
+		int option = EXIT;
+		do {
+			menu.show();
+			option = menu.readOption();
+			processOption(option);
+		}
+		while (option != EXIT);
+	}
+
+	private void processOption(int option) {
+		switch(option) {
+		case EXIT:
+			return;
+		case 1:
+			verArtículos();
+			break;
+		case 2:
+			añadirPedido();
+			break;
+		case 3:
+			verPrecio();
+			break;	
+		case 4:
+			grabarPedido();
+			break;	
+		case 5:
+			obtenerCodigoPedido();
+			break;
+		}
+		
+	}
+
+	private void obtenerCodigoPedido() {
+		System.out.println(pedido.getCodigo());
+		
+	}
+
+	private void grabarPedido() {
+		pedido.grabarPedido();
+		System.out.println("Pedido guardado :)");
+		
+	}
+
+	private void verPrecio() {
+		System.out.println(pedido.getTotal());
+		
+	}
+
+	private void añadirPedido() {
+		Articulo articulo = solicitarpedido();
+		pedido.add(articulo, articulo.getUnidades());
+		
+	}
+
+	private Articulo solicitarpedido() {
+		String codigo = Console.readString("¿Código del artículo?");
+		String tipo = Console.readString("¿Tipo del artículo?");
+		String denominacion = Console.readString("¿Denominación del artículo?");
+		float precio = Console.readFloat("¿Código del artículo?");
+		int unidades = Console.readInteger("¿Cuantas unidades desea?");
+		
+		return new Articulo(codigo, tipo, denominacion, precio, unidades);
+	}
+
+	private void verArtículos() {
+		Articulo[] articulos = carta.getArticulos();
+		for(Articulo art: articulos) {
+			System.out.println(art.toString() + "\n");
+		}
+		
+	}
+
+
+}

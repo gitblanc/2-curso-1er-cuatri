@@ -1,0 +1,28 @@
+/**
+ * 
+ */
+package proyecto1;
+
+import java.io.IOException;
+
+/**
+ * @author blanc
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			TestBench.test(5, 0, 5, "proyecto1.Algoritmos", "fact", "fichero.csv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+
+}

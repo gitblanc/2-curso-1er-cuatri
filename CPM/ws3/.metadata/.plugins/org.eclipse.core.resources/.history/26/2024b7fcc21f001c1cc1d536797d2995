@@ -1,0 +1,82 @@
+/**
+ * 
+ */
+package logica;
+
+/**
+ * @author blanc
+ *
+ */
+public class UserInterface {
+	
+	private static final int EXIT = 0;
+	private Menu menu = new Menu();
+	private Carta carta = new Carta();
+	private Pedido pedido = new Pedido();
+	
+	public static void main(String[] args) {
+		show();
+	}
+	
+	public void show() {
+		int option = EXIT;
+		do {
+			menu.show();
+			option = menu.readOption();
+			processOption(option);
+		}
+		while (option != EXIT);
+		
+		
+	}
+
+	private void processOption(int option) {
+		switch(option) {
+		case EXIT:
+			return;
+		case 1:
+			verArtículos();
+			break;
+		case 2:
+			añadirPedido();
+			break;
+		case 3:
+			verPrecio();
+			break;	
+		case 4:
+			grabarPedido();
+			break;	
+		case 5:
+			obtenerCodigoPedido();
+			break;
+		}
+		
+	}
+
+	private void grabarPedido() {
+		pedido.grabarPedido();
+		System.out.println("Pedido guardado :)");
+		
+	}
+
+	private void verPrecio() {
+		System.out.println(pedido.getTotal());
+		
+	}
+
+	private void añadirPedido() {
+		Articulo articulo = new Articulo(codigo, tipo, denominacion, precio, unidades)
+		pedido.add(articulo, unidades);
+		
+	}
+
+	private void verArtículos() {
+		Articulo[] articulos = carta.getArticulos();
+		for(Articulo art: articulos) {
+			System.out.println(art.toString() + "\n");
+		}
+		
+	}
+
+
+}

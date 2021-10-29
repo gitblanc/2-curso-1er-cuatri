@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private void validarFormulario()&apos; from &apos;igu.VentanaRegistro.getBtnSiguiente().new ActionListener() {...}.actionPerformed(...)&apos; to &apos;igu.VentanaRegistro&apos;&#x0D;&#x0A;- Original project: &apos;Practica2&apos;&#x0D;&#x0A;- Method name: &apos;validarFormulario&apos;&#x0D;&#x0A;- Destination type: &apos;igu.VentanaRegistro&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;validarFormulario&apos;" destination="1" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;igu{VentanaRegistro.java" name="validarFormulario" replace="false" selection="2435 697" stamp="1632317004314" version="1.0" visibility="2"/>
+</session>

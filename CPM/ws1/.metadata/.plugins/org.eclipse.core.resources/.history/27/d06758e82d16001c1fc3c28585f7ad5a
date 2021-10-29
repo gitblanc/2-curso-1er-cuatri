@@ -1,0 +1,32 @@
+package igu;
+
+import java.awt.Color;
+
+import javax.swing.*;
+
+public class Ventana extends JFrame{
+	
+	private JPanel pnPanelPrincipal;
+	private JButton btAceptar;//primero el acrónimo "bt" y después lo que va a hacer "Aceptar"
+//	private JButton btCancelar;
+	
+	
+	public Ventana() {//constructor
+		this.setTitle("Primera ventana");
+		this.setBounds(100, 100, 400, 300);//posición y tamaño
+		
+		pnPanelPrincipal = new JPanel();
+		pnPanelPrincipal.setBackground(Color.pink);//establecer un color para que no se mezcle con el vacío
+		this.setContentPane(pnPanelPrincipal);//extender el panel
+		
+		btAceptar = new JButton();
+		btAceptar.setText("Aceptar");
+	}
+
+	public static void main(String[] args) {//main
+		Ventana ventana = new Ventana();
+		ventana.setVisible(true);//esto ha de ser lo último que se ejecuta
+
+	}
+
+}

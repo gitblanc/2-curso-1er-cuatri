@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;igu.VentanaRegistro.ventanaPrincipal&apos; in &apos;igu.VentanaRegistro&apos;&#x0D;&#x0A;- Original project: &apos;Practica2&apos;&#x0D;&#x0A;- Original element: &apos;igu.VentanaRegistro.ventanaPrincipal&apos;&#x0D;&#x0A;- Getter method name: &apos;getVentanaPrincipal&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;ventanaPrincipal&apos;" flags="589830" getter="getVentanaPrincipal" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;igu{VentanaRegistro.java[VentanaRegistro^ventanaPrincipal" insertion="17" stamp="1632924143242" version="1.0" visibility="1"/>
+</session>

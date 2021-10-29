@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package logica;
+
+/**
+ * @author blanc
+ *
+ */
+public class Menu {
+	private String[] options = { "Añadir al pedido", "Ver el precio total", 
+			"Grabar pedido", "Obtener código" };
+	
+	public int readOption() {
+		return Console.readInteger("Option");
+	}
+	
+	public void show() {
+		int i = 1;
+		for (String line: options) {
+			if("".equals(line))
+				System.out.println("");
+				continue;
+				
+		}
+	}
+}

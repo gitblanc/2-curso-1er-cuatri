@@ -1,0 +1,25 @@
+/**
+ * 
+ */
+package BST;
+
+/**
+ * @author UO285176/blanc/Eduardo Blanco Bielsa
+ *
+ */
+public class BSTNode<T extends Comparable<T>> {
+	private T info;// contenido del nodo
+	private BSTNode<T> left;// nodo hijo izquierdo
+	private BSTNode<T> right;// nodo hijo derecho
+
+	public BSTNode(T clave);
+	public void setInfo;
+	public T getInfo();
+	public void setLeft(BSTNode<T> nodo);
+	public void setRight(BSTNode<T> nodo);
+	public BSTNode<T> getLeft();
+	public BSTNode<T> getRight();
+	public String toString() {
+		return info.toString();
+	}
+}

@@ -1,0 +1,115 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * 
+ */
+
+/**
+ * @author blanc
+ *
+ */
+class Tests {
+	Graph<Integer> graph;
+
+	@Test
+	// El vector de nodos está vacío, devuelve -1
+	void testGetNode() {
+		graph = new Graph<Integer>(10);
+		Integer num1 = 1;
+		Integer num2 = 2;
+		Integer num3 = 3;
+		assertEquals(-1, graph.getNode(num1));
+		assertEquals(-1, graph.getNode(num2));
+		assertEquals(-1, graph.getNode(num3));
+		// Se añaden 3 objectos al vector de nodos, devuelve sus posiciones
+		// correspondientes
+		graph.addNode(num1);
+		graph.addNode(num2);
+		graph.addNode(num3);
+		assertEquals(0, graph.getNode(num1));
+		assertEquals(1, graph.getNode(num2));
+		assertEquals(2, graph.getNode(num3));
+	}
+
+	@Test
+	// El vector de nodos está vacío, devuelve false
+	void testExistsNode() {
+		graph = new Graph<Integer>(10);
+		Integer num1 = 1;
+		Integer num2 = 2;
+		Integer num3 = 3;
+		assertEquals(false, graph.existsNode(num1));
+		assertEquals(false, graph.existsNode(num2));
+		assertEquals(false, graph.existsNode(num3));
+		// El vector de nodos no está vacío, devuelve true
+		graph.addNode(num1);
+		graph.addNode(num2);
+		graph.addNode(num3);
+		assertEquals(true, graph.existsNode(num1));
+		assertEquals(true, graph.existsNode(num2));
+		assertEquals(true, graph.existsNode(num3));
+	}
+
+	@Test
+	// Se inserta un nodo de forma correcta -> devuelve 0
+	void testAddNode() {
+		graph = new Graph<Integer>(4);
+		Integer num1 = 1;
+		Integer num2 = 2;
+		Integer num3 = 3;
+		assertEquals(0, graph.addNode(num1));
+		assertEquals(0, graph.addNode(num2));
+		assertEquals(0, graph.addNode(num3));
+		assertEquals(true, graph.existsNode(num1));
+		assertEquals(true, graph.existsNode(num2));
+		assertEquals(true, graph.existsNode(num3));
+		// El nodo ya existía previamente y si cabía -> no lo inserta y devuelve -1
+		assertEquals(-1, graph.addNode(num1));
+		Integer num4 = 4;
+		assertEquals(0, graph.addNode(num4));
+		assertEquals(true, graph.existsNode(num4));
+		// Si ya existe y además no cabe, no lo inserta y devuelve -3
+		assertEquals(-3, graph.addNode(num4));
+		// Si no existe, pero no cabe, no lo inserta y devuelve -2
+		Integer num5 = 5;
+		assertEquals(-2, graph.addNode(num5));
+
+	}
+
+	@Test
+	// Devuelve true si existe una arista entre los nodos origen y destino, false en
+	// caso contrario o no existen los nodos
+	void testExistsEdge() {
+		graph = new Graph<Integer>(4);
+		Integer num1 = 1;
+		Integer num2 = 2;
+		Integer num3 = 3;
+		assertEquals(0, graph.addNode(num1));
+		assertEquals(0, graph.addNode(num2));
+		assertEquals(0, graph.addEdge(num1, num2, 3));
+		assertEquals(0, graph.addEdge(num2, num1, 3));
+		assertEquals(true, graph.existsEdge(num1, num2));
+		assertEquals(true, graph.existsEdge(num2, num1));
+		assertEquals(false, graph.existsEdge(num3, num1));
+	}
+
+	@Test
+	// Devuelve el peso de la arista que une el nodo origen y el nodos destino.
+	// devuelve -1, -2 y -3 si no existe origen, destino, ambos.Devuelve -4 si no existe
+	// la arista.
+	void getEdge() {
+		graph = new Graph<Integer>(4);
+		Integer num1 = 1;
+		Integer num2 = 2;
+		Integer num3 = 3;
+		assertEquals(0, graph.addNode(num1));
+		assertEquals(0, graph.addNode(num2));
+		assertEquals(0, graph.addEdge(num1, num2, 4));
+		assertEquals(0, graph.addEdge(num2, num1, 7));
+		assertEquals(4, graph.getEdge(num1, num2));
+		assertEquals(7, graph.getEdge(num2, num1));
+	}
+
+}

@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+package proyecto1;
+
+import java.io.IOException;
+
+/**
+ * @author blanc
+ *
+ */
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+//			TestBench.test(5, 0, 5, "proyecto1.Algoritmos", "fact", "fact.csv");
+//			TestBench.test(5, 0, 5, "proyecto1.Algoritmos", "lineal", "lineal.csv");
+//			TestBench.test(5, 0, 5, "proyecto1.Algoritmos", "cuadratica", "cuadratica.csv");
+//			TestBench.test(5, 0, 5, "proyecto1.Algoritmos", "cubica", "cubica.csv");
+			TestBench.test( "logaritmica.csv", 5, 0, 5, "proyecto1.Algoritmos", "logaritmica");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	
+
+}

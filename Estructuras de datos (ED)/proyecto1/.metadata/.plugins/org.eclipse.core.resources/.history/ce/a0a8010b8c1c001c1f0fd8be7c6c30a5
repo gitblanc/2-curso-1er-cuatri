@@ -1,0 +1,31 @@
+/**
+ * 
+ */
+package proyecto1;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+/**
+ * @author blanc
+ *
+ */
+public class TestBench {
+
+		public static Object testAlgorithm(String className, String methodName, int n) { //n = carga a la que voy a someter al método
+			Object obj = Class.forName(className).getDeclaredConstructor().newInstance();
+			
+			try {
+				Method method = obj.getClass().getMethod(methodName, int.class);
+			} catch (NoSuchMethodException | SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				return method.invoke(obj, n);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+}

@@ -1,0 +1,113 @@
+import jdk.javadoc.internal.doclets.toolkit.resources.doclets;
+
+/**
+ * 
+ */
+
+/**
+ * @author blanc
+ *
+ */
+public class Graph<T> {
+	private double[][] weights;	//pesos de las aristas
+	private boolean[][] edges;	//matriz de aristas
+	private T[] nodes;	//nodos
+	private int size;	//numero de vértices o tamaño útil
+	
+	public Graph(int dimension) {
+		this.nodes = (T[]) new Object[dimension];
+		this.weights = new double[dimension][dimension];
+		this.edges = new boolean[dimension][dimension];
+		this.size = 0;	//no hay vértices
+	}
+	
+	public int getSize() {
+		return this.size;
+	}
+	
+	protected int getNode(T node) {
+		for(int i = 0; i < nodes.length; i++) {
+			if(nodes[i].equals(node)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public boolean existsNode(T node) {
+		int pos = getNode(node);
+		if(pos == -1) 
+			return false;
+		else
+			return true;
+	}
+	
+	public void addNode(T node) {
+		if(size < nodes.length && getNode(node) == -1) {
+			nodes[size] = node;
+		}
+		for(int i = 0; i <= size; i++) {
+			edges[size][i] = false;
+			edges[i][size] = false;
+			weights[size][i] = 0;
+			weights[i][size] = 0;
+		}
+		++size;
+	}
+	
+	public boolean existsEdge(T source, T target) {
+		int i = getNode(source);
+		int j = getNode(target);
+		if(i >= 0 && j >= 0)
+			return edges[i][j];
+		else
+			return false;
+	}
+	
+	public double getEdge(T source, T target) {
+		int i = getNode(source);
+		int j = getNode(target);
+		
+		if(i >= 0 && j >= 0) {
+			return weights[i][j];
+		}else if(i == -1 && j >= 0) {
+			return -1;
+		}else if(i >= 0 && j == -1) {
+			return -2;
+		}else if(i == -1 && j == -1) {
+			return -3;
+		}else {
+			return -4;
+		}
+	}
+	public int addEdge(T source, T target, double weight) {
+		int i = getNode(source);
+		int i = getNode(target);
+		if(i >= 0 && j >= 0) {
+			edges[i][j] = true;
+			weights[i][j] = weight;
+		}
+	}
+
+	
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,54 @@
+package igu;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaRegistro extends JFrame {
+
+	private JPanel contentPane;
+	private JButton btnSiguiente;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {//se crea un nuevo hilo
+			public void run() {
+				try {
+					VentanaRegistro frame = new VentanaRegistro();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaRegistro() {
+		setTitle("Datos del cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//al cerrar la ventana se finalia completamente la aplicación
+		setBounds(100, 100, 617, 467);
+		contentPane = new JPanel();
+		contentPane.setForeground(Color.PINK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtnSiguiente());
+	}
+	private JButton getBtnSiguiente() {
+		if (btnSiguiente == null) {
+			btnSiguiente = new JButton("Siguiente");
+			btnSiguiente.setBackground(new Color(0, 128, 0));
+			btnSiguiente.setForeground(Color.WHITE);
+			btnSiguiente.setBounds(425, 394, 89, 23);
+		}
+		return btnSiguiente;
+	}
+}
