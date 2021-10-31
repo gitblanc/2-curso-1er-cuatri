@@ -16,6 +16,10 @@ public class BSTree<T extends Comparable<T>> {
 	public BSTree() {
 		this.raiz = null;
 	}
+	
+	public BSTNode<T> getRaiz(){
+		return this.raiz;
+	}
 
 	/**
 	 * Si no se encuentra devolverá null
@@ -37,9 +41,9 @@ public class BSTree<T extends Comparable<T>> {
 		// COMPARE TO devuelve > 0 si obj1 > obj2
 		// devuelve < 0 si obj1 < obj2
 		// devuelve = 0 si obj1 = obj2
-		else if (raiz2.getInfo().compareTo(clave) < 0) {// si la clave es menor que el nodo busca por la izquierda
+		else if (raiz2.getInfo().compareTo(clave) > 0) {// si la clave es menor que el nodo busca por la izquierda
 			return searchNodeRecursivo(raiz.getLeft(), clave);
-		} else if (raiz2.getInfo().compareTo(clave) > 0) {// si la clave es mayor que el nodo busca por la derecha
+		} else if (raiz2.getInfo().compareTo(clave) < 0) {// si la clave es mayor que el nodo busca por la derecha
 			return searchNodeRecursivo(raiz.getRight(), clave);
 		} else if (raiz2.getInfo().compareTo(clave) == 0) {// si la clave es igual que el nodo lo devuelve
 			return raiz2;
@@ -59,27 +63,33 @@ public class BSTree<T extends Comparable<T>> {
 	public int addNode(T clave) {
 		if (clave == null) {
 			return -2;
-		} else if (searchNode(clave) != null) {
-			return -1;
 		} else if (this.raiz == null) {
 			this.raiz = new BSTNode<T>(clave);
 			return 0;
 		} else {
-			addNodeRecursivo(this.raiz, clave);
-			return 0;
+			return addNodeRecursivo(this.raiz, clave);
+
 		}
 
 	}
 
-	private void addNodeRecursivo(BSTNode<T> raiz2, T clave) {
-		if (raiz2.getLeft() != null && clave.compareTo(raiz2.getLeft().getInfo()) < 0) {// La izquierda del nodo está vacía? -> NO
-			addNodeRecursivo(raiz2.getLeft(), clave);
-		} else if (raiz2.getRight() != null && clave.compareTo(raiz2.getLeft().getInfo()) > 0) {// La derecha del nodo está vacía? -> NO
-			addNodeRecursivo(raiz2.getRight(), clave);
-		} else if (raiz2.getLeft() == null) {// La izquierda del nodo está vacía? -> SI
-			raiz2.setLeft(new BSTNode<T>(clave));
-		} else  if(raiz2.getRight() == null){
-			raiz2.setRight(new BSTNode<T>(clave));// La derecha del nodo está vacía? -> SI
+	private int addNodeRecursivo(BSTNode<T> raiz2, T clave) {
+		if (raiz2.getInfo().compareTo(clave) > 0) {
+			if (raiz2.getLeft() != null) {
+				return addNodeRecursivo(raiz2.getLeft(), clave);
+			} else {
+				raiz2.setLeft(new BSTNode<T>(clave));
+				return 0;
+			}
+		} else if (raiz2.getInfo().compareTo(clave) < 0) {
+			if (raiz2.getRight() != null) {
+				return addNodeRecursivo(raiz2.getRight(), clave);
+			} else {
+				raiz2.setRight(new BSTNode<T>(clave));
+				return 0;
+			}
+		}else {
+			return -1;
 		}
 
 	}
@@ -94,17 +104,15 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	private String recorridoPreOrderRecursivo(BSTNode<T> raiz2) {
-		String cadena = "";
-		if (raiz2 == null) {
+		if(raiz2 == null) {
 			return "";
-		} else if (raiz2.getLeft() != null) {// si el hijo de la izquierda no es nulo sigue por la izquierda
+		}else {
+			String cadena = raiz2.getInfo().toString();
+			cadena += "\t";
 			cadena += recorridoPreOrderRecursivo(raiz2.getLeft());
-		} else if (raiz2.getRight() != null) {// si el hijo de la derecha no es nulo sigue por la derecha
 			cadena += recorridoPreOrderRecursivo(raiz2.getRight());
-		} else {// si el hijo de la derecha/izquierda es nulo añade a cadena a su padre
-			cadena += raiz2.getInfo().toString();
+			return cadena;
 		}
-		return cadena;
 	}
 
 	/**
@@ -116,6 +124,16 @@ public class BSTree<T extends Comparable<T>> {
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	private String recorridoPostOrderRecursivo(BSTNode<T> raiz2) {
+		String cadena = "";
+		if(raiz2 != null) {
+			cadena += recorridoPostOrderRecursivo(raiz2.getLeft());
+			cadena += recorridoPostOrderRecursivo(raiz2.getRight());
+			cadena += raiz2.getInfo().toString() + "\t";
+		}
+		return cadena;
+	}
+
 	/**
 	 * 
 	 * @return
@@ -123,6 +141,16 @@ public class BSTree<T extends Comparable<T>> {
 	public String inOrder() {
 		String cadena = recorridoInOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
+	}
+
+	private String recorridoInOrderRecursivo(BSTNode<T> raiz2) {
+		String cadena = "";
+		if(raiz2 != null) {
+			cadena += recorridoInOrderRecursivo(raiz2.getLeft());
+			cadena += raiz2.getInfo().toString() + "\t";
+			cadena += recorridoInOrderRecursivo(raiz2.getRight());
+		}
+		return cadena;
 	}
 
 	/**
@@ -133,5 +161,5 @@ public class BSTree<T extends Comparable<T>> {
 	 * @param clave
 	 * @return
 	 */
-	public int removeNode(T clave);
+//	public int removeNode(T clave);
 }

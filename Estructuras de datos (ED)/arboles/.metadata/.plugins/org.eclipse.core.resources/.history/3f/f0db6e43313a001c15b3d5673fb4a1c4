@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+package BST;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * @author UO285176
+ *
+ */
+class Tests {
+
+	@Test
+	void testSearchNode() {
+		BSTree<Integer> tree = new BSTree<>();
+		assertNull(tree.searchNode(1));//la clave no existe
+		assertNull(tree.searchNode(null));//la clave es nula
+		BSTNode<Integer> nodo = new BSTNode<>(2);
+		assertEquals(0, tree.addNode(6));
+		assertEquals(0, tree.addNode(nodo.getInfo()));
+		assertEquals(0, tree.addNode(8));
+		assertEquals(0, tree.addNode(7));
+		assertEquals(0, tree.addNode(9));
+		assertEquals(0, tree.addNode(1));
+		assertEquals(0, tree.addNode(4));
+		assertEquals(0, tree.addNode(3));
+		assertEquals(0, tree.addNode(5));
+		
+		assertEquals(, tree.searchNode(2));
+	}
+
+}

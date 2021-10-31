@@ -1,0 +1,143 @@
+/**
+ * 
+ */
+package BST;
+
+/**
+ * @author UO285176
+ *
+ */
+public class BSTree<T extends Comparable<T>> {
+	private BSTNode<T> raiz;// nodo raíz del árbol
+
+	/**
+	 * Constructor default para la clase BSTree
+	 */
+	public BSTree() {
+		this.raiz = null;
+	}
+
+	/**
+	 * Si no se encuentra devolverá null
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public BSTNode<T> searchNode(T clave) {
+		if (clave == null || this.raiz == null) {
+			return null;
+		}
+		return searchNodeRecursivo(raiz, clave);
+	}
+
+	private BSTNode<T> searchNodeRecursivo(BSTNode<T> raiz2, T clave) {
+		if (raiz2 == null) {
+			return null;
+		}
+		// COMPARE TO devuelve > 0 si obj1 > obj2
+		// devuelve < 0 si obj1 < obj2
+		// devuelve = 0 si obj1 = obj2
+		else if (raiz2.getInfo().compareTo(clave) > 0) {// si la clave es menor que el nodo busca por la izquierda
+			return searchNodeRecursivo(raiz.getLeft(), clave);
+		} else if (raiz2.getInfo().compareTo(clave) < 0) {// si la clave es mayor que el nodo busca por la derecha
+			return searchNodeRecursivo(raiz.getRight(), clave);
+		} else if (raiz2.getInfo().compareTo(clave) == 0) {// si la clave es igual que el nodo lo devuelve
+			return raiz2;
+		} else {// si no lo encuentra devuelve null
+			return null;
+		}
+
+	}
+
+	/**
+	 * Devuelve 0 si añade correctamente el elemento al árbol. Devuelve -2 si la
+	 * clave es null. Devuelve -1 si intenta insertar una clave ya existente.
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public int addNode(T clave) {
+		if (clave == null) {
+			return -2;
+		} // else if (searchNode(clave) != null) {
+			// return -1;
+		// }
+		else if (this.raiz == null) {
+			this.raiz = new BSTNode<T>(clave);
+			return 0;
+		} else {
+			addNodeRecursivo(this.raiz, clave);
+			return 0;
+		}
+
+	}
+
+	private void addNodeRecursivo(BSTNode<T> raiz2, T clave) {
+//		
+		if (raiz2.getInfo().compareTo(clave) > 0) {
+			if (raiz2.getLeft() != null) {
+				addNodeRecursivo(raiz2.getLeft(), clave);
+			} else {
+				raiz2.setLeft(new BSTNode<T>(clave));
+			}
+		} else if (raiz2.getInfo().compareTo(clave) < 0) {
+			if (raiz2.getRight() != null) {
+				addNodeRecursivo(raiz2.getRight(), clave);
+			} else {
+				raiz2.setRight(new BSTNode<T>(clave));
+			}
+		}
+
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String preOrder() {
+		String cadena = recorridoPreOrderRecursivo(raiz);
+		return cadena.substring(0, cadena.length() - 1);
+	}
+
+	private String recorridoPreOrderRecursivo(BSTNode<T> raiz2) {
+		String cadena = "";
+		if (raiz2 == null) {
+			return "";
+		} else if (raiz2.getLeft() != null) {// si el hijo de la izquierda no es nulo sigue por la izquierda
+			cadena += recorridoPreOrderRecursivo(raiz2.getLeft());
+		} else if (raiz2.getRight() != null) {// si el hijo de la derecha no es nulo sigue por la derecha
+			cadena += recorridoPreOrderRecursivo(raiz2.getRight());
+		} else {// si el hijo de la derecha/izquierda es nulo añade a cadena a su padre
+			cadena += raiz2.getInfo().toString();
+		}
+		return cadena;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String postOrder() {
+		String cadena = recorridoPostOrderRecursivo(raiz);
+		return cadena.substring(0, cadena.length() - 1);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String inOrder() {
+		String cadena = recorridoInOrderRecursivo(raiz);
+		return cadena.substring(0, cadena.length() - 1);
+	}
+
+	/**
+	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
+	 * intento borrar es null o el árbol está vacío. Devuelve -1 si intenta borrar
+	 * una clave que no existe.
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	public int removeNode(T clave);
+}
