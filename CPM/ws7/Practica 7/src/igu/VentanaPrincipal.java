@@ -7,31 +7,30 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import logica.Juego;
 import logica.Juego.Nivel;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
@@ -43,14 +42,6 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel lblTierra;
 	private JLabel lblPuntos;
 	private JTextField textFieldPuntos;
-	private JButton btnDisparo0;
-	private JButton btnDisparo1;
-	private JButton btnDisparo2;
-	private JButton btnDisparo3;
-	private JButton btnDisparo4;
-	private JButton btnDisparo5;
-	private JButton btnDisparo6;
-	private JButton btnDisparo7;
 	private JPanel panelDisparos;
 	private Juego juego;
 	private JLabel lblDisparo;
@@ -88,7 +79,7 @@ public class VentanaPrincipal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/invader.jpg")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 1074, 398);
+		setBounds(100, 100, 1080, 385);
 		setLocationRelativeTo(null);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
@@ -125,16 +116,8 @@ public class VentanaPrincipal extends JFrame {
 			panelTablero = new JPanel();
 			panelTablero.setBorder(new LineBorder(new Color(238, 130, 238), 5));
 			panelTablero.setBackground(new Color(238, 130, 238));
-			panelTablero.setBounds(122, 219, 815, 100);
-			panelTablero.setLayout(new GridLayout(1, 8, 4, 4));
-			panelTablero.add(getBtnDisparo0());
-			panelTablero.add(getBtnDisparo1());
-			panelTablero.add(getBtnDisparo2());
-			panelTablero.add(getBtnDisparo3());
-			panelTablero.add(getBtnDisparo4());
-			panelTablero.add(getBtnDisparo5());
-			panelTablero.add(getBtnDisparo6());
-			panelTablero.add(getBtnDisparo7());
+			creaTablero(juego.getDim());// empieza en intermedio
+			creaBotones(juego.getDim());
 			habilitaTablero(false);
 		}
 		return panelTablero;
@@ -233,19 +216,6 @@ public class VentanaPrincipal extends JFrame {
 		return textFieldPuntos;
 	}
 
-	private JButton getBtnDisparo0() {
-		if (btnDisparo0 == null) {
-			btnDisparo0 = new JButton("");
-			btnDisparo0.setBackground(new Color(0, 0, 0));
-			btnDisparo0.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(0);
-				}
-			});
-		}
-		return btnDisparo0;
-	}
-
 	private void dispara(int i) {
 		juego.dispara(i);
 		representaJuego(i);
@@ -304,97 +274,6 @@ public class VentanaPrincipal extends JFrame {
 		((JButton) getPanelTablero().getComponent(i)).setEnabled(false);
 	}
 
-	private JButton getBtnDisparo1() {
-		if (btnDisparo1 == null) {
-			btnDisparo1 = new JButton("");
-			btnDisparo1.setBackground(new Color(0, 0, 0));
-			btnDisparo1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(1);
-				}
-			});
-		}
-		return btnDisparo1;
-	}
-
-	private JButton getBtnDisparo2() {
-		if (btnDisparo2 == null) {
-			btnDisparo2 = new JButton("");
-			btnDisparo2.setBackground(new Color(0, 0, 0));
-			btnDisparo2.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(2);
-				}
-			});
-		}
-		return btnDisparo2;
-	}
-
-	private JButton getBtnDisparo3() {
-		if (btnDisparo3 == null) {
-			btnDisparo3 = new JButton("");
-			btnDisparo3.setBackground(new Color(0, 0, 0));
-			btnDisparo3.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(3);
-				}
-			});
-		}
-		return btnDisparo3;
-	}
-
-	private JButton getBtnDisparo4() {
-		if (btnDisparo4 == null) {
-			btnDisparo4 = new JButton("");
-			btnDisparo4.setBackground(new Color(0, 0, 0));
-			btnDisparo4.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(4);
-				}
-			});
-		}
-		return btnDisparo4;
-	}
-
-	private JButton getBtnDisparo5() {
-		if (btnDisparo5 == null) {
-			btnDisparo5 = new JButton("");
-			btnDisparo5.setBackground(new Color(0, 0, 0));
-			btnDisparo5.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(5);
-				}
-			});
-		}
-		return btnDisparo5;
-	}
-
-	private JButton getBtnDisparo6() {
-		if (btnDisparo6 == null) {
-			btnDisparo6 = new JButton("");
-			btnDisparo6.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(6);
-				}
-			});
-			btnDisparo6.setBackground(new Color(0, 0, 0));
-		}
-		return btnDisparo6;
-	}
-
-	private JButton getBtnDisparo7() {
-		if (btnDisparo7 == null) {
-			btnDisparo7 = new JButton("");
-			btnDisparo7.setBackground(new Color(0, 0, 0));
-			btnDisparo7.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispara(7);
-				}
-			});
-		}
-		return btnDisparo7;
-	}
-
 	private JPanel getPanelDisparos() {
 		if (panelDisparos == null) {
 			panelDisparos = new JPanel();
@@ -443,13 +322,13 @@ public class VentanaPrincipal extends JFrame {
 
 	private void iniciarNuevaPartida(Nivel nivel) {
 		getPanelDisparos().removeAll();
-		getPanelTablero().repaint();
-		habilitaTablero(false);
 		juego.inicializarJuego(nivel);
 		despintarCasillas();
 		despintarDisparos();
 		pintaPuntos();
 		getBtnDado().setEnabled(true);
+		repaint();
+		habilitaTablero(false);
 	}
 
 	private void despintarDisparos() {
@@ -536,9 +415,11 @@ public class VentanaPrincipal extends JFrame {
 			rdbtnmntmFacil = new JRadioButtonMenuItem("F\u00E1cil");
 			rdbtnmntmFacil.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					iniciarNuevaPartida(Nivel.FACIL);
+					juego.setNivel(Nivel.FACIL);
+					iniciarNuevaPartida(juego.getNivel());
 					creaTablero(juego.getDim());
 					creaBotones(juego.getDim());
+
 				}
 			});
 			btnGroupGrupoNivel.add(rdbtnmntmFacil);
@@ -552,9 +433,11 @@ public class VentanaPrincipal extends JFrame {
 			rdbtnmntmIntermedio = new JRadioButtonMenuItem("Intermedio");
 			rdbtnmntmIntermedio.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					iniciarNuevaPartida(Nivel.INTERMEDIO);
+					juego.setNivel(Nivel.INTERMEDIO);
+					iniciarNuevaPartida(juego.getNivel());
 					creaTablero(juego.getDim());
 					creaBotones(juego.getDim());
+
 				}
 			});
 			btnGroupGrupoNivel.add(rdbtnmntmIntermedio);
@@ -569,9 +452,11 @@ public class VentanaPrincipal extends JFrame {
 			rdbtnmntmDificil = new JRadioButtonMenuItem("Dif\u00EDcil");
 			rdbtnmntmDificil.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					iniciarNuevaPartida(Nivel.DIFICIL);
+					juego.setNivel(Nivel.DIFICIL);
+					iniciarNuevaPartida(juego.getNivel());
 					creaTablero(juego.getDim());
 					creaBotones(juego.getDim());
+
 				}
 			});
 			btnGroupGrupoNivel.add(rdbtnmntmDificil);
@@ -586,18 +471,20 @@ public class VentanaPrincipal extends JFrame {
 		case 10: {
 			getPanelTablero().setBounds(20, 208, 1010, 98);
 			getPanelTablero().setLayout(new GridLayout(1, 10, 4, 0));
+			break;
 		}
 
 		case 8: {
-			getPanelTablero().setBounds(20, 208, 815, 98);
+			getPanelTablero().setBounds(122, 208, 815, 98);
 			getPanelTablero().setLayout(new GridLayout(1, 8, 4, 0));
+			break;
 		}
-		default:{
-			getPanelTablero().setBounds(20, 208, 610, 98);
+		default: {
+			getPanelTablero().setBounds(200, 208, 610, 98);
 			getPanelTablero().setLayout(new GridLayout(1, 6, 4, 0));
+			break;
 		}
 		}
-
 	}
 
 	private void creaBotones(int i) {
@@ -606,6 +493,7 @@ public class VentanaPrincipal extends JFrame {
 		for (int k = 0; k < i; k++) {
 			getPanelTablero().add(nuevoBoton(k));
 		}
+		habilitaTablero(false);
 		validate();
 	}
 
