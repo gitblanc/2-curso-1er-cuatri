@@ -16,8 +16,8 @@ public class BSTree<T extends Comparable<T>> {
 	public BSTree() {
 		this.raiz = null;
 	}
-	
-	public BSTNode<T> getRaiz(){
+
+	public BSTNode<T> getRaiz() {
 		return this.raiz;
 	}
 
@@ -41,10 +41,12 @@ public class BSTree<T extends Comparable<T>> {
 		// COMPARE TO devuelve > 0 si obj1 > obj2
 		// devuelve < 0 si obj1 < obj2
 		// devuelve = 0 si obj1 = obj2
-		else if (raiz2.getInfo().compareTo(clave) > 0) {// si la clave es menor que el nodo busca por la izquierda
-			return searchNodeRecursivo(raiz.getLeft(), clave);
-		} else if (raiz2.getInfo().compareTo(clave) < 0) {// si la clave es mayor que el nodo busca por la derecha
-			return searchNodeRecursivo(raiz.getRight(), clave);
+		else if (raiz2.getInfo().compareTo(clave) > 0) {// si la clave es menor que el nodo
+														// busca por la izquierda
+			return searchNodeRecursivo(raiz2.getLeft(), clave);
+		} else if (raiz2.getInfo().compareTo(clave) < 0) {// si la clave es mayor que el
+															// nodo busca por la derecha
+			return searchNodeRecursivo(raiz2.getRight(), clave);
 		} else if (raiz2.getInfo().compareTo(clave) == 0) {// si la clave es igual que el nodo lo devuelve
 			return raiz2;
 		} else {// si no lo encuentra devuelve null
@@ -88,7 +90,7 @@ public class BSTree<T extends Comparable<T>> {
 				raiz2.setRight(new BSTNode<T>(clave));
 				return 0;
 			}
-		}else {
+		} else {
 			return -1;
 		}
 
@@ -104,9 +106,9 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	private String recorridoPreOrderRecursivo(BSTNode<T> raiz2) {
-		if(raiz2 == null) {
+		if (raiz2 == null) {
 			return "";
-		}else {
+		} else {
 			String cadena = raiz2.getInfo().toString();
 			cadena += "\t";
 			cadena += recorridoPreOrderRecursivo(raiz2.getLeft());
@@ -126,7 +128,7 @@ public class BSTree<T extends Comparable<T>> {
 
 	private String recorridoPostOrderRecursivo(BSTNode<T> raiz2) {
 		String cadena = "";
-		if(raiz2 != null) {
+		if (raiz2 != null) {
 			cadena += recorridoPostOrderRecursivo(raiz2.getLeft());
 			cadena += recorridoPostOrderRecursivo(raiz2.getRight());
 			cadena += raiz2.getInfo().toString() + "\t";
@@ -145,7 +147,7 @@ public class BSTree<T extends Comparable<T>> {
 
 	private String recorridoInOrderRecursivo(BSTNode<T> raiz2) {
 		String cadena = "";
-		if(raiz2 != null) {
+		if (raiz2 != null) {
 			cadena += recorridoInOrderRecursivo(raiz2.getLeft());
 			cadena += raiz2.getInfo().toString() + "\t";
 			cadena += recorridoInOrderRecursivo(raiz2.getRight());
@@ -161,5 +163,55 @@ public class BSTree<T extends Comparable<T>> {
 	 * @param clave
 	 * @return
 	 */
-//	public int removeNode(T clave);
+	public int removeNode(T clave) {
+		if (clave == null || this.raiz == null) {
+			return -2;
+		} else if (searchNode(clave) == null) {
+			return -1;
+		} else {
+			this.raiz = removeNodeRecursivo(this.raiz, clave);
+			return 0;
+		}
+
+	}
+
+	private BSTNode<T> removeNodeRecursivo(BSTNode<T> raiz, T clave) {
+		if (raiz.getInfo().compareTo(clave) > 0) {
+			BSTNode<T> nodo =  removeNodeRecursivo(raiz.getLeft(), clave);
+			raiz.setLeft(nodo);
+			return raiz;
+		} else if (raiz.getInfo().compareTo(clave) < 0) {
+			BSTNode<T> nodo = removeNodeRecursivo(raiz.getRight(), clave);
+			raiz.setRight(nodo);
+			return raiz;
+		} else {// encontrado
+				// no tiene hijos
+			if (raiz.getLeft() == null && raiz.getRight() == null) {
+				return null;
+			}
+			// tiene un hijo
+			if (raiz.getLeft() != null && raiz.getRight() == null) {// hijo izq
+				return raiz.getLeft();
+			} else if (raiz.getLeft() == null && raiz.getRight() != null) {// hijo derecho
+				return raiz.getRight();
+			}
+			// tiene dos hijos
+			else {
+				BSTNode<T> nodemax = searchMaxClave(raiz.getLeft());
+//				raiz.setInfo(nodemax.getInfo());
+//				return removeNodeRecursivo(raiz.getLeft(), nodemax.getInfo());
+				raiz.setLeft(removeNodeRecursivo(raiz.getLeft(), nodemax.getInfo()));
+				raiz.setInfo(nodemax.getInfo());
+				return raiz;
+			}
+		}
+	}
+
+	private BSTNode<T> searchMaxClave(BSTNode<T> raiz2) {
+		 if(raiz2.getRight() != null) {
+			return searchMaxClave(raiz2.getRight());
+		}else {
+			return raiz2;
+		}
+	}
 }
