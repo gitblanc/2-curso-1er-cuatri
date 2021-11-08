@@ -98,12 +98,12 @@ public class VentanaPrincipal extends JFrame {
 
 	private boolean confirmarCancelacion() {
 //		boolean confirmacion = false;
-//		int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres salir?");
+//		int respuesta = JOptionPane.showConfirmDialog(this, "ï¿½Seguro que quieres salir?");
 //		if(respuesta == JOptionPane.YES_OPTION) {
 //			confirmacion = true;
 //		}
 //		return confirmacion;
-		return JOptionPane.showConfirmDialog(this, "¿Seguro que quieres salir?") == JOptionPane.YES_OPTION;
+		return JOptionPane.showConfirmDialog(this, "ï¿½Seguro que quieres salir?") == JOptionPane.YES_OPTION;
 	}
 
 	private void setJuego(Juego juego2) {
@@ -256,7 +256,7 @@ public class VentanaPrincipal extends JFrame {
 			mostrarTablero();
 			habilitaTablero(false);
 			String mensajeFinal = getMensajeFinal();
-			JOptionPane.showMessageDialog(null, mensajeFinal, "Invasión espacial", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, mensajeFinal, "Invasiï¿½n espacial", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -377,7 +377,7 @@ public class VentanaPrincipal extends JFrame {
 			menuItemMostrarAyuda.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 			menuItemMostrarAyuda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Inténtalo más tarde :)", "Contenidos de la ayuda",
+					JOptionPane.showMessageDialog(null, "IntÃ©ntalo mÃ¡s tarde :)", "Contenidos de la ayuda",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			});
@@ -392,7 +392,7 @@ public class VentanaPrincipal extends JFrame {
 			menuItemAcercaDe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(null, "Videojuego de aliens \nRealizada por Eduardo Blanco Bielsa\n"
-							+ "Prácticas CPM 21-22 \nEII Oviedo", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
+							+ "Prï¿½cticas CPM 21-22 \nEII Oviedo", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
 		}
@@ -497,7 +497,7 @@ public class VentanaPrincipal extends JFrame {
 		validate();
 	}
 
-	// Generación dinámica de un botón del tablero
+	// Generaciï¿½n dinï¿½mica de un botï¿½n del tablero
 	private JButton nuevoBoton(int i) {
 		JButton bt = new JButton("");
 		bt.setActionCommand(String.valueOf(i));

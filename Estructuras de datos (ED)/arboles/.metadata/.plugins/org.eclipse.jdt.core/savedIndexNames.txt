@@ -1,2 +1,3 @@
-INDEX VERSION 1.131+C:\Users\blanc\OneDrive\Documentos\2 curso\Estructuras de datos (ED)\arboles\.metadata\.plugins\org.eclipse.jdt.core
-3552683455.index
+INDEX VERSION 1.131+/Users/blanc/Documents/2-cursov2/Estructuras de datos (ED)/arboles/.metadata/.plugins/org.eclipse.jdt.core
+4045288396.index
+1865797976.index
