@@ -57,6 +57,7 @@ public class VentanaPrincipal extends JFrame {
 	private JRadioButtonMenuItem rdbtnmntmIntermedio;
 	private JRadioButtonMenuItem rdbtnmntmDificil;
 	private final ButtonGroup btnGroupGrupoNivel = new ButtonGroup();
+	private ProcesaBoton pB = new ProcesaBoton();//también se puede hacer en el constructor
 
 	/**
 	 * Create the frame.
@@ -502,12 +503,25 @@ public class VentanaPrincipal extends JFrame {
 		JButton bt = new JButton("");
 		bt.setActionCommand(String.valueOf(i));
 		bt.setBackground(Color.BLACK);
-		bt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int posicion = Integer.parseInt(bt.getActionCommand());
-				dispara(posicion);
-			}
-		});
+//		bt.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				int posicion = Integer.parseInt(bt.getActionCommand());
+//				dispara(posicion);
+//			}
+//		});S
+		bt.addActionListener(pB);
 		return bt;
+	}
+	
+	//Clase para generar botones de forma dinámica
+	class ProcesaBoton implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JButton bt = (JButton) e.getSource();
+			int posicion = Integer.parseInt(bt.getActionCommand());
+			dispara(posicion);
+		}
+		
 	}
 }
