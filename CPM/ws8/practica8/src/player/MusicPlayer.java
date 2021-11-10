@@ -17,7 +17,9 @@ public class MusicPlayer {
 			basicPlayer.open(file);
 			basicPlayer.play();
 		}
-		catch (Exception e){}
+		catch (Exception e){
+			System.out.println("Canción no disponible.");
+		}
 	}
 	
 	public void stop(){
@@ -25,6 +27,7 @@ public class MusicPlayer {
 			basicPlayer.stop();
 		}
 		catch (BasicPlayerException e){
+			System.out.println("Canción no disponible.");
 		}
 	}
 	
@@ -34,6 +37,7 @@ public class MusicPlayer {
 			basicPlayer.setGain(vol/volMax);
 		}
 		catch (BasicPlayerException e){
+			System.out.println("Volumen no disponible.");
 		}
 	}
 }

@@ -6,5 +6,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/basicplayer3.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="lib/jhall.jar"/>
+	<classpathentry kind="lib" path="lib/jl1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/JTattoo-1.6.13.jar"/>
+	<classpathentry kind="lib" path="lib/mp3spi1.9.4.jar"/>
+	<classpathentry kind="lib" path="lib/tritonus_share.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

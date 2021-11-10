@@ -2,6 +2,7 @@ package igu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -13,6 +14,7 @@ import java.io.File;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,6 +28,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import player.MusicPlayer;
+
 import java.awt.Insets;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -33,6 +38,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -68,27 +75,22 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu mnFile;
 	private JMenuItem mntmOpen;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JFileChooser selector;
+	private MusicPlayer musicPlayer;
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param musicp
 	 */
-	public VentanaPrincipal() {
+	public VentanaPrincipal(MusicPlayer musicp) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				minimoVentana();
+			}
+		});
+		musicPlayer = musicp;
 		setTitle("Heavy Metal Music Player");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/guitarra.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,6 +105,13 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(getPanelNorte(), BorderLayout.NORTH);
 		getTextVolumen().setText("50");
 		contentPane.add(getPanelCentro(), BorderLayout.CENTER);
+		setMinimumSize(new Dimension(550, 250));
+	}
+
+	protected void minimoVentana() {
+		Dimension d = this.getSize();
+		System.out.println(d);
+
 	}
 
 	private JPanel getPanelNorte() {
@@ -116,6 +125,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelNorte;
 	}
+
 	private JLabel getLblLogo() {
 		if (lblLogo == null) {
 			lblLogo = new JLabel("");
@@ -125,12 +135,14 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lblLogo;
 	}
+
 	private JSlider getSliderVolumen() {
 		if (sliderVolumen == null) {
 			sliderVolumen = new JSlider();
+			sliderVolumen.setFocusable(false);
 			sliderVolumen.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
-					pintaYCambiaVolumen();
+					pintaYCambiaVol();
 				}
 			});
 			sliderVolumen.setPaintLabels(true);
@@ -143,10 +155,6 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return sliderVolumen;
 	}
-	private void pintaYCambiaVolumen() {
-		getTextVolumen().setText(String.valueOf(getSliderVolumen().getValue()));
-		
-	}
 
 	private JPanel getPanelVolumen() {
 		if (panelVolumen == null) {
@@ -157,6 +165,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelVolumen;
 	}
+
 	private JLabel getLblVol() {
 		if (lblVol == null) {
 			lblVol = new JLabel("Vol:");
@@ -165,6 +174,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lblVol;
 	}
+
 	private JTextField getTextVolumen() {
 		if (textVolumen == null) {
 			textVolumen = new JTextField();
@@ -177,6 +187,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return textVolumen;
 	}
+
 	private JPanel getPanelCentro() {
 		if (panelCentro == null) {
 			panelCentro = new JPanel();
@@ -187,6 +198,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelCentro;
 	}
+
 	private JPanel getPanelLibrerias() {
 		if (panelLibrerias == null) {
 			panelLibrerias = new JPanel();
@@ -199,6 +211,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelLibrerias;
 	}
+
 	private JPanel getPanelPlaylist() {
 		if (panelPlaylist == null) {
 			panelPlaylist = new JPanel();
@@ -211,6 +224,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelPlaylist;
 	}
+
 	private JLabel getLblLibreria() {
 		if (lblLibreria == null) {
 			lblLibreria = new JLabel("\u058D Library \u058D");
@@ -220,6 +234,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lblLibreria;
 	}
+
 	private JLabel getLblPlaylist() {
 		if (lblPlaylist == null) {
 			lblPlaylist = new JLabel("\u266B Playlist \u266B");
@@ -229,6 +244,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lblPlaylist;
 	}
+
 	private JPanel getPanelBotonesLibreria() {
 		if (panelBotonesLibreria == null) {
 			panelBotonesLibreria = new JPanel();
@@ -240,6 +256,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelBotonesLibreria;
 	}
+
 	private JButton getBtnAddPlaylist() {
 		if (btnAddPlaylist == null) {
 			btnAddPlaylist = new JButton("Add to PlayList");
@@ -247,11 +264,20 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					añadirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
+
+	private void añadirAPlayList() {
+		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
+			modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
+		}
+
+	}
+
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton("Delete");
@@ -260,6 +286,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btnDelete;
 	}
+
 	private JButton getBtnClear() {
 		if (btnClear == null) {
 			btnClear = new JButton("Clear");
@@ -268,6 +295,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btnClear;
 	}
+
 	private JPanel getPanelBotonesPlaylist() {
 		if (panelBotonesPlaylist == null) {
 			panelBotonesPlaylist = new JPanel();
@@ -281,30 +309,71 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelBotonesPlaylist;
 	}
+
 	private JButton getBtnGoBack() {
 		if (btnGoBack == null) {
 			btnGoBack = new JButton("\u25C4\u25C4");
 			btnGoBack.setMargin(new Insets(0, 0, 0, 0));
 			btnGoBack.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					previousSong();
 				}
 			});
 			btnGoBack.setFont(new Font("Arial", Font.BOLD, 16));
 		}
 		return btnGoBack;
 	}
+
 	private JButton getBtnPlay() {
 		if (btnPlay == null) {
 			btnPlay = new JButton("\u25BA");
 			btnPlay.setMargin(new Insets(0, 0, 0, 0));
 			btnPlay.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					if (modeloListPlaylist.isEmpty()) {
+						btnPlay.setEnabled(false);
+					} else {
+						btnPlay.setEnabled(true);
+						play();
+					}
 				}
 			});
 			btnPlay.setFont(new Font("Arial", Font.BOLD, 16));
 		}
 		return btnPlay;
 	}
+
+	private void play() {
+		if (getListPlaylist().getSelectedIndex() == -1) {
+			getListPlaylist().setSelectedIndex(0);
+		}
+		musicPlayer.play(getListPlaylist().getSelectedValue());
+
+	}
+
+	private void nextSong() {
+		if (getListPlaylist().getSelectedIndex() == -1) {
+			getListPlaylist().setSelectedIndex(0);
+		} else if (getListPlaylist().getSelectedIndex() == modeloListPlaylist.size() - 1) {
+			getListPlaylist().setSelectedIndex(0);
+		} else {
+			getListPlaylist().setSelectedIndex(getListPlaylist().getSelectedIndex() + 1);
+		}
+		musicPlayer.play(getListPlaylist().getSelectedValue());
+	}
+
+	private void previousSong() {
+		if (getListPlaylist().getSelectedIndex() == -1) {
+			getListPlaylist().setSelectedIndex(0);
+		} else if (getListPlaylist().getSelectedIndex() <= modeloListPlaylist.size() - 1
+				&& getListPlaylist().getSelectedIndex() > 0) {
+			getListPlaylist().setSelectedIndex(getListPlaylist().getSelectedIndex() - 1);
+		} else {
+			getListPlaylist().setSelectedIndex(modeloListPlaylist.size() - 1);
+		}
+		musicPlayer.play(getListPlaylist().getSelectedValue());
+	}
+
 	private JButton getBtnPause() {
 		if (btnPause == null) {
 			btnPause = new JButton("\u25A0");
@@ -313,14 +382,21 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btnPause;
 	}
+
 	private JButton getBtnGoNext() {
 		if (btnGoNext == null) {
 			btnGoNext = new JButton("\u25BA\u25BA");
+			btnGoNext.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					nextSong();
+				}
+			});
 			btnGoNext.setMargin(new Insets(0, 0, 0, 0));
 			btnGoNext.setFont(new Font("Arial", Font.BOLD, 16));
 		}
 		return btnGoNext;
 	}
+
 	private JButton getBtnDeletePlaylist() {
 		if (btnDeletePlaylist == null) {
 			btnDeletePlaylist = new JButton("Del");
@@ -329,6 +405,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btnDeletePlaylist;
 	}
+
 	private JScrollPane getScrollPaneLibreria() {
 		if (scrollPaneLibreria == null) {
 			scrollPaneLibreria = new JScrollPane();
@@ -336,6 +413,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return scrollPaneLibreria;
 	}
+
 	private JList<File> getListLibreria() {
 		if (listLibreria == null) {
 			modeloListLibreria = new DefaultListModel<File>();
@@ -346,6 +424,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return listLibreria;
 	}
+
 	private JScrollPane getScrollPanePlaylist() {
 		if (scrollPanePlaylist == null) {
 			scrollPanePlaylist = new JScrollPane();
@@ -353,6 +432,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return scrollPanePlaylist;
 	}
+
 	private JList<File> getListPlaylist() {
 		if (listPlaylist == null) {
 			modeloListPlaylist = new DefaultListModel<File>();
@@ -364,6 +444,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return listPlaylist;
 	}
+
 	private JButton getBtClearPlaylist() {
 		if (btClearPlaylist == null) {
 			btClearPlaylist = new JButton("Clear");
@@ -372,6 +453,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btClearPlaylist;
 	}
+
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
@@ -379,6 +461,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return menuBar;
 	}
+
 	private JMenu getMnFile() {
 		if (mnFile == null) {
 			mnFile = new JMenu("File");
@@ -387,11 +470,47 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return mnFile;
 	}
+
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					abrirFicheros();
+				}
+			});
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 		}
 		return mntmOpen;
+	}
+
+	private void abrirFicheros() {
+		int respuesta = getSelector().showOpenDialog(null);// presenta la ventana
+		if (respuesta == JFileChooser.APPROVE_OPTION) {
+			for (int i = 0; i < getSelector().getSelectedFiles().length; i++) {
+				if (!modeloListLibreria.contains(getSelector().getSelectedFiles()[i])) {
+					modeloListLibreria.addElement(getSelector().getSelectedFiles()[i]);
+				}
+			}
+		}
+
+	}
+
+	public JFileChooser getSelector() {
+		if (selector == null) {
+			selector = new JFileChooser();
+			selector.setMultiSelectionEnabled(true);// permite escoger más de un archivo
+		}
+		return selector;
+	}
+
+	private void pintaYCambiaVol() {
+		getTextVolumen().setText(String.valueOf(getSliderVolumen().getValue()));
+		setVolume(getSliderVolumen().getValue());
+	}
+
+	private void setVolume(double volume) {
+		double volMax = getSliderVolumen().getMaximum();
+		musicPlayer.setVolume(volume, volMax);
 	}
 }
