@@ -8,7 +8,7 @@ package BST;
  *
  */
 public class BSTree<T extends Comparable<T>> {
-	private BSTNode<T> raiz;// nodo raíz del árbol
+	private BSTNode<T> raiz;// nodo raï¿½z del ï¿½rbol
 
 	/**
 	 * Constructor default para la clase BSTree
@@ -22,7 +22,7 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Si no se encuentra devolverá null
+	 * Si no se encuentra devolverï¿½ null
 	 * 
 	 * @param clave
 	 * @return
@@ -56,7 +56,7 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Devuelve 0 si añade correctamente el elemento al árbol. Devuelve -2 si la
+	 * Devuelve 0 si aï¿½ade correctamente el elemento al ï¿½rbol. Devuelve -2 si la
 	 * clave es null. Devuelve -1 si intenta insertar una clave ya existente.
 	 * 
 	 * @param clave
@@ -156,8 +156,8 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
-	 * intento borrar es null o el árbol está vacío. Devuelve -1 si intenta borrar
+	 * Borra una clave del ï¿½rbol. Devuelve 0 si la borra Devuelve -2 si la clave que
+	 * intento borrar es null o el ï¿½rbol estï¿½ vacï¿½o. Devuelve -1 si intenta borrar
 	 * una clave que no existe.
 	 * 
 	 * @param clave
@@ -198,8 +198,6 @@ public class BSTree<T extends Comparable<T>> {
 			// tiene dos hijos
 			else {
 				BSTNode<T> nodemax = searchMaxClave(raiz.getLeft());
-//				raiz.setInfo(nodemax.getInfo());
-//				return removeNodeRecursivo(raiz.getLeft(), nodemax.getInfo());
 				raiz.setLeft(removeNodeRecursivo(raiz.getLeft(), nodemax.getInfo()));
 				raiz.setInfo(nodemax.getInfo());
 				return raiz;

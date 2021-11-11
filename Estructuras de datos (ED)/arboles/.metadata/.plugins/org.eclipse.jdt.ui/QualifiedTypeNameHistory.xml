@@ -3,4 +3,5 @@
     <fullyQualifiedTypeName name="java.lang.Comparable"/>
     <fullyQualifiedTypeName name="BST.BSTree"/>
     <fullyQualifiedTypeName name="BST.BSTNode"/>
+    <fullyQualifiedTypeName name="AVL.AVLNode"/>
 </qualifiedTypeNameHistroy>

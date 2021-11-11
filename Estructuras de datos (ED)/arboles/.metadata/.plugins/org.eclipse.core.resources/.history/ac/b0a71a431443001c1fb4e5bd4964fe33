@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package AVL;
+
+/**
+ * @author blanc
+ *
+ */
+public class AVLNode {
+
+}

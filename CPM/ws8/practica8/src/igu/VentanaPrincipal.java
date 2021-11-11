@@ -377,6 +377,11 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnPause() {
 		if (btnPause == null) {
 			btnPause = new JButton("\u25A0");
+			btnPause.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					musicPlayer.stop();
+				}
+			});
 			btnPause.setMargin(new Insets(0, 0, 0, 0));
 			btnPause.setFont(new Font("Dialog", Font.BOLD, 14));
 		}
