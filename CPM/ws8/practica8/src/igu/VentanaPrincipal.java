@@ -3,12 +3,16 @@ package igu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.DefaultListModel;
@@ -18,10 +22,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -31,18 +39,9 @@ import javax.swing.event.ChangeListener;
 
 import player.MusicPlayer;
 
-import java.awt.Insets;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-
 public class VentanaPrincipal extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelNorte;
 	private JLabel lblLogo;
@@ -264,14 +263,14 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					aÃ±adirAPlayList();
+					añadirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void aÃ±adirAPlayList() {
+	private void añadirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
 			modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
 		}
@@ -281,15 +280,32 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton("Delete");
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					eliminarDeLibreria();
+				}
+			});
 			btnDelete.setMargin(new Insets(0, 0, 0, 0));
 			btnDelete.setFont(new Font("Arial", Font.BOLD, 16));
 		}
 		return btnDelete;
 	}
 
+	private void eliminarDeLibreria() {
+		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
+			modeloListLibreria.removeElement(getListLibreria().getSelectedValuesList().get(i));
+		}
+
+	}
+
 	private JButton getBtnClear() {
 		if (btnClear == null) {
 			btnClear = new JButton("Clear");
+			btnClear.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					modeloListLibreria.removeAllElements();
+				}
+			});
 			btnClear.setMargin(new Insets(0, 0, 0, 0));
 			btnClear.setFont(new Font("Arial", Font.BOLD, 16));
 		}
@@ -405,10 +421,22 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnDeletePlaylist() {
 		if (btnDeletePlaylist == null) {
 			btnDeletePlaylist = new JButton("Del");
+			btnDeletePlaylist.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					eliminarDePlayList();
+				}
+			});
 			btnDeletePlaylist.setMargin(new Insets(0, 0, 0, 0));
 			btnDeletePlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 		}
 		return btnDeletePlaylist;
+	}
+	
+	private void eliminarDePlayList() {
+		for (int i = 0; i < getListPlaylist().getSelectedValuesList().size(); i++) {
+			modeloListPlaylist.removeElement(getListPlaylist().getSelectedValuesList().get(i));
+		}
+
 	}
 
 	private JScrollPane getScrollPaneLibreria() {
@@ -453,6 +481,11 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtClearPlaylist() {
 		if (btClearPlaylist == null) {
 			btClearPlaylist = new JButton("Clear");
+			btClearPlaylist.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					modeloListPlaylist.removeAllElements();
+				}
+			});
 			btClearPlaylist.setMargin(new Insets(0, 0, 0, 0));
 			btClearPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 		}
