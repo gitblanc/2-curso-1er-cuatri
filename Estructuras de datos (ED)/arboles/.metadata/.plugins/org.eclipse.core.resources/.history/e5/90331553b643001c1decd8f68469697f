@@ -43,7 +43,7 @@ class Tests {
 		assertEquals(0, tree.addNode(4));
 		assertEquals(0, tree.addNode(3));
 		assertEquals(0, tree.addNode(5));
-		assertEquals(-1, tree.addNode(6));//ya existï¿½a la clave
+		assertEquals(-1, tree.addNode(6));//ya existía la clave
 	}
 
 	@Test
@@ -90,6 +90,5 @@ class Tests {
 		assertEquals(0, tree.addNode(5));
 		assertEquals("1\t2\t3\t4\t5\t6\t7\t8\t9", tree.inOrder());
 	}
-	
 	
 }

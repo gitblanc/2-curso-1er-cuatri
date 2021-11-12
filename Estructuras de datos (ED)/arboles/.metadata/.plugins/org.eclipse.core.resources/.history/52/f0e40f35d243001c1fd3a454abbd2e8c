@@ -129,7 +129,7 @@ public class AVLTree<T extends Comparable<T>> {
 		if (raiz2 == null) {
 			return "";
 		} else {
-			String cadena = raiz2.toString();
+			String cadena = raiz2.getInfo().toString();
 			cadena += "\t";
 			cadena += recorridoPreOrderRecursivo(raiz2.getLeft());
 			cadena += recorridoPreOrderRecursivo(raiz2.getRight());
@@ -151,7 +151,7 @@ public class AVLTree<T extends Comparable<T>> {
 		if (raiz2 != null) {
 			cadena += recorridoPostOrderRecursivo(raiz2.getLeft());
 			cadena += recorridoPostOrderRecursivo(raiz2.getRight());
-			cadena += raiz2.toString() + "\t";
+			cadena += raiz2.getInfo().toString() + "\t";
 		}
 		return cadena;
 	}
@@ -169,7 +169,7 @@ public class AVLTree<T extends Comparable<T>> {
 		String cadena = "";
 		if (raiz2 != null) {
 			cadena += recorridoInOrderRecursivo(raiz2.getLeft());
-			cadena += raiz2.toString() + "\t";
+			cadena += raiz2.getInfo().toString() + "\t";
 			cadena += recorridoInOrderRecursivo(raiz2.getRight());
 		}
 		return cadena;

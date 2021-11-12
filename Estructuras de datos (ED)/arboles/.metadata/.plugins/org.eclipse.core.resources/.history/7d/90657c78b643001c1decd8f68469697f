@@ -58,7 +58,7 @@ class AVLTreeTest {
 		assertEquals(0, tree.addNode(4));
 		assertEquals(0, tree.addNode(3));
 		assertEquals(0, tree.addNode(5));
-		assertEquals("6:BF=-1	2:BF=1	1:BF=0	4:BF=0	3:BF=0	5:BF=0	8:BF=0	7:BF=0	9:BF=0", tree.preOrder());
+		assertEquals("6\t2\t1\t4\t3\t5\t8\t7\t9", tree.preOrder());
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ class AVLTreeTest {
 		assertEquals(0, tree.addNode(4));
 		assertEquals(0, tree.addNode(3));
 		assertEquals(0, tree.addNode(5));
-		assertEquals("1:BF=0	3:BF=0	5:BF=0	4:BF=0	2:BF=1	7:BF=0	9:BF=0	8:BF=0	6:BF=-1", tree.postOrder());
+		assertEquals("1\t3\t5\t4\t2\t7\t9\t8\t6", tree.postOrder());
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ class AVLTreeTest {
 		assertEquals(0, tree.addNode(4));
 		assertEquals(0, tree.addNode(3));
 		assertEquals(0, tree.addNode(5));
-		assertEquals("1:BF=0	2:BF=1	3:BF=0	4:BF=0	5:BF=0	6:BF=-1	7:BF=0	8:BF=0	9:BF=0", tree.inOrder());
+		assertEquals("1\t2\t3\t4\t5\t6\t7\t8\t9", tree.inOrder());
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ class AVLTreeTest {
 		System.out.println("--Simple derecha--");
 		System.out.println("InOrder antes de añadir el 95: \n" + tree.inOrder());
 		assertEquals(0, tree.addNode(95));
-		assertEquals("10:BF=0	25:BF=0	30:BF=0	50:BF=0	75:BF=2	90:BF=1	95:BF=0", tree.inOrder());
+		assertEquals("10	25	30	50	75	90	95", tree.inOrder());
 		System.out.println("InOrder despues de añadir el 95: \n" + tree.inOrder());
 	}
 	
@@ -117,7 +117,7 @@ class AVLTreeTest {
 		System.out.println("--Simple izquierda--");
 		System.out.println("InOrder antes de añadir el 5: \n" + tree.inOrder());
 		assertEquals(0, tree.addNode(5));
-		assertEquals("5:BF=0	10:BF=-1	25:BF=-2	50:BF=-1	75:BF=0", tree.inOrder());
+		assertEquals("5	10	25	50	75", tree.inOrder());
 		System.out.println("InOrder despues de añadir el 5: \n" + tree.inOrder());
 	}
 	
@@ -131,7 +131,7 @@ class AVLTreeTest {
 		System.out.println("--Doble derecha--");
 		System.out.println("InOrder antes de añadir el 26: \n" + tree.inOrder());
 		assertEquals(0, tree.addNode(26));
-		assertEquals("25:BF=2	26:BF=0	30:BF=-1	50:BF=0	75:BF=0", tree.inOrder());
+		assertEquals("25	26	30	50	75", tree.inOrder());
 		System.out.println("InOrder despues de añadir el 26: \n" + tree.inOrder());
 	}
 	
@@ -145,7 +145,7 @@ class AVLTreeTest {
 		System.out.println("--Doble izquierda--");
 		System.out.println("InOrder antes de añadir el 65: \n" + tree.inOrder());
 		assertEquals(0, tree.addNode(65));
-		assertEquals("25:BF=0	50:BF=0	60:BF=1	65:BF=0	75:BF=-2", tree.inOrder());
+		assertEquals("25	50	60	65	75", tree.inOrder());
 		System.out.println("InOrder despues de añadir el 65: \n" + tree.inOrder());
 	}
 
