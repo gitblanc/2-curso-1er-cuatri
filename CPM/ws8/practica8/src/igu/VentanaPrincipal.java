@@ -263,14 +263,14 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirAPlayList();
+					aÃ±adirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void añadirAPlayList() {
+	private void aÃ±adirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
 			modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
 		}

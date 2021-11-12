@@ -2742,3 +2742,34 @@ java.lang.NullPointerException: Cannot invoke "org.eclipse.ui.texteditor.ITextEd
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+!SESSION 2021-11-12 12:33:52.077 -----------------------------------------------
+eclipse.buildId=4.21.0.I20210906-0500
+java.version=15.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=es_ES
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/blanc/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/blanc/.eclipse_keyring
+
+!ENTRY org.eclipse.oomph.p2.core 2 0 2021-11-12 12:33:54.689
+!MESSAGE Failed to register the thread safe credentials providers: 'java.util.Map org.eclipse.core.internal.runtime.AdapterManager.getFactories()'
+
+!ENTRY org.eclipse.jface 2 0 2021-11-12 12:34:12.326
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-11-12 12:34:12.326
+!MESSAGE A conflict occurred for COMMAND+SHIFT+T:
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1c000c2f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(COMMAND+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@2c7ac998,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
