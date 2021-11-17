@@ -20,7 +20,7 @@ public class VentanaPrincipal extends JFrame {
 	private JScrollPane scTraducido;
 	private JTextArea arOriginal;
 	private JTextArea arTraducido;
-	private JButton btEspañol;
+	private JButton btEspaÃ±ol;
 	private JButton btFrances;
 	private JButton btIngles;
 	private JLabel etDocOriginal;
@@ -60,7 +60,7 @@ public class VentanaPrincipal extends JFrame {
 			barraHerramientas.add(getBtGuardar());
 			barraHerramientas.add(getBtImprimir());
 			barraHerramientas.add(getBtIngles());
-			barraHerramientas.add(getBtEspañol());
+			barraHerramientas.add(getBtEspaÃ±ol());
 			barraHerramientas.add(getBtFrances());
 		}
 		return barraHerramientas;
@@ -152,7 +152,7 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel getEtIdOriginal() {
 		if (etIdOriginal == null) {
 			etIdOriginal = new JLabel();
-			etIdOriginal.setText("Español");
+			etIdOriginal.setText("EspaÃ±ol");
 			etIdOriginal.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12));
 			etIdOriginal
 					.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -174,7 +174,7 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel getEtIdTraducido() {
 		if (etIdTraducido == null) {
 			etIdTraducido = new JLabel();
-			etIdTraducido.setText("Inglés");
+			etIdTraducido.setText("Inglï¿½s");
 			etIdTraducido
 					.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 			etIdTraducido.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12));
@@ -278,20 +278,20 @@ public class VentanaPrincipal extends JFrame {
 		return arTraducido;
 	}
 
-	private JButton getBtEspañol() {
-		if (btEspañol == null) {
-			btEspañol = new JButton();
-			btEspañol.setText("ES");
-			btEspañol.setFont(new Font("Dialog", Font.PLAIN, 12));
-			btEspañol.setBorderPainted(false);
-			btEspañol.setPreferredSize(new java.awt.Dimension(24, 24));
-			btEspañol.setMargin(new java.awt.Insets(0, 0, 0, 0));
-			btEspañol.setMaximumSize(new java.awt.Dimension(24, 24));
-			btEspañol.setMinimumSize(new java.awt.Dimension(24, 24));
-			btEspañol.setContentAreaFilled(false);
+	private JButton getBtEspaÃ±ol() {
+		if (btEspaÃ±ol == null) {
+			btEspaÃ±ol = new JButton();
+			btEspaÃ±ol.setText("ES");
+			btEspaÃ±ol.setFont(new Font("Dialog", Font.PLAIN, 12));
+			btEspaÃ±ol.setBorderPainted(false);
+			btEspaÃ±ol.setPreferredSize(new java.awt.Dimension(24, 24));
+			btEspaÃ±ol.setMargin(new java.awt.Insets(0, 0, 0, 0));
+			btEspaÃ±ol.setMaximumSize(new java.awt.Dimension(24, 24));
+			btEspaÃ±ol.setMinimumSize(new java.awt.Dimension(24, 24));
+			btEspaÃ±ol.setContentAreaFilled(false);
 
 		}
-		return btEspañol;
+		return btEspaÃ±ol;
 	}
 
 	private JButton getBtFrances() {

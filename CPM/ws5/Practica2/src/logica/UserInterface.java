@@ -30,10 +30,10 @@ public class UserInterface {
 		case EXIT:
 			return;
 		case 1:
-			verArtículos();
+			verArtÃ­culos();
 			break;
 		case 2:
-			añadirPedido();
+			aÃ±adirPedido();
 			break;
 		case 3:
 			verPrecio();
@@ -45,7 +45,7 @@ public class UserInterface {
 			obtenerCodigoPedido();
 			break;
 		default:
-			System.out.println("Introduce una opción válida :3");
+			System.out.println("Introduce una opciï¿½n vï¿½lida :3");
 		}
 		
 	}
@@ -66,23 +66,23 @@ public class UserInterface {
 		
 	}
 
-	private void añadirPedido() {
+	private void aÃ±adirPedido() {
 		Articulo articulo = solicitarpedido();
 		pedido.add(articulo, articulo.getUnidades());
 		
 	}
 
 	private Articulo solicitarpedido() {
-		String codigo = Console.readString("¿Código del artículo?");
-		String tipo = Console.readString("¿Tipo del artículo?");
-		String denominacion = Console.readString("¿Denominación del artículo?");
-		float precio = Console.readFloat("¿Código del artículo?");
-		int unidades = Console.readInteger("¿Cuantas unidades desea?");
+		String codigo = Console.readString("ï¿½Cï¿½digo del artï¿½culo?");
+		String tipo = Console.readString("ï¿½Tipo del artï¿½culo?");
+		String denominacion = Console.readString("ï¿½Denominaciï¿½n del artï¿½culo?");
+		float precio = Console.readFloat("ï¿½Cï¿½digo del artï¿½culo?");
+		int unidades = Console.readInteger("ï¿½Cuantas unidades desea?");
 		
 		return new Articulo(codigo, tipo, denominacion, precio, unidades);
 	}
 
-	private void verArtículos() {
+	private void verArtÃ­culos() {
 		Articulo[] articulos = carta.getArticulos();
 		for(Articulo art: articulos) {
 			System.out.println(art.toString() + "\n");

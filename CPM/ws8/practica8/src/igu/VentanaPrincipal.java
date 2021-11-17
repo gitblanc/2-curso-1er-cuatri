@@ -36,8 +36,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import player.MusicPlayer;
+import player.MyFile;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -65,12 +67,12 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnGoNext;
 	private JButton btnDeletePlaylist;
 	private JScrollPane scrollPaneLibreria;
-	private JList<File> listLibreria;
+	private JList<MyFile> listLibreria;
 	private JScrollPane scrollPanePlaylist;
-	private JList<File> listPlaylist;
+	private JList<MyFile> listPlaylist;
 	private JButton btClearPlaylist;
-	private DefaultListModel<File> modeloListLibreria;
-	private DefaultListModel<File> modeloListPlaylist;
+	private DefaultListModel<MyFile> modeloListLibreria;
+	private DefaultListModel<MyFile> modeloListPlaylist;
 	private JMenuBar menuBar;
 	private JMenu mnFile;
 	private JMenuItem mntmOpen;
@@ -263,14 +265,14 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirAPlayList();
+					aÃ±adirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void añadirAPlayList() {
+	private void aÃ±adirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
 			modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
 		}
@@ -363,7 +365,7 @@ public class VentanaPrincipal extends JFrame {
 		if (getListPlaylist().getSelectedIndex() == -1) {
 			getListPlaylist().setSelectedIndex(0);
 		}
-		musicPlayer.play(getListPlaylist().getSelectedValue());
+		musicPlayer.play(getListPlaylist().getSelectedValue().getF());
 
 	}
 
@@ -375,7 +377,7 @@ public class VentanaPrincipal extends JFrame {
 		} else {
 			getListPlaylist().setSelectedIndex(getListPlaylist().getSelectedIndex() + 1);
 		}
-		musicPlayer.play(getListPlaylist().getSelectedValue());
+		musicPlayer.play(getListPlaylist().getSelectedValue().getF());
 	}
 
 	private void previousSong() {
@@ -387,7 +389,7 @@ public class VentanaPrincipal extends JFrame {
 		} else {
 			getListPlaylist().setSelectedIndex(modeloListPlaylist.size() - 1);
 		}
-		musicPlayer.play(getListPlaylist().getSelectedValue());
+		musicPlayer.play(getListPlaylist().getSelectedValue().getF());
 	}
 
 	private JButton getBtnPause() {
@@ -431,7 +433,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return btnDeletePlaylist;
 	}
-	
+
 	private void eliminarDePlayList() {
 		for (int i = 0; i < getListPlaylist().getSelectedValuesList().size(); i++) {
 			modeloListPlaylist.removeElement(getListPlaylist().getSelectedValuesList().get(i));
@@ -447,10 +449,10 @@ public class VentanaPrincipal extends JFrame {
 		return scrollPaneLibreria;
 	}
 
-	private JList<File> getListLibreria() {
+	private JList<MyFile> getListLibreria() {
 		if (listLibreria == null) {
-			modeloListLibreria = new DefaultListModel<File>();
-			listLibreria = new JList<File>(modeloListLibreria);
+			modeloListLibreria = new DefaultListModel<MyFile>();
+			listLibreria = new JList<MyFile>(modeloListLibreria);
 			listLibreria.setForeground(new Color(248, 248, 255));
 			listLibreria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			listLibreria.setBackground(new Color(0, 0, 0));
@@ -466,10 +468,10 @@ public class VentanaPrincipal extends JFrame {
 		return scrollPanePlaylist;
 	}
 
-	private JList<File> getListPlaylist() {
+	private JList<MyFile> getListPlaylist() {
 		if (listPlaylist == null) {
-			modeloListPlaylist = new DefaultListModel<File>();
-			listPlaylist = new JList<File>(modeloListPlaylist);
+			modeloListPlaylist = new DefaultListModel<MyFile>();
+			listPlaylist = new JList<MyFile>(modeloListPlaylist);
 			listPlaylist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listPlaylist.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			listPlaylist.setForeground(new Color(248, 248, 255));
@@ -527,7 +529,7 @@ public class VentanaPrincipal extends JFrame {
 		if (respuesta == JFileChooser.APPROVE_OPTION) {
 			for (int i = 0; i < getSelector().getSelectedFiles().length; i++) {
 				if (!modeloListLibreria.contains(getSelector().getSelectedFiles()[i])) {
-					modeloListLibreria.addElement(getSelector().getSelectedFiles()[i]);
+					modeloListLibreria.addElement(new MyFile(getSelector().getSelectedFiles()[i]));
 				}
 			}
 		}
@@ -538,6 +540,9 @@ public class VentanaPrincipal extends JFrame {
 		if (selector == null) {
 			selector = new JFileChooser();
 			selector.setMultiSelectionEnabled(true);// permite escoger mÃ¡s de un archivo
+			selector.setFileFilter(new FileNameExtensionFilter("Archivos mp3", "mp3"));// filtro de archivos
+			String documentos = System.getProperty("user.home") +  "/Documents";
+			selector.setCurrentDirectory(new File(documentos));//fijamos en documentos
 		}
 		return selector;
 	}

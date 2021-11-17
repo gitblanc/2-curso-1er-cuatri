@@ -1,13 +1,15 @@
 applyBackground=false
 approved.defs.file.last.changed.time=1624986146000
+codetogether.announce.displayed=true
 configurationInstallLocation=/C\:/Users/blanc/eclipse/java-2020-12/eclipse/
+ct.reengagement.display.after=1647899447935
 ct.upsell.display.after=1632685916772
 eclipse.preferences.version=1
 iconcolormode=primary
 iconreplacement=false
 includeThemingInOomph=false
-last.download.attempt.time=1636890638287
-lastConfiguration=1636890625976
+last.download.attempt.time=1637071202904
+lastConfiguration=1637071188826
 newinstall=false
 showWelcomeDialog=false
 workbench.theme=Dark Gray

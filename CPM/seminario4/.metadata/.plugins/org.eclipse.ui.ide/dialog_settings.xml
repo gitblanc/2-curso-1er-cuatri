@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/Users/blanc/Documents/2-cursov2/CPM/Traductor"/>
 			<item value="C:\Users\blanc\OneDrive\Documentos\2-cursov2\CPM\Traductor"/>
 		</list>
 	</section>

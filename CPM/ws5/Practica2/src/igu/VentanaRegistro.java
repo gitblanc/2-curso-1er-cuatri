@@ -66,7 +66,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JButton siguiente con la acción de validar el formulario
+	 * Getter para el JButton siguiente con la acciï¿½n de validar el formulario
 	 */
 	private JButton getBtnSiguiente() {
 		if (btnSiguiente == null) {
@@ -141,7 +141,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JButton cancelar con la acción de mantener abierta la
+	 * Getter para el JButton cancelar con la acciï¿½n de mantener abierta la
 	 * ventanaRegistro
 	 */
 	private JButton getBtnCancelar() {
@@ -197,7 +197,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JLabel año
+	 * Getter para el JLabel aï¿½o
 	 */
 	private JLabel getLblYear() {
 		if (lblYear == null) {
@@ -210,7 +210,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JLabel contraseña
+	 * Getter para el JLabel contraseÃ±a
 	 */
 	private JLabel getLblPassword() {
 		if (lblPassword == null) {
@@ -223,7 +223,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JLabel reintroduzca contraseña
+	 * Getter para el JLabel reintroduzca contraseÃ±a
 	 */
 	private JLabel getLblReintroduzcaPassword() {
 		if (lblReintroduzcaPassword == null) {
@@ -248,7 +248,7 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el JPasswordField contraseña
+	 * Getter para el JPasswordField contraseÃ±a
 	 */
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
@@ -259,23 +259,23 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Getter para el combobox de los años
+	 * Getter para el combobox de los aï¿½os
 	 */
 	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {
-			String[] años = new String[90];
+			String[] aÃ±os= new String[90];
 			for (int i = 0; i < 90; i++) {
-				años[i] = "" + ((90 - i) + 1920);
+				aÃ±os[i] = "" + ((90 - i) + 1920);
 			}
 			comboBox = new JComboBox<String>();
-			comboBox.setModel(new DefaultComboBoxModel<String>(años));
+			comboBox.setModel(new DefaultComboBoxModel<String>(aÃ±os));
 			comboBox.setBounds(172, 107, 179, 24);
 		}
 		return comboBox;
 	}
 
 	/*
-	 * Getter para el JPasswordField repita la contraseña
+	 * Getter para el JPasswordField repita la contraseÃ±a
 	 */
 	private JPasswordField getPasswordField_1() {
 		if (passwordField_1 == null) {
@@ -286,32 +286,32 @@ public class VentanaRegistro extends JDialog {
 	}
 
 	/*
-	 * Método que valida el formulario
+	 * Mï¿½todo que valida el formulario
 	 */
 	private void validarFormulario() {
-		String contraseña = String.valueOf(getPasswordField().getPassword());
-		String contraseñaRepetida = String.valueOf(getPasswordField_1().getPassword());
+		String contraseÃ±a = String.valueOf(getPasswordField().getPassword());
+		String contraseÃ±aRepetida = String.valueOf(getPasswordField_1().getPassword());
 		if (getTextNombreApellidos().getText() == null || getTextNombreApellidos().getText().isBlank()) { // con el get
 																											// no se
-																											// generará
+																											// generarï¿½
 																											// el
 																											// nullPointerException
 																											// si no
 																											// existe
-			JOptionPane.showMessageDialog(null, "El nombre introducido no es válido.");
-		} else if (contraseña.isBlank()) {
-			JOptionPane.showMessageDialog(null, "Introduzca la contraseña :)");
-		} else if (!contraseña.equals(contraseñaRepetida)) {
-			JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+			JOptionPane.showMessageDialog(null, "El nombre introducido no es vï¿½lido.");
+		} else if (contraseÃ±a.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Introduzca la contraseÃ±a :)");
+		} else if (!contraseÃ±a.equals(contraseÃ±aRepetida)) {
+			JOptionPane.showMessageDialog(null, "Las contraseÃ±as no coinciden");
 		} else {
-			mostrarVentanaConfirmación();
+			mostrarVentanaConfirmaciÃ³n();
 		}
 	}
 
 	/*
-	 * Método que muestra la ventana confirmación
+	 * Mï¿½todo que muestra la ventana confirmaciÃ³n
 	 */
-	private void mostrarVentanaConfirmación() {
+	private void mostrarVentanaConfirmaciÃ³n() {
 		VentanaConfirmacion vc = new VentanaConfirmacion(this);
 		vc.setLocationRelativeTo(this);
 		vc.setModal(true);

@@ -50,7 +50,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnCancelar;
 	private JLabel lblArticulos;
 	private JLabel lblUnidades;
-	private JButton btnAñadir;
+	private JButton btnAaÃ±adir;
 	private JLabel lblPrecioPedido;
 	private JComboBox<Articulo> comboBoxArticulos;
 	private Carta carta;
@@ -105,7 +105,7 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(getBtnCancelar());
 		contentPane.add(getLblArticulos());
 		contentPane.add(getLblUnidades());
-		contentPane.add(getBtnAñadir());
+		contentPane.add(getBtnAaÃ±adir());
 		contentPane.add(getLblPrecioPedido());
 		contentPane.add(getComboBoxArticulos());
 		contentPane.add(getLblImagenDescuento());
@@ -157,7 +157,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Getter para el JButton siguiente con la acción de pasar a la ventana de
+	 * Getter para el JButton siguiente con la acciï¿½n de pasar a la ventana de
 	 * registro
 	 */
 	private JButton getBtnSiguiente() {
@@ -177,7 +177,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Método que aplica el descuento
+	 * Mï¿½todo que aplica el descuento
 	 */
 	private void descuento() {
 		if (pedido.getDescuentoAplicado()) {
@@ -190,7 +190,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Método que muestra la ventana registro sin cerrar la ventana principal
+	 * Mï¿½todo que muestra la ventana registro sin cerrar la ventana principal
 	 */
 	protected void mostrarVentanaRegistro() {
 		VentanaRegistro vr = new VentanaRegistro(this);
@@ -201,7 +201,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Getter para el JButton cancelar con la acción de cerrar la aplicación
+	 * Getter para el JButton cancelar con la acciï¿½n de cerrar la aplicaciï¿½n
 	 */
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
@@ -220,7 +220,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Getter para el JLabel artículos
+	 * Getter para el JLabel artï¿½culos
 	 */
 	private JLabel getLblArticulos() {
 		if (lblArticulos == null) {
@@ -248,19 +248,19 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Getter para el JButton añadir con las acciones de añadir pedido, mostrar las
-	 * unidades del artículo y aplicar el descuento
+	 * Getter para el JButton aaÃ±adir con las acciones de aaÃ±adir pedido, mostrar las
+	 * unidades del artï¿½culo y aplicar el descuento
 	 */
-	private JButton getBtnAñadir() {
-		if (btnAñadir == null) {
-			btnAñadir = new JButton("A\u00F1adir");
-			btnAñadir.setMnemonic('A');
-			btnAñadir.setBackground(new Color(0, 128, 0));
-			btnAñadir.setForeground(Color.WHITE);
-			btnAñadir.setBounds(693, 295, 116, 41);
-			btnAñadir.addActionListener(new ActionListener() {
+	private JButton getBtnAaÃ±adir() {
+		if (btnAaÃ±adir == null) {
+			btnAaÃ±adir = new JButton("A\u00F1adir");
+			btnAaÃ±adir.setMnemonic('A');
+			btnAaÃ±adir.setBackground(new Color(0, 128, 0));
+			btnAaÃ±adir.setForeground(Color.WHITE);
+			btnAaÃ±adir.setBounds(693, 295, 116, 41);
+			btnAaÃ±adir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirAPedido();
+					aaÃ±adirAPedido();
 					descuento();
 					if (getUnidadesPedido((Articulo) comboBoxArticulos.getSelectedItem()) > 0) {
 						getBtnEliminar().setEnabled(true);
@@ -268,7 +268,7 @@ public class VentanaPrincipal extends JFrame {
 				}
 			});
 		}
-		return btnAñadir;
+		return btnAaÃ±adir;
 	}
 
 	/*
@@ -308,9 +308,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Método que añade un pedido
+	 * Mï¿½todo que aï¿½ade un pedido
 	 */
-	private void añadirAPedido() {
+	private void aaÃ±adirAPedido() {
 		Articulo articuloSeleccionado = (Articulo) getComboBoxArticulos().getSelectedItem();
 		int unidadesSolicitadas = (Integer) getSpinnerUnidades().getValue();
 		pedido.add(articuloSeleccionado, unidadesSolicitadas);
@@ -335,7 +335,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Getter para el JComboBox de artículos
+	 * Getter para el JComboBox de artï¿½culos
 	 */
 	private JComboBox<Articulo> getComboBoxArticulos() {
 		if (comboBoxArticulos == null) {
@@ -373,7 +373,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Método que devuelve el número de unidades de un artículo
+	 * Mï¿½todo que devuelve el nï¿½mero de unidades de un artï¿½culo
 	 */
 	private int getUnidadesPedido(Articulo articulo) {
 		return pedido.buscarUnidadesArticulo(articulo);
@@ -405,7 +405,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	/*
-	 * Método que limpia la ventana principal
+	 * Mï¿½todo que limpia la ventana principal
 	 */
 	public void inicializar() {
 		pedido.inicializar();
@@ -446,7 +446,7 @@ public class VentanaPrincipal extends JFrame {
 				public void mousePressed(MouseEvent e) {
 					scrollPanePedido.setVisible(true);
 					clearTextArea();
-					añadirPedidoATextArea();
+					aaÃ±adirPedidoATextArea();
 				}
 
 				@Override
@@ -466,7 +466,7 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 
-	protected void añadirPedidoATextArea() {
+	protected void aaÃ±adirPedidoATextArea() {
 		textAreaPedido.append(pedido.toString());
 
 	}
@@ -568,8 +568,8 @@ public class VentanaPrincipal extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane
 							.showMessageDialog(null,
-									"Aplicación para TPV de comida rápida \nRealizada por Eduardo Blanco Bielsa\n"
-											+ "Prácticas CPM 21-22 \nEII Oviedo",
+									"Aplicaciï¿½n para TPV de comida rï¿½pida \nRealizada por Eduardo Blanco Bielsa\n"
+											+ "Prï¿½cticas CPM 21-22 \nEII Oviedo",
 									"Acerca de", JOptionPane.INFORMATION_MESSAGE);
 				}
 			});

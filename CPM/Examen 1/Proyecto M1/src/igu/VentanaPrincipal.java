@@ -59,7 +59,7 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel lblSeleccionaPremios;
 	private JLabel lblIconosPremios;
 	private JSpinner spinnerUnidades;
-	private JButton btnAñadir;
+	private JButton btnAÃ±adir;
 	private JScrollPane scrollPanePremios;
 	private JTextArea textAreaPremios;
 	private JLabel lblPuntosInsuficientes;
@@ -96,7 +96,7 @@ public class VentanaPrincipal extends JFrame {
 		getContentPane().add(getLblSeleccionaPremios());
 		getContentPane().add(getLblIconosPremios());
 		getContentPane().add(getSpinnerUnidades());
-		getContentPane().add(getBtnAñadir());
+		getContentPane().add(getBtnAÃ±adir());
 		getContentPane().add(getScrollPanePremios());
 		getContentPane().add(getLblPuntosInsuficientes());
 		getContentPane().add(getPanel());
@@ -141,7 +141,7 @@ public class VentanaPrincipal extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					girarRuleta();
 					btnGirarRuleta.setEnabled(false);
-					btnAñadir.setEnabled(true);
+					btnAÃ±adir.setEnabled(true);
 				}
 			});
 			btnGirarRuleta.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -252,31 +252,33 @@ public class VentanaPrincipal extends JFrame {
 		return spinnerUnidades;
 	}
 
-	private JButton getBtnAñadir() {
-		if (btnAñadir == null) {
-			btnAñadir = new JButton("A\u00F1adir");
-			btnAñadir.setMnemonic('A');
-			btnAñadir.addActionListener(new ActionListener() {
+	private JButton getBtnAÃ±adir() {
+		if (btnAÃ±adir == null) {
+			btnAÃ±adir = new JButton("A\u00F1adir");
+			btnAÃ±adir.setMnemonic('A');
+			btnAÃ±adir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirAPedido();
+					AÃ±adirAPedido();
 				}
 			});
-			btnAñadir.setEnabled(false);
-			btnAñadir.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnAñadir.setBackground(new Color(143, 188, 143));
-			btnAñadir.setBounds(579, 186, 89, 23);
+			btnAÃ±adir.setEnabled(false);
+			btnAÃ±adir.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btnAÃ±adir.setBackground(new Color(143, 188, 143));
+			btnAÃ±adir.setBounds(579, 186, 89, 23);
 		}
-		return btnAñadir;
+		return btnAÃ±adir;
 	}
 
-	private void añadirAPedido() {
+	private void AÃ±adirAPedido() {
 		Articulo art = (Articulo) getComboBoxRegalos().getSelectedItem();
 		int unidadesSolicitadas = (int) getSpinnerUnidades().getValue();
 		float total = art.getPrecio() * unidadesSolicitadas;
-		if (total <= ruleta.getPuntosTirada()) {
+		if (total <= Float.parseFloat(txtPuntos.getText())) {
 			pedido.add(art, unidadesSolicitadas);
 			getTxtPuntos().setText(String.format("%.0f", ruleta.getPuntosTirada() - pedido.getTotal()));
 			getTextAreaPremios().setText(pedido.toString());
+			validate();
+			repaint();
 		} else {
 			getLblPuntosInsuficientes().setVisible(true);
 		}
