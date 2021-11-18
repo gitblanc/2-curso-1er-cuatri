@@ -56,17 +56,20 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	public void updateBFHeight() {
-		//si es null, la altura es -1
+		// si es null, la altura es -1
 		if (getRight() != null && getLeft() == null) {
 			this.balanceFactor = getRight().getHeight() - (-1);
-			this.high = 1 +  Math.max(-1, getRight().getHeight());
-			
+			this.high = 1 + Math.max(-1, getRight().getHeight());
+
 		} else if (getRight() != null && getLeft() != null) {
 			this.balanceFactor = getRight().getHeight() - getLeft().getHeight();
-			this.high =  1 + Math.max(getRight().getHeight(), getLeft().getHeight());
-		}else {
-			this.balanceFactor = -1 - getLeft().getHeight() ;
-			this.high = 1 +  Math.max(getLeft().getHeight(), -1);
+			this.high = 1 + Math.max(getRight().getHeight(), getLeft().getHeight());
+		} else if (getRight() == null && getLeft() == null) {
+			this.balanceFactor = 0;
+			this.high = 0;
+		} else {
+			this.balanceFactor = -1 - getLeft().getHeight();
+			this.high = 1 + Math.max(getLeft().getHeight(), -1);
 		}
 	}
 

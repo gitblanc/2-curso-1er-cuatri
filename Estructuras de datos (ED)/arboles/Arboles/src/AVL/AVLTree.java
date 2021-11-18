@@ -79,7 +79,6 @@ public class AVLTree<T extends Comparable<T>> {
 	private AVLNode<T> updateAndBalanceIfNecesary(AVLNode<T> nodo) {
 		nodo.updateBFHeight();
 		if (nodo.getBF() == -2)
-
 			if (nodo.getLeft().getBF() == 1)
 				nodo = doubleLeftRotation(nodo);
 			else // -1 o cero
@@ -95,7 +94,9 @@ public class AVLTree<T extends Comparable<T>> {
 	private AVLNode<T> singleRightRotation(AVLNode<T> nodo) {
 		AVLNode<T> aux = nodo.getRight();
 		nodo.setRight(aux.getLeft());
+		nodo.updateBFHeight();
 		aux.setLeft(nodo);
+		aux.updateBFHeight();
 		return aux;
 	}
 
@@ -107,7 +108,9 @@ public class AVLTree<T extends Comparable<T>> {
 	private AVLNode<T> singleLeftRotation(AVLNode<T> nodo) {
 		AVLNode<T> aux = nodo.getLeft();
 		nodo.setLeft(aux.getRight());
+		nodo.updateBFHeight();
 		aux.setRight(nodo);
+		aux.updateBFHeight();
 		return aux;
 	}
 
@@ -176,5 +179,108 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	public int removeNode(T clave) {
+		if (clave == null || this.raiz == null) {
+			return -2;
+		} else if (searchNode(clave) == null) {
+			return -1;
+		} else {
+			this.raiz = removeNodeRecursivo(this.raiz, clave);
+			return 0;
+		}
 	}
+
+	private AVLNode<T> removeNodeRecursivo(AVLNode<T> raiz, T clave) {
+		if (raiz.getInfo().compareTo(clave) > 0) {
+			AVLNode<T> nodo = removeNodeRecursivo(raiz.getLeft(), clave);
+			raiz.setLeft(nodo);
+			return updateAndBalanceIfNecesary(raiz);
+		} else if (raiz.getInfo().compareTo(clave) < 0) {
+			AVLNode<T> nodo = removeNodeRecursivo(raiz.getRight(), clave);
+			raiz.setRight(nodo);
+			return updateAndBalanceIfNecesary(raiz);
+		} else {// encontrado
+				// no tiene hijos
+			if (raiz.getLeft() == null && raiz.getRight() == null) {
+				return null;
+			}
+			// tiene un hijo
+			if (raiz.getLeft() != null && raiz.getRight() == null) {// hijo izq
+				return raiz.getLeft();
+			} else if (raiz.getLeft() == null && raiz.getRight() != null) {// hijo derecho
+				return raiz.getRight();
+			}
+			// tiene dos hijos
+			else {
+				AVLNode<T> nodemax = searchMaxClave(raiz.getLeft());
+				raiz.setLeft(removeNodeRecursivo(raiz.getLeft(), nodemax.getInfo()));
+				raiz.setInfo(nodemax.getInfo());
+				return updateAndBalanceIfNecesary(raiz);
+			}
+		}
+	}
+
+	private AVLNode<T> searchMaxClave(AVLNode<T> raiz2) {
+		if (raiz2.getRight() != null) {
+			return searchMaxClave(raiz2.getRight());
+		} else {
+			return raiz2;
+		}
+	}
+
+	// MÉTODOS EXTRA
+
+	public AVLNode<T> padreDe(T clave) {
+		if (clave == null) {
+			return null;
+		} else {
+			return padreDerecursivo(this.raiz, clave);
+		}
+	}
+
+	private AVLNode<T> padreDerecursivo(AVLNode<T> raiz, T clave) {
+		// CompareTo:
+		// Si da 1, el de la izq es más grande que el parametro
+		// Si da negativo, el de la izq es menor que el parametro
+		// Si da 0 son iguales
+		if (raiz.getInfo().compareTo(clave) > 0) {// si raiz es mayor que clave
+			if (raiz.getLeft() != null && raiz.getLeft().getInfo().equals(clave)) {
+				return raiz;
+			} else {
+				return padreDerecursivo(raiz.getLeft(), clave);
+			}
+		} else if (raiz.getInfo().compareTo(clave) < 0) {
+			if (raiz.getRight() != null && raiz.getRight().getInfo().equals(clave)) {
+				return raiz;
+			} else {
+				return padreDerecursivo(raiz.getRight(), clave);
+			}
+		} else {
+			return null;
+		}
+	}
+
+	public int numAristas(T clave1, T clave2) {
+		AVLNode<T> inicio = searchNode(clave1);
+		AVLNode<T> fin = searchNode(clave2);
+		if (clave1 == null || clave2 == null || this.raiz == null
+				|| clave1.equals(clave2) || inicio == null || fin == null) {
+			return 0;
+		} else {
+			int cont = 0;
+			return cuentaAltura(inicio, fin, cont);
+		}
+	}
+
+	private int cuentaAltura(AVLNode<T> inicio, AVLNode<T> fin, int cont) {
+		if(inicio.getInfo().compareTo(fin.getInfo()) > 0) {
+			cont++;
+			return cuentaAltura(inicio.getLeft(), fin, cont);
+		}else if(inicio.getInfo().compareTo(fin.getInfo()) < 0) {
+			cont++;
+			return cuentaAltura(inicio.getRight(), fin, cont);
+		}else {
+			return inicio.getHeight() - fin.getHeight();
+		}
+	}
+
 }
