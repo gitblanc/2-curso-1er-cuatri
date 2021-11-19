@@ -266,17 +266,20 @@ public class AVLTree<T extends Comparable<T>> {
 				|| clave1.equals(clave2) || inicio == null || fin == null) {
 			return 0;
 		} else {
-			return cuentaAltura(inicio, fin);
+			int cont = 0;
+			return cuentaAltura(inicio, fin, cont);
 		}
 	}
 
-	private int cuentaAltura(AVLNode<T> inicio, AVLNode<T> fin) {
+	private int cuentaAltura(AVLNode<T> inicio, AVLNode<T> fin, int cont) {
 		if(inicio.getInfo().compareTo(fin.getInfo()) > 0) {
-			return cuentaAltura(inicio.getLeft(), fin) +1;
+			cont++;
+			return cuentaAltura(inicio.getLeft(), fin, cont);
 		}else if(inicio.getInfo().compareTo(fin.getInfo()) < 0) {
-			return cuentaAltura(inicio.getRight(), fin) + 1;
+			cont++;
+			return cuentaAltura(inicio.getRight(), fin, cont);
 		}else {
-			return 0;
+			return inicio.getHeight() - fin.getHeight();
 		}
 	}
 

@@ -169,7 +169,11 @@ class AVLTreeTest {
 		assertEquals(0, tree.addNode(1));
 		assertEquals(0, tree.addNode(10));
 		assertEquals(0, tree.addNode(8));
-		assertEquals(1, tree.numAristas(5, 4));
+		assertEquals(2, tree.numAristas(5, 10));
+		assertEquals(1, tree.numAristas(5, 9));
+		assertEquals(1, tree.numAristas(5, 1));
+		assertEquals(2, tree.numAristas(5, 8));
+		assertEquals(0, tree.numAristas(5, 5));
 	}
 
 }
