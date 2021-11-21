@@ -21,6 +21,7 @@ public class MyFile {
 	}
 
 	public String toString() {
-		return f.getName();
+		String[] cadena = f.getName().split(".mp3");
+		return cadena[0];
 	}
 }

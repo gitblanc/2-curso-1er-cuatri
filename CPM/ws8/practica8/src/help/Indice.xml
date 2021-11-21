@@ -5,14 +5,14 @@
 
 <index version="1.0">
 
-  <indexitem text="añadir música" target="añadir" />
-  <indexitem text="descripción de Heavy Metal Music Player" target="introduccion" />
-  <indexitem text="eliminar música" target="eliminar" />
-  <indexitem text="música" >
-  		<indexitem text="añadir" target="añadir" />
+  <indexitem text="aÃ±adir mÃºsica" target="aÃ±adir" />
+  <indexitem text="descripciÃ³n de Heavy Metal Music Player" target="introduccion" />
+  <indexitem text="eliminar mÃºsica" target="eliminar" />
+  <indexitem text="mÃºsica" >
+  		<indexitem text="aÃ±adir" target="aÃ±adir" />
   		<indexitem text="eliminar" target="eliminar" />
   		<indexitem text="reproducir" target="reproducir" />
   </indexitem>
-  <indexitem text="reproducir una canción" target="reproducir" />
-    
+  <indexitem text="reproducir una canciÃ³n" target="reproducir" />
+
 </index>

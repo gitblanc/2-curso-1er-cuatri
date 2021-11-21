@@ -4,12 +4,12 @@
          "http://java.sun.com/products/javahelp/toc_1_0.dtd">
 
 <toc version="1.0">
-  
+
   <tocitem text="Heavy Metal Music Player" target="introduccion" />
-  <tocitem text="Organizar la librería" >
-  		<tocitem text="Añadir música" target="añadir" />
-  		<tocitem text="Eliminar música" target="eliminar" />
+  <tocitem text="Organizar la librerÃ­a" >
+  		<tocitem text="AÃ±adir mÃºsica" target="aÃ±adir" />
+  		<tocitem text="Eliminar mÃºsica" target="eliminar" />
   </tocitem>
-  <tocitem text="Reproducir música" target="reproducir" />
+  <tocitem text="Reproducir mÃºsica" target="reproducir" />
 
 </toc>

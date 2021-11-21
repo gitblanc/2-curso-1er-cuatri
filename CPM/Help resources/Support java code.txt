@@ -1,0 +1,34 @@
+//Adding a javahelp help system to a Java Project
+
+// Add the jhall.jar library you will find in jh2.0\javahelp\lib to the project and its build patch:
+ 1.- Copy it in the lib folder of the project
+ 2.- include it the buildpath
+
+//Imports:
+import javax.help.*;
+import java.net.*;
+import java.io.*;
+
+//Add this method to the main window and call it from the constructor
+private void loadHelp(){
+
+   URL hsURL;
+   HelpSet hs;
+
+    try {
+	    	File fichero = new File("help/Help.hs");
+	    	hsURL = fichero.toURI().toURL();
+	        hs = new HelpSet(null, hsURL);
+	      }
+
+    catch (Exception e){
+      System.out.println("Help not found!");
+      return;
+   }
+
+   HelpBroker hb = hs.createHelpBroker();
+
+   hb.enableHelpKey(getRootPane(),"alias html introduction", hs);
+   hb.enableHelpOnButton(componente, "alias html introduction", hs);
+   hb.enableHelp(componente, "alias html specific", hs);
+ }

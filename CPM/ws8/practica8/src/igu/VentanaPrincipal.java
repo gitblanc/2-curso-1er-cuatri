@@ -78,6 +78,7 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem mntmOpen;
 	private JFileChooser selector;
 	private MusicPlayer musicPlayer;
+	private JButton btnRandom;
 
 	/**
 	 * Create the frame.
@@ -265,18 +266,28 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					aÃ±adirAPlayList();
+					añadirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void aÃ±adirAPlayList() {
+	private void añadirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
-			modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
+			if (!existsSong(getListLibreria().getSelectedValuesList().get(i).toString()))
+				modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
 		}
 
+	}
+
+	private boolean existsSong(String song) {
+		for (int i = 0; i < modeloListPlaylist.size(); i++) {
+			if (modeloListPlaylist.get(i).toString().equals(song)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private JButton getBtnDelete() {
@@ -317,10 +328,11 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel getPanelBotonesPlaylist() {
 		if (panelBotonesPlaylist == null) {
 			panelBotonesPlaylist = new JPanel();
-			panelBotonesPlaylist.setLayout(new GridLayout(0, 6, 0, 0));
+			panelBotonesPlaylist.setLayout(new GridLayout(0, 7, 0, 0));
 			panelBotonesPlaylist.add(getBtnGoBack());
 			panelBotonesPlaylist.add(getBtnPlay());
 			panelBotonesPlaylist.add(getBtnPause());
+			panelBotonesPlaylist.add(getBtnRandom());
 			panelBotonesPlaylist.add(getBtnGoNext());
 			panelBotonesPlaylist.add(getBtnDeletePlaylist());
 			panelBotonesPlaylist.add(getBtClearPlaylist());
@@ -541,8 +553,8 @@ public class VentanaPrincipal extends JFrame {
 			selector = new JFileChooser();
 			selector.setMultiSelectionEnabled(true);// permite escoger mÃ¡s de un archivo
 			selector.setFileFilter(new FileNameExtensionFilter("Archivos mp3", "mp3"));// filtro de archivos
-			String documentos = System.getProperty("user.home") +  "/Documents";
-			selector.setCurrentDirectory(new File(documentos));//fijamos en documentos
+			String documentos = System.getProperty("user.home") + "/Documents";
+			selector.setCurrentDirectory(new File(documentos));// fijamos en documentos
 		}
 		return selector;
 	}
@@ -555,5 +567,23 @@ public class VentanaPrincipal extends JFrame {
 	private void setVolume(double volume) {
 		double volMax = getSliderVolumen().getMaximum();
 		musicPlayer.setVolume(volume, volMax);
+	}
+
+	private JButton getBtnRandom() {
+		if (btnRandom == null) {
+			btnRandom = new JButton("\u2194");
+			btnRandom.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					playRandom();
+				}
+			});
+			btnRandom.setFont(new Font("Arial", Font.BOLD, 16));
+		}
+		return btnRandom;
+	}
+
+	private void playRandom() {
+		int numRandom = (int) (Math.random()*modeloListPlaylist.size());
+		musicPlayer.play(modeloListPlaylist.get(numRandom).getF());
 	}
 }
