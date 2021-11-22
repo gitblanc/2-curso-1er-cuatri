@@ -38,6 +38,7 @@ public class VentanaPrincipal extends JFrame {
 	private Foco focoTexto = new Foco();
 	private GrabFocus grabFoco = new GrabFocus();
 	private SetBorderPainted borderPainter = new SetBorderPainted();
+	private JButton btnJustNumbers;
 
 	private JMenuBar getBarraMenu() {
 		if (barraMenu == null) {
@@ -62,6 +63,7 @@ public class VentanaPrincipal extends JFrame {
 			barraHerramientas.add(getBtIngles());
 			barraHerramientas.add(getBtEspañol());
 			barraHerramientas.add(getBtFrances());
+			barraHerramientas.add(getBtnJustNumbers());
 		}
 		return barraHerramientas;
 	}
@@ -85,6 +87,11 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtGuardar() {
 		if (btGuardar == null) {
 			btGuardar = new JButton();
+			btGuardar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:" , "Guardado", JOptionPane.QUESTION_MESSAGE);
+				}
+			});
 			btGuardar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/Guardar.png")));
 			btGuardar.setBorderPainted(false);
 			btGuardar.setContentAreaFilled(false);
@@ -251,6 +258,13 @@ public class VentanaPrincipal extends JFrame {
 		public void windowOpened(WindowEvent e) {
 			arOriginal.grabFocus();
 		}
+		@Override
+		public void windowClosing(WindowEvent e) {
+			int answer = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea salir de la aplicación?");
+			if(answer == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		}
 	}
 	
 	public class SetBorderPainted extends MouseAdapter{
@@ -406,7 +420,7 @@ public class VentanaPrincipal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/icono.png")));
 		setSize(981, 586);
 		setJMenuBar(getBarraMenu());
-		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Traductor de Textos");
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -418,4 +432,11 @@ public class VentanaPrincipal extends JFrame {
 		this.addWindowListener(grabFoco);
 	}
 
+	private JButton getBtnJustNumbers() {
+		if (btnJustNumbers == null) {
+			btnJustNumbers = new JButton("N̶u̶m̶b̶e̶r̶s̶");
+			btnJustNumbers.setMnemonic('n');
+		}
+		return btnJustNumbers;
+	}
 }
