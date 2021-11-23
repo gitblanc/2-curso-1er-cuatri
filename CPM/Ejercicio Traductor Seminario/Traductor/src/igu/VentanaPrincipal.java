@@ -1,9 +1,36 @@
 package igu;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.border.LineBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -40,7 +67,6 @@ public class VentanaPrincipal extends JFrame {
 	private GrabFocus grabFoco = new GrabFocus();
 	private SetBorderPainted borderPainter = new SetBorderPainted();
 	private ProcesaTecla pt = new ProcesaTecla();
-	private JToggleButton tglbtnNumbers;
 	private JCheckBox chckbxNumbers;
 
 	private JMenuBar getBarraMenu() {
@@ -66,7 +92,6 @@ public class VentanaPrincipal extends JFrame {
 			barraHerramientas.add(getBtIngles());
 			barraHerramientas.add(getBtEspañol());
 			barraHerramientas.add(getBtFrances());
-			barraHerramientas.add(getTglbtnNumbers());
 			barraHerramientas.add(getChckbxNumbers());
 		}
 		return barraHerramientas;
@@ -448,26 +473,15 @@ public class VentanaPrincipal extends JFrame {
 		}
 	}
 
-	private JToggleButton getTglbtnNumbers() {
-		if (tglbtnNumbers == null) {
-			tglbtnNumbers = new JToggleButton("Numbers");
-
-			tglbtnNumbers.addKeyListener(pt);
-			tglbtnNumbers.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			tglbtnNumbers.setMnemonic('n');
-		}
-		return tglbtnNumbers;
-	}
-
 	private JCheckBox getChckbxNumbers() {
 		if (chckbxNumbers == null) {
-			chckbxNumbers = new JCheckBox("Numbers");
+			chckbxNumbers = new JCheckBox("NO Numbers");
 			chckbxNumbers.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (chckbxNumbers.isSelected()) {
 						arOriginal.grabFocus();
 						arOriginal.addKeyListener(pt);
-					}else {
+					} else {
 						arOriginal.grabFocus();
 						arOriginal.removeKeyListener(pt);
 					}
