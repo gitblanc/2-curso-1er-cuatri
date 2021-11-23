@@ -3,6 +3,7 @@ package igu;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.border.LineBorder;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -20,7 +21,7 @@ public class VentanaPrincipal extends JFrame {
 	private JScrollPane scTraducido;
 	private JTextArea arOriginal;
 	private JTextArea arTraducido;
-	private JButton btEspaÃ±ol;
+	private JButton btEspañol;
 	private JButton btFrances;
 	private JButton btIngles;
 	private JLabel etDocOriginal;
@@ -38,7 +39,9 @@ public class VentanaPrincipal extends JFrame {
 	private Foco focoTexto = new Foco();
 	private GrabFocus grabFoco = new GrabFocus();
 	private SetBorderPainted borderPainter = new SetBorderPainted();
-	private JButton btnJustNumbers;
+	private ProcesaTecla pt = new ProcesaTecla();
+	private JToggleButton tglbtnNumbers;
+	private JCheckBox chckbxNumbers;
 
 	private JMenuBar getBarraMenu() {
 		if (barraMenu == null) {
@@ -61,9 +64,10 @@ public class VentanaPrincipal extends JFrame {
 			barraHerramientas.add(getBtGuardar());
 			barraHerramientas.add(getBtImprimir());
 			barraHerramientas.add(getBtIngles());
-			barraHerramientas.add(getBtEspaÃ±ol());
+			barraHerramientas.add(getBtEspañol());
 			barraHerramientas.add(getBtFrances());
-			barraHerramientas.add(getBtnJustNumbers());
+			barraHerramientas.add(getTglbtnNumbers());
+			barraHerramientas.add(getChckbxNumbers());
 		}
 		return barraHerramientas;
 	}
@@ -89,7 +93,8 @@ public class VentanaPrincipal extends JFrame {
 			btGuardar = new JButton();
 			btGuardar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:" , "Guardado", JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:", "Guardado",
+							JOptionPane.QUESTION_MESSAGE);
 				}
 			});
 			btGuardar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/Guardar.png")));
@@ -159,7 +164,7 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel getEtIdOriginal() {
 		if (etIdOriginal == null) {
 			etIdOriginal = new JLabel();
-			etIdOriginal.setText("EspaÃ±ol");
+			etIdOriginal.setText("Español");
 			etIdOriginal.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12));
 			etIdOriginal
 					.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -181,7 +186,7 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel getEtIdTraducido() {
 		if (etIdTraducido == null) {
 			etIdTraducido = new JLabel();
-			etIdTraducido.setText("Inglï¿½s");
+			etIdTraducido.setText("Ingl\u00E9s");
 			etIdTraducido
 					.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 			etIdTraducido.setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 12));
@@ -234,50 +239,9 @@ public class VentanaPrincipal extends JFrame {
 			arOriginal.setBackground(java.awt.Color.lightGray);
 			arOriginal.setLineWrap(true);
 			arOriginal.addFocusListener(focoTexto);
+
 		}
 		return arOriginal;
-	}
-
-	public class Foco implements FocusListener{
-
-		public void focusGained(FocusEvent e) {
-			JTextArea text = (JTextArea) e.getSource();
-			text.setBackground(Color.WHITE);
-		}
-
-		@Override
-		public void focusLost(FocusEvent e) {
-			JTextArea text = (JTextArea) e.getSource();
-			text.setBackground(Color.lightGray);
-			
-		}
-	}
-	
-	public class GrabFocus extends WindowAdapter {
-		
-		public void windowOpened(WindowEvent e) {
-			arOriginal.grabFocus();
-		}
-		@Override
-		public void windowClosing(WindowEvent e) {
-			int answer = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡ seguro de que desea salir de la aplicaciÃ³n?");
-			if(answer == JOptionPane.YES_OPTION) {
-				System.exit(0);
-			}
-		}
-	}
-	
-	public class SetBorderPainted extends MouseAdapter{
-		public void mouseEntered(MouseEvent e) {
-			JButton btn = (JButton) e.getSource();
-			btn.setBorderPainted(true);
-		}
-		
-		public void mouseExited(MouseEvent e) {
-			JButton btn = (JButton) e.getSource();
-			btn.setBorderPainted(false);
-		}
-
 	}
 
 	private JTextArea getArTraducido() {
@@ -292,20 +256,20 @@ public class VentanaPrincipal extends JFrame {
 		return arTraducido;
 	}
 
-	private JButton getBtEspaÃ±ol() {
-		if (btEspaÃ±ol == null) {
-			btEspaÃ±ol = new JButton();
-			btEspaÃ±ol.setText("ES");
-			btEspaÃ±ol.setFont(new Font("Dialog", Font.PLAIN, 12));
-			btEspaÃ±ol.setBorderPainted(false);
-			btEspaÃ±ol.setPreferredSize(new java.awt.Dimension(24, 24));
-			btEspaÃ±ol.setMargin(new java.awt.Insets(0, 0, 0, 0));
-			btEspaÃ±ol.setMaximumSize(new java.awt.Dimension(24, 24));
-			btEspaÃ±ol.setMinimumSize(new java.awt.Dimension(24, 24));
-			btEspaÃ±ol.setContentAreaFilled(false);
+	private JButton getBtEspañol() {
+		if (btEspañol == null) {
+			btEspañol = new JButton();
+			btEspañol.setText("ES");
+			btEspañol.setFont(new Font("Dialog", Font.PLAIN, 12));
+			btEspañol.setBorderPainted(false);
+			btEspañol.setPreferredSize(new java.awt.Dimension(24, 24));
+			btEspañol.setMargin(new java.awt.Insets(0, 0, 0, 0));
+			btEspañol.setMaximumSize(new java.awt.Dimension(24, 24));
+			btEspañol.setMinimumSize(new java.awt.Dimension(24, 24));
+			btEspañol.setContentAreaFilled(false);
 
 		}
-		return btEspaÃ±ol;
+		return btEspañol;
 	}
 
 	private JButton getBtFrances() {
@@ -432,11 +396,85 @@ public class VentanaPrincipal extends JFrame {
 		this.addWindowListener(grabFoco);
 	}
 
-	private JButton getBtnJustNumbers() {
-		if (btnJustNumbers == null) {
-			btnJustNumbers = new JButton("NÌ¶uÌ¶mÌ¶bÌ¶eÌ¶rÌ¶sÌ¶");
-			btnJustNumbers.setMnemonic('n');
+	public class Foco implements FocusListener {
+
+		public void focusGained(FocusEvent e) {
+			JTextArea text = (JTextArea) e.getSource();
+			text.setBackground(Color.WHITE);
 		}
-		return btnJustNumbers;
+
+		@Override
+		public void focusLost(FocusEvent e) {
+			JTextArea text = (JTextArea) e.getSource();
+			text.setBackground(Color.lightGray);
+
+		}
+	}
+
+	public class GrabFocus extends WindowAdapter {
+
+		public void windowOpened(WindowEvent e) {
+			arOriginal.grabFocus();
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			int answer = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea salir de la aplicación?");
+			if (answer == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		}
+	}
+
+	public class SetBorderPainted extends MouseAdapter {
+		public void mouseEntered(MouseEvent e) {
+			JButton btn = (JButton) e.getSource();
+			btn.setBorderPainted(true);
+		}
+
+		public void mouseExited(MouseEvent e) {
+			JButton btn = (JButton) e.getSource();
+			btn.setBorderPainted(false);
+		}
+
+	}
+
+	public class ProcesaTecla extends KeyAdapter {
+		public void keyTyped(KeyEvent e) {
+			char teclaPulsada = e.getKeyChar();
+			if (!Character.isAlphabetic(teclaPulsada)) {
+				e.consume();
+			}
+		}
+	}
+
+	private JToggleButton getTglbtnNumbers() {
+		if (tglbtnNumbers == null) {
+			tglbtnNumbers = new JToggleButton("Numbers");
+
+			tglbtnNumbers.addKeyListener(pt);
+			tglbtnNumbers.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			tglbtnNumbers.setMnemonic('n');
+		}
+		return tglbtnNumbers;
+	}
+
+	private JCheckBox getChckbxNumbers() {
+		if (chckbxNumbers == null) {
+			chckbxNumbers = new JCheckBox("Numbers");
+			chckbxNumbers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (chckbxNumbers.isSelected()) {
+						arOriginal.grabFocus();
+						arOriginal.addKeyListener(pt);
+					}else {
+						arOriginal.grabFocus();
+						arOriginal.removeKeyListener(pt);
+					}
+				}
+			});
+
+		}
+		return chckbxNumbers;
 	}
 }
