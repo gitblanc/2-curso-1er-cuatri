@@ -118,8 +118,11 @@ public class VentanaPrincipal extends JFrame {
 			btGuardar = new JButton();
 			btGuardar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:", "Guardado",
+					String fileName = JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:", "Guardado",
 							JOptionPane.QUESTION_MESSAGE);
+					if(!fileName.isBlank() || fileName != null) {
+						setTitle("Traductor de textos: " + fileName);
+					}
 				}
 			});
 			btGuardar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/Guardar.png")));
@@ -171,6 +174,7 @@ public class VentanaPrincipal extends JFrame {
 			barraEstado.add(getEtIdOriginal());
 			barraEstado.add(getEtDocTraducido());
 			barraEstado.add(getEtIdTraducido());
+			
 		}
 		return barraEstado;
 	}
@@ -292,6 +296,7 @@ public class VentanaPrincipal extends JFrame {
 			btEspañol.setMaximumSize(new java.awt.Dimension(24, 24));
 			btEspañol.setMinimumSize(new java.awt.Dimension(24, 24));
 			btEspañol.setContentAreaFilled(false);
+			btEspañol.addMouseListener(borderPainter);
 
 		}
 		return btEspañol;
@@ -308,6 +313,7 @@ public class VentanaPrincipal extends JFrame {
 			btFrances.setMaximumSize(new java.awt.Dimension(25, 24));
 			btFrances.setMinimumSize(new java.awt.Dimension(25, 24));
 			btFrances.setContentAreaFilled(false);
+			btFrances.addMouseListener(borderPainter);
 		}
 		return btFrances;
 	}
@@ -323,6 +329,7 @@ public class VentanaPrincipal extends JFrame {
 			btIngles.setMaximumSize(new java.awt.Dimension(24, 24));
 			btIngles.setMinimumSize(new java.awt.Dimension(24, 24));
 			btIngles.setContentAreaFilled(false);
+			btIngles.addMouseListener(borderPainter);
 		}
 		return btIngles;
 	}
