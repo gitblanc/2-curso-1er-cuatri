@@ -6,8 +6,9 @@
 <map version="1.0">
 
 <mapID target="introduccion" url="Fuentes/introduccion.html" />
-<mapID target="añadir" url="Fuentes/añadir.html" />
+<mapID target="aï¿½adir" url="Fuentes/aï¿½adir.html" />
 <mapID target="eliminar" url="Fuentes/eliminar.html" />
 <mapID target="reproducir" url="Fuentes/reproducir.html" />
+<mapID target="volumen" url="Fuentes/volumen.html" />
 
 </map>

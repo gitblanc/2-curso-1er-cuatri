@@ -41,6 +41,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import player.MusicPlayer;
 import player.MyFile;
 
+import javax.help.*;
+import java.net.*;
+import java.io.*;
+
 public class VentanaPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -79,6 +83,8 @@ public class VentanaPrincipal extends JFrame {
 	private JFileChooser selector;
 	private MusicPlayer musicPlayer;
 	private JButton btnRandom;
+	private JMenu mnHelp;
+	private JMenuItem mntmContenidos;
 
 	/**
 	 * Create the frame.
@@ -108,6 +114,7 @@ public class VentanaPrincipal extends JFrame {
 		getTextVolumen().setText("50");
 		contentPane.add(getPanelCentro(), BorderLayout.CENTER);
 		setMinimumSize(new Dimension(550, 250));
+		cargarAyuda();
 	}
 
 	protected void minimoVentana() {
@@ -266,14 +273,14 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirAPlayList();
+					aÃ±adirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void añadirAPlayList() {
+	private void aÃ±adirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
 			if (!existsSong(getListLibreria().getSelectedValuesList().get(i).toString()))
 				modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
@@ -510,6 +517,7 @@ public class VentanaPrincipal extends JFrame {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
 			menuBar.add(getMnFile());
+			menuBar.add(getMnHelp());
 		}
 		return menuBar;
 	}
@@ -583,7 +591,46 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	private void playRandom() {
-		int numRandom = (int) (Math.random()*modeloListPlaylist.size());
+		int numRandom = (int) (Math.random() * modeloListPlaylist.size());
 		musicPlayer.play(modeloListPlaylist.get(numRandom).getF());
+	}
+
+	private void cargarAyuda() {
+
+		URL hsURL;
+		HelpSet hs;
+
+		try {
+			File fichero = new File("bin/help/Ayuda.hs");// bin pq es el paquete que entregamos
+			hsURL = fichero.toURI().toURL();
+			hs = new HelpSet(null, hsURL);
+		}
+
+		catch (Exception e) {
+			System.out.println("Ayuda no encontrada");
+			return;
+		}
+
+		HelpBroker hb = hs.createHelpBroker();
+		hb.initPresentation();// evita darle dos veces al F1
+
+		hb.enableHelpKey(getRootPane(), "introduccion", hs);// usar F1 para acceder a la ayuda, carga la intro
+		hb.enableHelpOnButton(getMntmContenidos(), "introduccion", hs);
+		hb.enableHelp(listLibreria, "aÃ±adir", hs);//ayuda sensible al contexto
+		hb.enableHelp(listPlaylist, "reproducir", hs);
+	}
+	private JMenu getMnHelp() {
+		if (mnHelp == null) {
+			mnHelp = new JMenu("Help");
+			mnHelp.add(getMntmContenidos());
+		}
+		return mnHelp;
+	}
+	private JMenuItem getMntmContenidos() {
+		if (mntmContenidos == null) {
+			mntmContenidos = new JMenuItem("Contenidos");
+			mntmContenidos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+		}
+		return mntmContenidos;
 	}
 }

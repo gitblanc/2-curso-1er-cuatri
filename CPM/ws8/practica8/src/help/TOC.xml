@@ -9,7 +9,9 @@
   <tocitem text="Organizar la librería" >
   		<tocitem text="Añadir música" target="añadir" />
   		<tocitem text="Eliminar música" target="eliminar" />
+  		<tocitem text="Reproducir música" target="reproducir" />
+  		<tocitem text="Volumen" target="volumen" />
   </tocitem>
-  <tocitem text="Reproducir música" target="reproducir" />
+  <tocitem text="Reproducir una canción" target="reproducir" />
 
 </toc>
