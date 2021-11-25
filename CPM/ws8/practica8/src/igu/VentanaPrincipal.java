@@ -14,7 +14,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.net.URL;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,10 +43,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import player.MusicPlayer;
 import player.MyFile;
-
-import javax.help.*;
-import java.net.*;
-import java.io.*;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -273,14 +272,14 @@ public class VentanaPrincipal extends JFrame {
 			btnAddPlaylist.setFont(new Font("Arial", Font.BOLD, 16));
 			btnAddPlaylist.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					aÃ±adirAPlayList();
+					añadirAPlayList();
 				}
 			});
 		}
 		return btnAddPlaylist;
 	}
 
-	private void aÃ±adirAPlayList() {
+	private void añadirAPlayList() {
 		for (int i = 0; i < getListLibreria().getSelectedValuesList().size(); i++) {
 			if (!existsSong(getListLibreria().getSelectedValuesList().get(i).toString()))
 				modeloListPlaylist.addElement(getListLibreria().getSelectedValuesList().get(i));
@@ -616,7 +615,7 @@ public class VentanaPrincipal extends JFrame {
 
 		hb.enableHelpKey(getRootPane(), "introduccion", hs);// usar F1 para acceder a la ayuda, carga la intro
 		hb.enableHelpOnButton(getMntmContenidos(), "introduccion", hs);
-		hb.enableHelp(listLibreria, "aÃ±adir", hs);//ayuda sensible al contexto
+		hb.enableHelp(listLibreria, "añadir", hs);//ayuda sensible al contexto
 		hb.enableHelp(listPlaylist, "reproducir", hs);
 	}
 	private JMenu getMnHelp() {

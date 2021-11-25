@@ -13,7 +13,7 @@ public class ArbolesBinariosRemoveTest {
 	public void test1() {
 		BSTree<Integer> b = new BSTree<Integer>();
 
-		// Borra en el �rbol vac�o
+		// Borra en el árbol vacío
 		assertEquals(-2, b.removeNode(4));
 
 		// Borra una clave null
@@ -34,7 +34,7 @@ public class ArbolesBinariosRemoveTest {
 		// Borra un elemento que no existe
 		assertEquals(-1, b.removeNode(300));
 
-		// Borra el 14 que tiene un s�lo hijo
+		// Borra el 14 que tiene un sólo hijo
 		assertEquals(0, b.removeNode(14));
 		assertEquals("2\t5\t6\t10\t11\t15\t16", b.inOrder());
 
@@ -52,7 +52,7 @@ public class ArbolesBinariosRemoveTest {
 	public void test2() {
 		BSTree<Integer> b = new BSTree<Integer>();
 
-		// Intenta borrar de un �rbol vac�o
+		// Intenta borrar de un árbol vacío
 		assertEquals(-2, b.removeNode(50));
 		assertNull(b.searchNode(50));
 		assertEquals(0, b.addNode(10));
@@ -76,7 +76,7 @@ public class ArbolesBinariosRemoveTest {
 		assertEquals(0, b.addNode(15));
 		assertEquals(0, b.addNode(3));
 
-		// A�ade un elemento que ya existe
+		// Añade un elemento que ya existe
 		assertEquals(-1, b.addNode(3));
 
 		// Borra un nodo que no existe
@@ -103,12 +103,12 @@ public class ArbolesBinariosRemoveTest {
 		assertEquals(0, b.removeNode(2));
 		assertEquals("-43\t3\t10\t13\t15\t23\t30\t40\t43\t49\t50\t60\t65\t70\t90\t100\t230", b.inOrder());
 
-		// Borra un nodo con dos sub�rboles: 100
+		// Borra un nodo con dos subárboles: 100
 		// Busca el mayor del subarbol izquierdo (de los menores)
 		assertEquals(0, b.removeNode(100));
 		assertEquals("-43\t3\t10\t13\t15\t23\t30\t40\t43\t49\t50\t60\t65\t70\t90\t230", b.inOrder());
 
-		// Borra un nodo con dos sub�rboles: 60
+		// Borra un nodo con dos subárboles: 60
 		// Busca el mayor del subarbol izquierdo (de los menores)
 		assertEquals(0, b.removeNode(60));
 		assertEquals("-43\t3\t10\t13\t15\t23\t30\t40\t43\t49\t50\t65\t70\t90\t230", b.inOrder());
@@ -121,7 +121,7 @@ public class ArbolesBinariosRemoveTest {
 		assertEquals(0, b.removeNode(10));
 		assertEquals("-43\t3\t13\t15\t23\t30\t43\t49\t50\t65\t70\t90\t230", b.inOrder());
 
-		// Borra un nodo con dos sub�rboles: 50
+		// Borra un nodo con dos subárboles: 50
 		// Busca el mayor del subarbol izquierdo (de los menores)
 		assertEquals(0, b.removeNode(50));
 

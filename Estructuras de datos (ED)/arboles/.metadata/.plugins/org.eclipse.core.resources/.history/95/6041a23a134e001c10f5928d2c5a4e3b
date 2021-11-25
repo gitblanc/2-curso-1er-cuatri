@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package ColasPrioridad;
+
+/**
+ * @author blanc
+ *
+ */
+public interface PriorityQueue {
+
+}

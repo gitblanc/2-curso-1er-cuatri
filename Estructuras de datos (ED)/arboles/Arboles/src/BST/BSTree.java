@@ -8,7 +8,7 @@ package BST;
  *
  */
 public class BSTree<T extends Comparable<T>> {
-	private BSTNode<T> raiz;// nodo raï¿½z del ï¿½rbol
+	private BSTNode<T> raiz;// nodo raíz del árbol
 
 	/**
 	 * Constructor default para la clase BSTree
@@ -22,7 +22,7 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Si no se encuentra devolverï¿½ null
+	 * Si no se encuentra devolvería null
 	 * 
 	 * @param clave
 	 * @return
@@ -56,7 +56,7 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Devuelve 0 si aï¿½ade correctamente el elemento al ï¿½rbol. Devuelve -2 si la
+	 * Devuelve 0 si aíade correctamente el elemento al írbol. Devuelve -2 si la
 	 * clave es null. Devuelve -1 si intenta insertar una clave ya existente.
 	 * 
 	 * @param clave
@@ -156,8 +156,8 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Borra una clave del ï¿½rbol. Devuelve 0 si la borra Devuelve -2 si la clave que
-	 * intento borrar es null o el ï¿½rbol estï¿½ vacï¿½o. Devuelve -1 si intenta borrar
+	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
+	 * intento borrar es null o el írbol estí vacío. Devuelve -1 si intenta borrar
 	 * una clave que no existe.
 	 * 
 	 * @param clave

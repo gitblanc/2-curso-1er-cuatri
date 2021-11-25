@@ -52,7 +52,7 @@ public class AVLTree<T extends Comparable<T>> {
 
 	private AVLNode<T> addNodeRecursivo(AVLNode<T> raiz2, T clave) {
 		// CompareTo:
-		// Si da 1, el de la izq es mÃ¡s grande que el parametro
+		// Si da 1, el de la izq es más grande que el parametro
 		// Si da negativo, el de la izq es menor que el parametro
 		// Si da 0 son iguales
 		if (raiz2.getInfo().compareTo(clave) > 0) {
