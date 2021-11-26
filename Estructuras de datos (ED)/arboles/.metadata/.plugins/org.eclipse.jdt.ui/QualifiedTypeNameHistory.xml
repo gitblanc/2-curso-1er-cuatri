@@ -4,4 +4,6 @@
     <fullyQualifiedTypeName name="BST.BSTree"/>
     <fullyQualifiedTypeName name="BST.BSTNode"/>
     <fullyQualifiedTypeName name="AVL.AVLNode"/>
+    <fullyQualifiedTypeName name="ColasPrioridad.PriorityQueue"/>
+    <fullyQualifiedTypeName name="ColasPrioridad.BinaryHeapMin"/>
 </qualifiedTypeNameHistroy>
