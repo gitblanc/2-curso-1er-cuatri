@@ -38,6 +38,16 @@ class BinaryHeapMinTest {
 		assertEquals("6	8	7	10	15	24	12", bh.toString());
 	}
 
+	@Test
+	void pollTest2() {
+		BinaryHeapMin<Integer> bh = new BinaryHeapMin<>(6);
+		assertNull(bh.poll());
+		assertEquals(0, bh.add(5));
+		assertEquals(5, bh.poll());
+		// En el caso de que sólo hubiese un elemento y se hiciese un poll(), devuelve
+		// el elemento y se vacía el montículo
+		assertEquals("", bh.toString());
+	}
 
 	@Test
 	void removeTest() {
@@ -74,7 +84,7 @@ class BinaryHeapMinTest {
 		assertEquals(0, bh.cambiarPrioridad(2, 30));
 		assertEquals("12	14	17	20	16	30	19", bh.toString());
 	}
-	
+
 	@Test
 	void cambiarPrioridadTest2() {
 		BinaryHeapMin<Integer> bh = new BinaryHeapMin<>(8);
@@ -100,7 +110,7 @@ class BinaryHeapMinTest {
 		bh.add(12);
 		assertFalse(bh.isEmpty());
 	}
-	
+
 	@Test
 	void clearTest() {
 		BinaryHeapMin<Integer> bh = new BinaryHeapMin<>(8);

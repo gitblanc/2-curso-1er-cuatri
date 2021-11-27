@@ -1,12 +1,26 @@
 package AVL;
 
+/**
+ * 
+ * @author UO285176/blanc/Eduardo Blanco Bielsa
+ */
 public class AVLTree<T extends Comparable<T>> {
-	private AVLNode<T> raiz;
+	private AVLNode<T> raiz;// raiz
 
+	/**
+	 * Constructor por defecto de un árbol AVL
+	 */
 	public AVLTree() {
 		this.raiz = null;
 	}
 
+	/**
+	 * Condiciones: si el parámetro pasado es null o la raíz es null devuelve null,
+	 * sino devuelve el nodo buscado(llamando al método recursivo).
+	 * 
+	 * @param clave
+	 * @return node
+	 */
 	public AVLNode<T> searchNode(T clave) {
 		if (clave == null || this.raiz == null) {
 			return null;
@@ -14,6 +28,13 @@ public class AVLTree<T extends Comparable<T>> {
 		return searchNodeRecursivo(raiz, clave);
 	}
 
+	/**
+	 * Método privado recursivo que busca el nodo pasado como parámetro
+	 * 
+	 * @param raiz2
+	 * @param clave
+	 * @return node
+	 */
 	private AVLNode<T> searchNodeRecursivo(AVLNode<T> raiz2, T clave) {
 		if (raiz2 == null) {
 			return null;
@@ -34,6 +55,14 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Condiciones: si la clave es null devuelve -2. Si la raíz es null devuelve 0.
+	 * Si lo encuentra en el árbol devuelve -1. Si lo puede añadir llama al método
+	 * recursivo y devuelve 0;
+	 * 
+	 * @param clave
+	 * @return int
+	 */
 	public int addNode(T clave) {
 		if (clave == null) {
 			return -2;
@@ -50,6 +79,13 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado recursivo que añade un nodo al árbol
+	 * 
+	 * @param raiz2
+	 * @param clave
+	 * @return nodo
+	 */
 	private AVLNode<T> addNodeRecursivo(AVLNode<T> raiz2, T clave) {
 		// CompareTo:
 		// Si da 1, el de la izq es más grande que el parametro
@@ -76,6 +112,13 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado que llama a una serie de métodos privados que realizan las
+	 * rotaciones del árbol para su correcta organización.
+	 * 
+	 * @param nodo
+	 * @return node
+	 */
 	private AVLNode<T> updateAndBalanceIfNecesary(AVLNode<T> nodo) {
 		nodo.updateBFHeight();
 		if (nodo.getBF() == -2)
@@ -91,6 +134,12 @@ public class AVLTree<T extends Comparable<T>> {
 		return nodo;
 	}
 
+	/**
+	 * Método privado que realiza una rotación simple a la derecha
+	 * 
+	 * @param nodo
+	 * @return node
+	 */
 	private AVLNode<T> singleRightRotation(AVLNode<T> nodo) {
 		AVLNode<T> aux = nodo.getRight();
 		nodo.setRight(aux.getLeft());
@@ -100,11 +149,23 @@ public class AVLTree<T extends Comparable<T>> {
 		return aux;
 	}
 
+	/**
+	 * Método privado que realiza una rotación doble a la derecha
+	 * 
+	 * @param nodo
+	 * @return node
+	 */
 	private AVLNode<T> doubleRightRotation(AVLNode<T> nodo) {
 		nodo.setRight(singleLeftRotation(nodo.getRight()));
 		return singleRightRotation(nodo);
 	}
 
+	/**
+	 * Método privado que realiza una rotación simple a la izquierda
+	 * 
+	 * @param nodo
+	 * @return node
+	 */
 	private AVLNode<T> singleLeftRotation(AVLNode<T> nodo) {
 		AVLNode<T> aux = nodo.getLeft();
 		nodo.setLeft(aux.getRight());
@@ -114,20 +175,33 @@ public class AVLTree<T extends Comparable<T>> {
 		return aux;
 	}
 
+	/**
+	 * Método privado que realiza una rotacion doble a la izquierda
+	 * 
+	 * @param nodo
+	 * @return node
+	 */
 	private AVLNode<T> doubleLeftRotation(AVLNode<T> nodo) {
 		nodo.setLeft(singleRightRotation(nodo.getLeft()));
 		return singleLeftRotation(nodo);
 	}
 
 	/**
+	 * Decuelve el recorrido preOrden: raíz, izquierda, derecha
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String preOrder() {
 		String cadena = recorridoPreOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el preOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoPreOrderRecursivo(AVLNode<T> raiz2) {
 		if (raiz2 == null) {
 			return "";
@@ -141,14 +215,21 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Devuelve el recorrido postOrden: izquierda, derecha, raíz
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String postOrder() {
 		String cadena = recorridoPostOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el recorrido postOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoPostOrderRecursivo(AVLNode<T> raiz2) {
 		String cadena = "";
 		if (raiz2 != null) {
@@ -160,14 +241,21 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Devuelve el recorrido inOrden: izquierda, raíz, derecha
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String inOrder() {
 		String cadena = recorridoInOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el recorrido inOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoInOrderRecursivo(AVLNode<T> raiz2) {
 		String cadena = "";
 		if (raiz2 != null) {
@@ -178,6 +266,14 @@ public class AVLTree<T extends Comparable<T>> {
 		return cadena;
 	}
 
+	/**
+	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
+	 * intento borrar es null o el árbol estí vacío. Devuelve -1 si intenta borrar
+	 * una clave que no existe.
+	 * 
+	 * @param clave
+	 * @return int
+	 */
 	public int removeNode(T clave) {
 		if (clave == null || this.raiz == null) {
 			return -2;
@@ -189,6 +285,13 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado recursivo para el removeNode
+	 * 
+	 * @param raiz
+	 * @param clave
+	 * @return node
+	 */
 	private AVLNode<T> removeNodeRecursivo(AVLNode<T> raiz, T clave) {
 		if (raiz.getInfo().compareTo(clave) > 0) {
 			AVLNode<T> nodo = removeNodeRecursivo(raiz.getLeft(), clave);
@@ -219,6 +322,12 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado recursivo para el removeNode que busca el hijo mayor
+	 * 
+	 * @param raiz2
+	 * @return node
+	 */
 	private AVLNode<T> searchMaxClave(AVLNode<T> raiz2) {
 		if (raiz2.getRight() != null) {
 			return searchMaxClave(raiz2.getRight());
@@ -227,8 +336,15 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
-	// MÃ‰TODOS EXTRA
+	// MÉTODOS EXTRA
 
+	/**
+	 * Método público que calcula el padre de un nodo. Condiciones: devuelve null si
+	 * el parámetro pasado es nulo. Sino devuelve al padre.
+	 * 
+	 * @param clave
+	 * @return nodo
+	 */
 	public AVLNode<T> padreDe(T clave) {
 		if (clave == null) {
 			return null;
@@ -237,9 +353,16 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado recursivo para la obtención del padre de un nodo.
+	 * 
+	 * @param raiz
+	 * @param clave
+	 * @return node
+	 */
 	private AVLNode<T> padreDerecursivo(AVLNode<T> raiz, T clave) {
 		// CompareTo:
-		// Si da 1, el de la izq es mÃ¡s grande que el parametro
+		// Si da 1, el de la izq es más grande que el parametro
 		// Si da negativo, el de la izq es menor que el parametro
 		// Si da 0 son iguales
 		if (raiz.getInfo().compareTo(clave) > 0) {// si raiz es mayor que clave
@@ -259,23 +382,37 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método que cuenta el número de aristas desde un nodo inicial hasta un nodo
+	 * final. Condiciones: si el nodo inicio o el nodo destino o la raiz son nulos o
+	 * los nodos son el mismo devuelve 0. Sino devuelve su distancia.
+	 * 
+	 * @param clave1
+	 * @param clave2
+	 * @return int
+	 */
 	public int numAristas(T clave1, T clave2) {
 		AVLNode<T> inicio = searchNode(clave1);
 		AVLNode<T> fin = searchNode(clave2);
-		if (clave1 == null || clave2 == null || this.raiz == null
-				|| clave1.equals(clave2) || inicio == null || fin == null) {
+		if (clave1 == null || clave2 == null || this.raiz == null || clave1.equals(clave2) || inicio == null
+				|| fin == null) {
 			return 0;
 		} else {
 			return cuentaAltura(inicio, fin);
 		}
 	}
 
+	/**
+	 * Método privado recursivo que determina la distancia entre dos nodos,
+	 * 
+	 * @return int
+	 */
 	private int cuentaAltura(AVLNode<T> inicio, AVLNode<T> fin) {
-		if(inicio.getInfo().compareTo(fin.getInfo()) > 0) {
-			return cuentaAltura(inicio.getLeft(), fin) +1;
-		}else if(inicio.getInfo().compareTo(fin.getInfo()) < 0) {
+		if (inicio.getInfo().compareTo(fin.getInfo()) > 0) {
+			return cuentaAltura(inicio.getLeft(), fin) + 1;
+		} else if (inicio.getInfo().compareTo(fin.getInfo()) < 0) {
 			return cuentaAltura(inicio.getRight(), fin) + 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}

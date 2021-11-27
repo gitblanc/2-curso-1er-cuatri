@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-// Test de prueba si el m�todo removeNode devuelve
-// la raiz
+// Test de prueba si el método removeNode devuelve
+// la raíz
 
 public class ArbolesBinariosRemoveTest {
 

@@ -12,7 +12,7 @@ public class ArbolesBinariosAddTest{
 	 {
 		BSTree<Integer> b = new BSTree<Integer>();
 
-		// Busca en un �arbol vacio y devuelve null
+		// Busca en un áarbol vacio y devuelve null
 		assertNull(b.searchNode(10));
 		// Busca una clave bull y devuelve null
 		assertNull(b.searchNode(null));
@@ -27,7 +27,7 @@ public class ArbolesBinariosAddTest{
 		assertEquals(0,b.addNode(11));
 		assertEquals(0,b.addNode(16));
 		
-//		//A�ade un elemento que ya existe
+//		//Añade un elemento que ya existe
 		assertEquals(-1,b.addNode(15));
 		
 //		//Busca un nodo que no existe
@@ -68,7 +68,7 @@ public class ArbolesBinariosAddTest{
 		assertEquals(0,b.addNode(15));
 		assertEquals(0,b.addNode(3));
 
-		//A�ade un elemento que ya existe
+		//Añade un elemento que ya existe
 		assertEquals(-1,b.addNode(3));
 		
 		//Busca un nodo que no existe

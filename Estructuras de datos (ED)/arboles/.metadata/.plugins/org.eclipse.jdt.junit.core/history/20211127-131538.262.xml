@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="AVLNodeTest" project="Arboles" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="AVL.AVLNodeTest" time="0.042" displayname="AVLNodeTest" uniqueid="[engine:junit-jupiter]/[class:AVL.AVLNodeTest]">
+    <testcase name="test" classname="AVL.AVLNodeTest" time="0.042" displayname="test()" uniqueid="[engine:junit-jupiter]/[class:AVL.AVLNodeTest]/[method:test()]"/>
+  </testsuite>
+</testrun>

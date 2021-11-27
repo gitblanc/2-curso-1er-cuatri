@@ -4,24 +4,34 @@
 package ColasPrioridad;
 
 /**
- * @author blanc
+ * @author UO285176/blanc/Eduardo Blanco Bielsa
  *
  */
 public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> {
 
-	private T[] monticulo;
-	private int numElementos;
+	private T[] monticulo;// vector montículo
+	private int numElementos;// número de elementos
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * Constructor para la clase BinaryHeapMin que crea un vector de n componentes y
+	 * establece el número de elementos a 0
+	 * 
+	 * @param n
+	 */
 	public BinaryHeapMin(int n) {
 		setMonticulo((T[]) new Comparable[n]);
 		setNumElementos(0);
 	}
 
 	@Override
-	// -2 null
-	// -1 no cabe
-	// 0 si lo puede insertar
+	/**
+	 * Condiciones: si el parámetro pasado es null devuelve -2. Si el vector está
+	 * lleno o ya existe el elemento devuelve -1. Sino aumenta el número de
+	 * elementos, lo añade al final, hace un filtrado ascendente y devuelve 0.
+	 * 
+	 * @return int
+	 */
 	public int add(T elemento) {
 		if (elemento == null) {
 			return -2;
@@ -31,15 +41,20 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 			this.numElementos++;
 			this.monticulo[this.numElementos - 1] = elemento;
 			filtradoAscendente(numElementos - 1);
+			return 0;
 		}
-		return 0;
+
 	}
 
 	@Override
-	// sacar*
-	// devuelve el elem de la pos 0
-	// y lo borra <- coger lo de la ultima pos y colocarlo en la pos 0
-	// sino devuelve null
+	/**
+	 * Método que devuelve el elemento de la posición 0 del montículo y lo saca.
+	 * Condiciones: si el montículo está vacío, devuelve null. Sino asigna en la
+	 * posición 0 el último elemento del montículo, realiza un filtro descendente y
+	 * devuelve el elemento sacado.
+	 * 
+	 * @return elemento
+	 */
 	public T poll() {
 		if (getMonticulo()[0] == null) {
 			return null;
@@ -54,11 +69,14 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	}
 
 	@Override
-	// identico a sacar
-	// parte de la posición parámetro
-	// -2 si elem es null o monticulo está vacío
-	// -1 si el elemento no existe en el montículo
-	// 0 si lo borra
+	/**
+	 * Condiciones: si el parámetro pasado es null o el montículo está vacío
+	 * devuelve -2. Si no existe el elemento en el montículo devuelve -1. Sino lo
+	 * elimina, disminuye el número de elementos, realiza un filtro descendente y
+	 * devuelve 0.
+	 * 
+	 * @return int
+	 */
 	public int remove(T elemento) {
 		if (elemento == null || isEmpty()) {
 			return -2;
@@ -73,6 +91,12 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		}
 	}
 
+	/**
+	 * Método privado que devuelve la posición de un elemento del montículo.
+	 * 
+	 * @param elemento
+	 * @return int
+	 */
 	private int getPosElemento(T elemento) {
 		for (int i = 0; i < numElementos; i++) {
 			if (this.monticulo[i].equals(elemento)) {
@@ -83,6 +107,12 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 
 	}
 
+	/**
+	 * Método privado que indica si existe o no un elemento en el montículo
+	 * 
+	 * @param elemento
+	 * @return boolean
+	 */
 	private boolean existsElemento(T elemento) {
 		for (int i = 0; i < numElementos; i++) {
 			if (this.monticulo[i].equals(elemento)) {
@@ -93,11 +123,19 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	}
 
 	@Override
+	/**
+	 * Método que indica si el montículo está o no vacío.
+	 * 
+	 * @return boolean
+	 */
 	public boolean isEmpty() {
 		return this.numElementos == 0 ? true : false;
 	}
 
 	@Override
+	/**
+	 * Método que vacía el montículo y establece el número de elementos a 0.
+	 */
 	public void clear() {
 		for (int i = 0; i < numElementos; i++) {
 			this.monticulo[i] = null;
@@ -107,19 +145,32 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	}
 
 	@Override
+	/**
+	 * ToString de la clase BinaryHeapMin
+	 * 
+	 * @return cadena
+	 */
 	public String toString() {
 		String cadena = "";
-		for (int i = 0; i < numElementos - 1; i++) {
-			cadena += this.monticulo[i] + "\t";
+		if (!isEmpty()) {
+			for (int i = 0; i < numElementos - 1; i++) {
+				cadena += this.monticulo[i] + "\t";
+			}
+			cadena += this.monticulo[numElementos - 1];
 		}
-		cadena += this.monticulo[numElementos - 1];
 		return cadena;
 	}
 
 	@Override
-	// busca el elem, lo compara
-	// si es menor, filtrado ascendente
-	// si es mayor filtrado descendente
+	/**
+	 * Método que busca el elemento pasado como parámetro, lo compara con el de la
+	 * posición pasada y en función de si es mayor o menor realiza un filtro
+	 * descendente o ascendente respectivamente. Condiciones: si el montículo está
+	 * vacío devuelve -1. Si la posición no es válida devuelve -2. Sino sustituye el
+	 * elemento que había en la posición por el nuevo, realiza un filtro ascendente
+	 * o descendente en función de si es menor o mayor que el elemento recién
+	 * cambiado y devuelve 0.
+	 */
 	public int cambiarPrioridad(int pos, T elemento) {
 		// -2 si la pos es negativa o fuera del vector o el elemento es null
 		// -1 si la cola está vacía
@@ -140,14 +191,29 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		}
 	}
 
+	/**
+	 * Getter que devuelve el montículo
+	 * 
+	 * @return monticulo
+	 */
 	public T[] getMonticulo() {
 		return monticulo;
 	}
 
+	/**
+	 * Setter para el montículo
+	 * 
+	 * @param monticulo
+	 */
 	private void setMonticulo(T[] monticulo) {
 		this.monticulo = monticulo;
 	}
 
+	/**
+	 * Método que devuelve el número de elementos
+	 * 
+	 * @return int
+	 */
 	public int getNumElementos() {
 		return numElementos;
 	}
@@ -156,10 +222,12 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		this.numElementos = numElementos;
 	}
 
-	// averigua los hijos
-	// comprobar pos válidas(dentro del vector)
-	// hay algo en esas posiciones? sino no tiene hijos
-	// si hay algo coger el más pequeño
+	/**
+	 * Método privado recursivo que realiza un filtro ascendente al montículo desde
+	 * una posición pasada como parámetro.
+	 * 
+	 * @param pos
+	 */
 	private void filtradoAscendente(int pos) {
 		while (pos != 0) {
 			int posicionPadre = (pos - 1) / 2;
@@ -176,6 +244,12 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 
 	}
 
+	/**
+	 * Método privado recursivo que realiza un filtrado descendente al montículo
+	 * desde una posición pasada como parámetro.
+	 * 
+	 * @param pos
+	 */
 	private void filtradoDescendente(int pos) {
 		int posHijoIzq = 2 * pos + 1;
 		int posHijoDcho = 2 * pos + 2;
@@ -215,6 +289,16 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	// si las dos son válidas devuelve 0
 	// solo la izq válida
 	// ninguna válida
+
+	/**
+	 * Método privado que devuelve un entero para saber si las posiciones son
+	 * válidas. Condiciones: si las dos lo son devuelve 0. Si sólo es válida la de
+	 * la izq devuelve 1. Sino devuelve -1.
+	 * 
+	 * @param posHijoIzq
+	 * @param posHijoDcho
+	 * @return int
+	 */
 	private int posicionesValidas(int posHijoIzq, int posHijoDcho) {
 		if (posHijoIzq < numElementos && posHijoDcho < numElementos) {
 			return 0;

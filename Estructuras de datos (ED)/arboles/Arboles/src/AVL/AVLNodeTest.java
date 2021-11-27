@@ -18,7 +18,7 @@ class AVLNodeTest {
 		nodo.setLeft(new AVLNode<Integer>(2));
 		System.out.println(nodo.toString());
 		
-		System.out.println("DespuÃ©s de actualizar...");
+		System.out.println("Después de actualizar...");
 		nodo.updateBFHeight();
 		System.out.println(nodo.toString());
 		System.out.println(nodo.getLeft().toString());

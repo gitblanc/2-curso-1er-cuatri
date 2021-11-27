@@ -28,33 +28,54 @@ public class BSTNode<T extends Comparable<T>> {
 		this.info = clave;
 	}
 
-	/*
+	/**
 	 * Getter para el parámetro info
+	 * 
+	 * @return info
 	 */
 	public T getInfo() {
 		return this.info;
 	}
 
 	/**
-	 * Setter de left
-	 * @param nodo
+	 * Setter del hijo izquierdo
+	 * 
+	 * @param left
 	 */
 	public void setLeft(BSTNode<T> nodo) {
 		this.left = nodo;
 	}
 
+	/**
+	 * Setter del hijo derecho
+	 * 
+	 * @param right
+	 */
 	public void setRight(BSTNode<T> nodo) {
 		this.right = nodo;
 	}
 
+	/**
+	 * Getter del hijo izquierdo
+	 * 
+	 * @return left
+	 */
 	public BSTNode<T> getLeft() {
 		return this.left;
 	}
 
+	/**
+	 * Getter para el hijo derecho
+	 * 
+	 * @return right
+	 */
 	public BSTNode<T> getRight() {
 		return this.right;
 	}
 
+	/**
+	 * ToString de la clase BSTNode
+	 */
 	public String toString() {
 		return info.toString();
 	}

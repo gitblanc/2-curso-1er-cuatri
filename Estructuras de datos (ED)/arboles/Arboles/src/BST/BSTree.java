@@ -4,7 +4,7 @@
 package BST;
 
 /**
- * @author UO285176
+ * @author UO285176/blanc/Eduardo Blanco Bielsa
  *
  */
 public class BSTree<T extends Comparable<T>> {
@@ -17,15 +17,21 @@ public class BSTree<T extends Comparable<T>> {
 		this.raiz = null;
 	}
 
+	/**
+	 * Getter para la raíz del árbol
+	 * 
+	 * @return raiz
+	 */
 	public BSTNode<T> getRaiz() {
 		return this.raiz;
 	}
 
 	/**
-	 * Si no se encuentra devolvería null
+	 * Condiciones: 1 Si la clave es nula o la raíz es nula, devuelve null. 2
+	 * Devuelve null si no lo encuentra o bien el nodo usando un método recursivo
 	 * 
 	 * @param clave
-	 * @return
+	 * @return node
 	 */
 	public BSTNode<T> searchNode(T clave) {
 		if (clave == null || this.raiz == null) {
@@ -34,6 +40,13 @@ public class BSTree<T extends Comparable<T>> {
 		return searchNodeRecursivo(raiz, clave);
 	}
 
+	/**
+	 * Método privado para encontrar un nodo en el árbol de forma recursiva
+	 * 
+	 * @param raiz2
+	 * @param clave
+	 * @return node
+	 */
 	private BSTNode<T> searchNodeRecursivo(BSTNode<T> raiz2, T clave) {
 		if (raiz2 == null) {
 			return null;
@@ -56,11 +69,12 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Devuelve 0 si aíade correctamente el elemento al írbol. Devuelve -2 si la
-	 * clave es null. Devuelve -1 si intenta insertar una clave ya existente.
+	 * Condiciones: Devuelve 0 si añade correctamente el elemento al árbol. Devuelve
+	 * -2 si la clave es null. Devuelve -1 si intenta insertar una clave ya
+	 * existente.
 	 * 
 	 * @param clave
-	 * @return
+	 * @return int
 	 */
 	public int addNode(T clave) {
 		if (clave == null) {
@@ -75,6 +89,14 @@ public class BSTree<T extends Comparable<T>> {
 
 	}
 
+	/**
+	 * Método privado recursivo para añadir un nodo al árbol. Devuelve 0 si lo añade
+	 * o -1 si no.
+	 * 
+	 * @param raiz2
+	 * @param clave
+	 * @return int
+	 */
 	private int addNodeRecursivo(BSTNode<T> raiz2, T clave) {
 		if (raiz2.getInfo().compareTo(clave) > 0) {
 			if (raiz2.getLeft() != null) {
@@ -97,14 +119,21 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Decuelve el recorrido preOrden: raíz, izquierda, derecha
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String preOrder() {
 		String cadena = recorridoPreOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el preOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoPreOrderRecursivo(BSTNode<T> raiz2) {
 		if (raiz2 == null) {
 			return "";
@@ -118,14 +147,21 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Devuelve el recorrido postOrden: izquierda, derecha, raíz
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String postOrder() {
 		String cadena = recorridoPostOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el recorrido postOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoPostOrderRecursivo(BSTNode<T> raiz2) {
 		String cadena = "";
 		if (raiz2 != null) {
@@ -137,14 +173,21 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Devuelve el recorrido inOrden: izquierda, raíz, derecha
 	 * 
-	 * @return
+	 * @return cadena
 	 */
 	public String inOrder() {
 		String cadena = recorridoInOrderRecursivo(raiz);
 		return cadena.substring(0, cadena.length() - 1);
 	}
 
+	/**
+	 * Método privado recursivo para el recorrido inOrden
+	 * 
+	 * @param raiz2
+	 * @return cadena
+	 */
 	private String recorridoInOrderRecursivo(BSTNode<T> raiz2) {
 		String cadena = "";
 		if (raiz2 != null) {
@@ -157,11 +200,11 @@ public class BSTree<T extends Comparable<T>> {
 
 	/**
 	 * Borra una clave del árbol. Devuelve 0 si la borra Devuelve -2 si la clave que
-	 * intento borrar es null o el írbol estí vacío. Devuelve -1 si intenta borrar
+	 * intento borrar es null o el árbol estí vacío. Devuelve -1 si intenta borrar
 	 * una clave que no existe.
 	 * 
 	 * @param clave
-	 * @return
+	 * @return int
 	 */
 	public int removeNode(T clave) {
 		if (clave == null || this.raiz == null) {
@@ -175,9 +218,16 @@ public class BSTree<T extends Comparable<T>> {
 
 	}
 
+	/**
+	 * Método privado recursivo para el removeNode
+	 * 
+	 * @param raiz
+	 * @param clave
+	 * @return node
+	 */
 	private BSTNode<T> removeNodeRecursivo(BSTNode<T> raiz, T clave) {
 		if (raiz.getInfo().compareTo(clave) > 0) {
-			BSTNode<T> nodo =  removeNodeRecursivo(raiz.getLeft(), clave);
+			BSTNode<T> nodo = removeNodeRecursivo(raiz.getLeft(), clave);
 			raiz.setLeft(nodo);
 			return raiz;
 		} else if (raiz.getInfo().compareTo(clave) < 0) {
@@ -205,10 +255,16 @@ public class BSTree<T extends Comparable<T>> {
 		}
 	}
 
+	/**
+	 * Método privado recursivo para el removeNode que busca el hijo mayor
+	 * 
+	 * @param raiz2
+	 * @return node
+	 */
 	private BSTNode<T> searchMaxClave(BSTNode<T> raiz2) {
-		 if(raiz2.getRight() != null) {
+		if (raiz2.getRight() != null) {
 			return searchMaxClave(raiz2.getRight());
-		}else {
+		} else {
 			return raiz2;
 		}
 	}
