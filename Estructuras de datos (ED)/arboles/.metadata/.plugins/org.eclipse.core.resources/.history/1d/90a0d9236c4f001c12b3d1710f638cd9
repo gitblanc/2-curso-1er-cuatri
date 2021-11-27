@@ -1,0 +1,227 @@
+/**
+ * 
+ */
+package ColasPrioridad;
+
+/**
+ * @author blanc
+ *
+ */
+public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> {
+
+	private T[] monticulo;
+	private int numElementos;
+
+	@SuppressWarnings("unchecked")
+	public BinaryHeapMin(int n) {
+		setMonticulo((T[]) new Comparable[n]);
+		setNumElementos(0);
+	}
+
+	@Override
+	// -2 null
+	// -1 no cabe
+	// 0 si lo puede insertar
+	public int add(T elemento) {
+		if (elemento == null) {
+			return -2;
+		} else if (this.numElementos == this.monticulo.length || existsElemento(elemento)) {
+			return -1;
+		} else {
+			this.numElementos++;
+			this.monticulo[this.numElementos - 1] = elemento;
+			filtradoAscendente(numElementos - 1);
+		}
+		return 0;
+	}
+
+	@Override
+	// sacar*
+	// devuelve el elem de la pos 0
+	// y lo borra <- coger lo de la ultima pos y colocarlo en la pos 0
+	// sino devuelve null
+	public T poll() {
+		if (getMonticulo()[0] == null) {
+			return null;
+		} else {
+			T elem0 = this.monticulo[0];
+			this.monticulo[0] = this.monticulo[this.numElementos - 1];
+			this.monticulo[this.numElementos - 1] = null;
+			this.numElementos--;
+			filtradoDescendente(0);
+			return elem0;
+		}
+	}
+
+	@Override
+	// identico a sacar
+	// parte de la posición parámetro
+	// -2 si elem es null o monticulo está vacío
+	// -1 si el elemento no existe en el montículo
+	// 0 si lo borra
+	public int remove(T elemento) {
+		if (elemento == null || isEmpty()) {
+			return -2;
+		} else if (!existsElemento(elemento)) {
+			return -1;
+		} else {
+			this.monticulo[getPosElemento(elemento)] = this.monticulo[numElementos - 1];
+			this.monticulo[numElementos - 1] = null;
+			this.numElementos--;
+			filtradoDescendente(0);
+			return 0;
+		}
+	}
+
+	private int getPosElemento(T elemento) {
+		for (int i = 0; i < numElementos; i++) {
+			if (this.monticulo[i].equals(elemento)) {
+				return i;
+			}
+		}
+		return 0;
+
+	}
+
+	private boolean existsElemento(T elemento) {
+		for (int i = 0; i < numElementos; i++) {
+			if (this.monticulo[i].equals(elemento)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return this.numElementos == 0 ? true : false;
+	}
+
+	@Override
+	public void clear() {
+		for (int i = 0; i < numElementos; i++) {
+			this.monticulo[i] = null;
+		}
+		this.numElementos = 0;
+
+	}
+
+	@Override
+	public String toString() {
+		String cadena = "";
+		for (int i = 0; i < numElementos - 1; i++) {
+			cadena += this.monticulo[i] + "\t";
+		}
+		cadena += this.monticulo[numElementos - 1];
+		return cadena;
+	}
+
+	@Override
+	// busca el elem, lo compara
+	// si es menor, filtrado ascendente
+	// si es mayor filtrado descendente
+	public int cambiarPrioridad(int pos, T elemento) {
+		// -2 si la pos es negativa o fuera del vector o el elemento es null
+		// -1 si la cola está vacía
+		// 0 si se inserta correctamente
+		if (isEmpty()) {
+			return -1;
+		} else if (pos < 0 || pos >= numElementos) {
+			return -2;
+		} else {
+			T original = this.monticulo[pos];
+			if (elemento.compareTo(original) > 0) {
+				filtradoDescendente(pos);
+			} else if (elemento.compareTo(original) < 0) {
+				filtradoAscendente(pos);
+			}
+			return 0;
+		}
+	}
+
+	public T[] getMonticulo() {
+		return monticulo;
+	}
+
+	private void setMonticulo(T[] monticulo) {
+		this.monticulo = monticulo;
+	}
+
+	public int getNumElementos() {
+		return numElementos;
+	}
+
+	private void setNumElementos(int numElementos) {
+		this.numElementos = numElementos;
+	}
+
+	// averigua los hijos
+	// comprobar pos válidas(dentro del vector)
+	// hay algo en esas posiciones? sino no tiene hijos
+	// si hay algo coger el más pequeño
+	private void filtradoAscendente(int pos) {
+		while (pos != 0) {
+			int posicionPadre = (pos - 1) / 2;
+			int posicionHijo = pos;
+			T padre = this.monticulo[posicionPadre];
+			T hijo = this.monticulo[posicionHijo];
+			if (padre.compareTo(hijo) > 0) {
+				this.monticulo[posicionPadre] = hijo;
+				this.monticulo[posicionHijo] = padre;
+				filtradoAscendente(posicionPadre);
+			}
+			break;
+		}
+
+	}
+
+	private void filtradoDescendente(int pos) {
+		int posHijoIzq = 2 * pos + 1;
+		int posHijoDcho = 2 * pos + 2;
+		int posiciones = posicionesValidas(posHijoIzq, posHijoDcho);
+		while (posiciones != -1) {
+			int posPadre = pos;
+			T padre = this.monticulo[posPadre];
+			T hijoIzq = this.monticulo[posHijoIzq];
+			T hijoDcho = this.monticulo[posHijoDcho];
+
+			if (posiciones == 0 && hijoIzq != null && hijoDcho != null) {
+				if (hijoIzq.compareTo(hijoDcho) < 0) {
+					if (padre.compareTo(hijoIzq) > 0) {
+						this.monticulo[posPadre] = hijoIzq;
+						this.monticulo[posHijoIzq] = padre;
+						filtradoDescendente(posHijoIzq);
+					}
+				} else if (hijoDcho.compareTo(hijoIzq) < 0) {
+					if (padre.compareTo(hijoDcho) > 0) {
+						this.monticulo[posPadre] = hijoDcho;
+						this.monticulo[posHijoDcho] = padre;
+						filtradoDescendente(posHijoDcho);
+					}
+					break;
+				}
+			} else if (posiciones == 1 && hijoIzq != null) {
+				if (padre.compareTo(hijoIzq) > 0) {
+					this.monticulo[posPadre] = hijoIzq;
+					this.monticulo[posHijoIzq] = padre;
+					filtradoDescendente(posHijoIzq);
+				}
+			}
+			break;
+		}
+	}
+
+	// si las dos son válidas devuelve 0
+	// solo la izq válida
+	// ninguna válida
+	private int posicionesValidas(int posHijoIzq, int posHijoDcho) {
+		if (posHijoIzq < numElementos && posHijoDcho < numElementos) {
+			return 0;
+		} else if (posHijoIzq < numElementos && posHijoDcho >= numElementos) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+
+}

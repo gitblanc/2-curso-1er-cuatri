@@ -25,7 +25,7 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	public int add(T elemento) {
 		if (elemento == null) {
 			return -2;
-		} else if (this.numElementos == this.monticulo.length) {
+		} else if (this.numElementos == this.monticulo.length || existsElemento(elemento)) {
 			return -1;
 		} else {
 			this.numElementos++;
@@ -46,7 +46,7 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		} else {
 			T elem0 = this.monticulo[0];
 			this.monticulo[0] = this.monticulo[this.numElementos - 1];
-			this.monticulo[this.numElementos-1] = null;
+			this.monticulo[this.numElementos - 1] = null;
 			this.numElementos--;
 			filtradoDescendente(0);
 			return elem0;
@@ -65,8 +65,9 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		} else if (!existsElemento(elemento)) {
 			return -1;
 		} else {
+			this.monticulo[getPosElemento(elemento)] = this.monticulo[numElementos - 1];
+			this.monticulo[numElementos - 1] = null;
 			this.numElementos--;
-			this.monticulo[getPosElemento(elemento)] = null;
 			filtradoDescendente(0);
 			return 0;
 		}
@@ -123,12 +124,13 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		// -2 si la pos es negativa o fuera del vector o el elemento es null
 		// -1 si la cola está vacía
 		// 0 si se inserta correctamente
-		if (pos < 0 || pos >= numElementos) {
-			return -2;
-		} else if (isEmpty()) {
+		if (isEmpty()) {
 			return -1;
+		} else if (pos < 0 || pos >= numElementos) {
+			return -2;
 		} else {
 			T original = this.monticulo[pos];
+			this.monticulo[pos] = elemento;
 			if (elemento.compareTo(original) > 0) {
 				filtradoDescendente(pos);
 			} else if (elemento.compareTo(original) < 0) {
@@ -204,8 +206,9 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 					this.monticulo[posPadre] = hijoIzq;
 					this.monticulo[posHijoIzq] = padre;
 					filtradoDescendente(posHijoIzq);
-				} 
+				}
 			}
+			break;
 		}
 	}
 
