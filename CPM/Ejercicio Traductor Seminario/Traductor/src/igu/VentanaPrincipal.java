@@ -1,19 +1,13 @@
 package igu;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -31,6 +25,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+
+import evt.Foco;
+import evt.ProcesaTecla;
+import evt.SetBorderPainted;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -118,9 +116,9 @@ public class VentanaPrincipal extends JFrame {
 			btGuardar = new JButton();
 			btGuardar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String fileName = JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:", "Guardado",
-							JOptionPane.QUESTION_MESSAGE);
-					if(!fileName.isBlank() || fileName != null) {
+					String fileName = JOptionPane.showInputDialog(null, "Introduce el nombre del fichero a guardar:",
+							"Guardado", JOptionPane.QUESTION_MESSAGE);
+					if (!fileName.isBlank() || fileName != null) {
 						setTitle("Traductor de textos: " + fileName);
 					}
 				}
@@ -174,7 +172,7 @@ public class VentanaPrincipal extends JFrame {
 			barraEstado.add(getEtIdOriginal());
 			barraEstado.add(getEtDocTraducido());
 			barraEstado.add(getEtIdTraducido());
-			
+
 		}
 		return barraEstado;
 	}
@@ -428,21 +426,6 @@ public class VentanaPrincipal extends JFrame {
 		this.addWindowListener(grabFoco);
 	}
 
-	public class Foco implements FocusListener {
-
-		public void focusGained(FocusEvent e) {
-			JTextArea text = (JTextArea) e.getSource();
-			text.setBackground(Color.WHITE);
-		}
-
-		@Override
-		public void focusLost(FocusEvent e) {
-			JTextArea text = (JTextArea) e.getSource();
-			text.setBackground(Color.lightGray);
-
-		}
-	}
-
 	public class GrabFocus extends WindowAdapter {
 
 		public void windowOpened(WindowEvent e) {
@@ -454,28 +437,6 @@ public class VentanaPrincipal extends JFrame {
 			int answer = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea salir de la aplicación?");
 			if (answer == JOptionPane.YES_OPTION) {
 				System.exit(0);
-			}
-		}
-	}
-
-	public class SetBorderPainted extends MouseAdapter {
-		public void mouseEntered(MouseEvent e) {
-			JButton btn = (JButton) e.getSource();
-			btn.setBorderPainted(true);
-		}
-
-		public void mouseExited(MouseEvent e) {
-			JButton btn = (JButton) e.getSource();
-			btn.setBorderPainted(false);
-		}
-
-	}
-
-	public class ProcesaTecla extends KeyAdapter {
-		public void keyTyped(KeyEvent e) {
-			char teclaPulsada = e.getKeyChar();
-			if (!Character.isAlphabetic(teclaPulsada)) {
-				e.consume();
 			}
 		}
 	}
