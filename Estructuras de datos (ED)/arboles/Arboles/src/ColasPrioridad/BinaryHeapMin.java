@@ -83,10 +83,11 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 		} else if (!existsElemento(elemento)) {
 			return -1;
 		} else {
-			this.monticulo[getPosElemento(elemento)] = this.monticulo[numElementos - 1];
+			int posicion = getPosElemento(elemento);
+			this.monticulo[posicion] = this.monticulo[numElementos - 1];
 			this.monticulo[numElementos - 1] = null;
 			this.numElementos--;
-			filtradoDescendente(0);
+			filtradoDescendente(posicion);
 			return 0;
 		}
 	}
@@ -230,7 +231,7 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	 */
 	private void filtradoAscendente(int pos) {
 		while (pos != 0) {
-			int posicionPadre = (pos - 1) / 2;
+			int posicionPadre = Math.abs((pos - 1) / 2);
 			int posicionHijo = pos;
 			T padre = this.monticulo[posicionPadre];
 			T hijo = this.monticulo[posicionHijo];
@@ -251,8 +252,8 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	 * @param pos
 	 */
 	private void filtradoDescendente(int pos) {
-		int posHijoIzq = 2 * pos + 1;
-		int posHijoDcho = 2 * pos + 2;
+		int posHijoIzq = Math.abs(2 * pos + 1);
+		int posHijoDcho = Math.abs(2 * pos + 2);
 		int posiciones = posicionesValidas(posHijoIzq, posHijoDcho);
 		while (posiciones != -1) {
 			int posPadre = pos;
