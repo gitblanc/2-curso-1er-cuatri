@@ -125,8 +125,7 @@ class BinaryHeapMinTest {
 		assertEquals(0, bh.remove(38));
 		assertEquals(0, bh.remove(22));
 		assertEquals(0, bh.remove(2));
-		assertEquals(
-				"4	20	36	30	25	39	63	50	42	31	32	41	80	95	65	60	51	75	90	55	33	40",
+		assertEquals("4	20	36	30	25	39	63	50	42	31	32	41	80	95	65	60	51	75	90	55	33	40",
 				bh.toString());
 	}
 
