@@ -48,6 +48,7 @@ public class Libro implements Comparable<Libro>{
 
 	/**
 	 * ToString de la clase
+	 * @name
 	 */
 	public String toString() {
 		return name;
