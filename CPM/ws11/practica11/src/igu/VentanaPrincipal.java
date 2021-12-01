@@ -1,24 +1,43 @@
 package igu;
 
-import java.awt.EventQueue;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
-import logica.*;
-import logica.Pedido.TipoPedido;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.BorderLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+
+import logica.Articulo;
+import logica.Carta;
+import logica.Pedido;
+import logica.Pedido.TipoPedido;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.border.LineBorder;
-import java.awt.CardLayout;
-import javax.swing.border.TitledBorder;
+import javax.swing.SwingConstants;
 
 public class VentanaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -66,12 +85,30 @@ public class VentanaPrincipal extends JFrame {
 	private JList<Articulo> listBebida;
 	private DefaultListModel<Articulo> modeloListComida;
 	private DefaultListModel<Articulo> modeloListBebida;
-
+	private JTextField txPrecio;
+	private JButton btAnular1;
+	private JButton btSig1;
+	private JButton btAnt2;
+	private JButton btSig2;
+	private JButton btAnt3;
+	private JButton btSig3;
+	private JPanel panelFiltros;
+	private JButton btTodo;
+	private JButton btHamburguesas;
+	private JButton btBebidas;
+	private JButton btComplementos;
+	private JButton btPostres;
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaPrincipal(Carta carta, Pedido pedido) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				asociaImagenBotones();
+			}
+		});
 		this.carta = carta;
 		this.pedido = pedido;
 		aB = new AccionBoton();
@@ -87,7 +124,7 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(getPnlLogo(), BorderLayout.NORTH);
 		contentPane.add(getPnContenidos(), BorderLayout.CENTER);
 	}
-	
+
 	private JLabel getLblLogo() {
 		if (lblLogo == null) {
 			lblLogo = new JLabel("");
@@ -95,6 +132,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lblLogo;
 	}
+
 	private JLabel getLblLblnombre() {
 		if (lblLblnombre == null) {
 			lblLblnombre = new JLabel("McDonald's");
@@ -104,23 +142,37 @@ public class VentanaPrincipal extends JFrame {
 		return lblLblnombre;
 	}
 
-	
-	protected void inicializar() {
+	protected void inicializar1() {
 		pedido.inicializar();
-		//COMPLETAR
+		modeloListBebida.clear();
+		modeloListComida.clear();
+		getTxPrecio().setText("Precio: 0.0");
+		getBtSig1().setEnabled(false);
 	}
-	
+
+	protected void inicializar2() {
+		getTxtNombre().setText("");
+		getPsw1().setText("");
+		getPsw2().setText("");
+
+	}
+
+	protected void inicializar3() {
+		getTxCodigo().setText("");
+	}
+
 	private JPanel getPnInfo1() {
 		if (pnInfo1 == null) {
 			pnInfo1 = new JPanel();
 			pnInfo1.setBackground(Color.WHITE);
 			pnInfo1.setLayout(new BorderLayout(0, 0));
-			pnInfo1.add(getPnBts1(),BorderLayout.SOUTH);
-			pnInfo1.add(getPanelPedido(), BorderLayout.SOUTH);
-		
+			pnInfo1.add(getPnBts1(), BorderLayout.SOUTH);
+			pnInfo1.add(getPanelPedido(), BorderLayout.CENTER);
+
 		}
 		return pnInfo1;
 	}
+
 	private JPanel getPnlLogo() {
 		if (pnlLogo == null) {
 			pnlLogo = new JPanel();
@@ -131,39 +183,47 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnlLogo;
 	}
+
 	private JPanel getPnArticulos() {
 		if (pnArticulos == null) {
 			pnArticulos = new JPanel();
 			pnArticulos.setBorder(new LineBorder(Color.ORANGE, 4));
 			pnArticulos.setBackground(Color.WHITE);
 			// COMPLETAR 1
-			pnArticulos.setLayout(new GridLayout(0,6,3,3));
+			pnArticulos.setLayout(new GridLayout(0, 6, 3, 3));
 			creaBotonesTablero();
 		}
 		return pnArticulos;
 	}
-	
+
 	private void creaBotonesTablero() {
 		pnArticulos.removeAll();
-		for(int i=0;i<carta.getListaArticulos().size();i++) {
+		for (int i = 0; i < carta.getListaArticulos().size(); i++) {
 			pnArticulos.add(nuevoBoton(i));
 		}
-		
+
 	}
 
-	private void setImagenAdaptada(JButton boton, String rutaImagen){
-		 Image imgOriginal = new ImageIcon(getClass().getResource(rutaImagen)).getImage(); 
-		 Image imgEscalada = imgOriginal.getScaledInstance(boton.getWidth(),boton.getHeight(), Image.SCALE_FAST);
-		 ImageIcon icon = new ImageIcon(imgEscalada);
-		 boton.setIcon(icon);
+	private void setImagenAdaptada(JButton boton, String rutaImagen) {
+		Image imgOriginal = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
+		Image imgEscalada = imgOriginal.getScaledInstance(boton.getWidth(), boton.getHeight(), Image.SCALE_SMOOTH);// scale
+																													// fast->
+																													// la
+																													// imagen
+																													// carga
+																													// lo
+																													// antes
+																													// posible
+																													// menos
+																													// resolución
+		ImageIcon icon = new ImageIcon(imgEscalada);
+		boton.setIcon(icon);
 	}
-	
 
 	private void asociaImagenBotones() {
-		for (int i = 0; i < pnArticulos.getComponents().length; i++)
-		{
+		for (int i = 0; i < pnArticulos.getComponents().length; i++) {
 			JButton boton = (JButton) (pnArticulos.getComponents()[i]);
-			setImagenAdaptada(boton,carta.getListaArticulos().get(i).getCodigo()+".png");
+			setImagenAdaptada(boton, "/img/" + carta.getListaArticulos().get(i).getCodigo() + ".png");
 		}
 	}
 
@@ -183,54 +243,81 @@ public class VentanaPrincipal extends JFrame {
 			añadirAPedido(Integer.parseInt(bt.getActionCommand()));
 		}
 	}
-	
-	//COMPLETAR 2
+
+	// COMPLETAR 2
 	private void añadirAPedido(int posArticuloEnCarta) {
-		
+		Articulo a = carta.getListaArticulos().get(posArticuloEnCarta);
+		pedido.add(a, 1);
+		mostrarEnLista(a);
+		getTxPrecio().setText("Precio: " + String.format("%.2f", pedido.getTotal()));
+		if (!getBtSig1().isEnabled())
+			getBtSig1().setEnabled(true);
 	}
-	
-	//COMPLETAR 3
+
+	// COMPLETAR 3
 	private void mostrarEnLista(Articulo a) {
-	
+		if (a.getTipo().equals("Bebida")) {
+			modeloListBebida.addElement(a);
+		} else {
+			modeloListComida.addElement(a);
+		}
+
 	}
-	
-	//COMPLETAR 4
+
+	// COMPLETAR 4
 	private void mostrarPn1() {
+		// inicializar3();
+		getPnBts1().add(getTxPrecio(), 0);
+		inicializar1();
+		((CardLayout) getPnContenidos().getLayout()).show(pnContenidos, "pn1");
+		inicializar2();
 	}
-	
+
 	private void mostrarPn2() {
+		getPnInfo2().add(getPnDatosPedido());
+		getPnBts2().add(getTxPrecio(), 0);
+		((CardLayout) getPnContenidos().getLayout()).show(pnContenidos, "pn2");
+		// ((CardLayout)getPnContenidos().getLayout()).next(pnContenidos); EQUIVALENTE
 	}
-	
+
 	private void mostrarPn3() {
-		if (comprobarCampos())
-		{   
-			// COMPLETAR
+		if (comprobarCampos()) {
+			getPnInfo3().add(getPnDatosPedido());
+			getPnBts3().add(getTxPrecio(), 0);
+			((CardLayout) getPnContenidos().getLayout()).show(pnContenidos, "pn3");
 		}
 	}
-	
+
 	private JPanel getPnBts1() {
 		if (pnBts1 == null) {
 			pnBts1 = new JPanel();
 			pnBts1.setBackground(Color.WHITE);
-			pnBts1.setLayout(new GridLayout(1, 3, 0, 0));
+			pnBts1.setLayout(new GridLayout(0, 3, 0, 0));
+			pnBts1.add(getTxPrecio());
+			pnBts1.add(getBtAnular1());
+			pnBts1.add(getBtSig1());
 		}
 		return pnBts1;
 	}
-	
+
 	private JPanel getPnBts2() {
 		if (pnBts2 == null) {
 			pnBts2 = new JPanel();
 			pnBts2.setBackground(Color.WHITE);
-			pnBts2.setLayout(new GridLayout(1, 3, 0, 0));
+			pnBts2.setLayout(new GridLayout(0, 3, 0, 0));
+			pnBts2.add(getBtAnt2());
+			pnBts2.add(getBtSig2());
 		}
 		return pnBts2;
 	}
-	
+
 	private JPanel getPnBts3() {
 		if (pnBts3 == null) {
 			pnBts3 = new JPanel();
 			pnBts3.setBackground(Color.WHITE);
-			pnBts3.setLayout(new GridLayout(1, 3, 0, 0));
+			pnBts3.setLayout(new GridLayout(0, 3, 0, 0));
+			pnBts3.add(getBtAnt3());
+			pnBts3.add(getBtSig3());
 		}
 		return pnBts3;
 	}
@@ -245,7 +332,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnContenidos;
 	}
-	
+
 	private JPanel getPn2() {
 		if (pn2 == null) {
 			pn2 = new JPanel();
@@ -256,7 +343,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pn2;
 	}
-	
+
 	private JPanel getPn3() {
 		if (pn3 == null) {
 			pn3 = new JPanel();
@@ -267,13 +354,13 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pn3;
 	}
-	
+
 	private JComboBox<String> getCbAños() {
 		if (cbAños == null) {
-			String[]años = new String[90];
-			for (int i=0;i<90;i++){
-				String año = ""+((90-i)+1920);
-				años[i]= año;
+			String[] años = new String[90];
+			for (int i = 0; i < 90; i++) {
+				String año = "" + ((90 - i) + 1920);
+				años[i] = año;
 			}
 			cbAños = new JComboBox<String>();
 			cbAños.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -282,21 +369,23 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return cbAños;
 	}
-	
+
 	private boolean isVacio() {
-		return (txtNombre.getText().equals("")||(String.valueOf(psw1.getPassword()).equals(""))||(String.valueOf(psw2.getPassword()).equals(""))); 
-	
+		return (txtNombre.getText().equals("") || (String.valueOf(psw1.getPassword()).equals(""))
+				|| (String.valueOf(psw2.getPassword()).equals("")));
+
 	}
-	
+
 	private boolean isIncorrecta() {
 		return (!String.valueOf(psw1.getPassword()).equals(String.valueOf(psw2.getPassword())));
 	}
-	
+
 	private JPanel getPnDatosCliente() {
 		if (pnDatosCliente == null) {
 			pnDatosCliente = new JPanel();
 			pnDatosCliente.setBounds(104, 58, 656, 224);
-			pnDatosCliente.setBorder(new TitledBorder(null, "Datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnDatosCliente.setBorder(
+					new TitledBorder(null, "Datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			pnDatosCliente.setBackground(Color.WHITE);
 			pnDatosCliente.setLayout(null);
 			pnDatosCliente.add(getLbNombre());
@@ -310,6 +399,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnDatosCliente;
 	}
+
 	private JLabel getLbNombre() {
 		if (lbNombre == null) {
 			lbNombre = new JLabel();
@@ -320,6 +410,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbNombre;
 	}
+
 	private JTextField getTxtNombre() {
 		if (txtNombre == null) {
 			txtNombre = new JTextField();
@@ -328,6 +419,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return txtNombre;
 	}
+
 	private JLabel getLbAño() {
 		if (lbAño == null) {
 			lbAño = new JLabel("A\u00F1o de nacimiento:");
@@ -349,6 +441,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbPasw1;
 	}
+
 	private JPasswordField getPsw1() {
 		if (psw1 == null) {
 			psw1 = new JPasswordField();
@@ -358,6 +451,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return psw1;
 	}
+
 	private JLabel getLbPasw2() {
 		if (lbPasw2 == null) {
 			lbPasw2 = new JLabel();
@@ -369,6 +463,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbPasw2;
 	}
+
 	private JPasswordField getPsw2() {
 		if (psw2 == null) {
 			psw2 = new JPasswordField();
@@ -378,32 +473,29 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return psw2;
 	}
-	
+
 	public boolean comprobarCampos() {
 		if (isVacio()) {
 			JOptionPane.showMessageDialog(null, "Error: Hay algún campo en blanco");
 			return false;
+		} else if (isIncorrecta()) {
+			JOptionPane.showMessageDialog(null, "Error: Las passwords no coinciden");
+			return false;
 		}
-		else
-			if (isIncorrecta()) {
-				JOptionPane.showMessageDialog(null, "Error: Las passwords no coinciden");
-				return false;
-			}
 		return true;
-	 }
+	}
 
-	
-	
 	private JPanel getPn1() {
 		if (pn1 == null) {
 			pn1 = new JPanel();
 			pn1.setLayout(new BorderLayout(0, 0));
 			pn1.add(getPnArticulos(), BorderLayout.CENTER);
 			pn1.add(getPnInfo1(), BorderLayout.SOUTH);
+			pn1.add(getPanelFiltros(), BorderLayout.WEST);
 		}
 		return pn1;
 	}
-	
+
 	private JPanel getPnFormulario() {
 		if (pnFormulario == null) {
 			pnFormulario = new JPanel();
@@ -415,10 +507,12 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnFormulario;
 	}
+
 	private JPanel getPnDatosPedido() {
 		if (pnDatosPedido == null) {
 			pnDatosPedido = new JPanel();
-			pnDatosPedido.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del pedido", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			pnDatosPedido.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del pedido",
+					TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			pnDatosPedido.setBackground(Color.WHITE);
 			pnDatosPedido.setBounds(104, 304, 248, 60);
 			pnDatosPedido.add(getRbLocal());
@@ -426,6 +520,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnDatosPedido;
 	}
+
 	private JRadioButton getRbLocal() {
 		if (rbLocal == null) {
 			rbLocal = new JRadioButton();
@@ -446,7 +541,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return rbLocal;
 	}
-	
+
 	private JRadioButton getRbLlevar() {
 		if (rbLlevar == null) {
 			rbLlevar = new JRadioButton();
@@ -466,16 +561,17 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return rbLlevar;
 	}
-	
+
 	private JPanel getPnInfo2() {
 		if (pnInfo2 == null) {
 			pnInfo2 = new JPanel();
 			pnInfo2.setBackground(Color.WHITE);
 			pnInfo2.setLayout(new BorderLayout(0, 0));
-			pnInfo2.add(getPnBts2(),BorderLayout.SOUTH);
+			pnInfo2.add(getPnBts2(), BorderLayout.SOUTH);
 		}
 		return pnInfo2;
 	}
+
 	private JPanel getPnConfirmacion() {
 		if (pnConfirmacion == null) {
 			pnConfirmacion = new JPanel();
@@ -489,22 +585,23 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return pnConfirmacion;
 	}
+
 	private JPanel getPnInfo3() {
 		if (pnInfo3 == null) {
 			pnInfo3 = new JPanel();
 			pnInfo3.setBackground(Color.WHITE);
 			pnInfo3.setLayout(new BorderLayout(0, 0));
-			pnInfo3.add(getPnBts3(),BorderLayout.SOUTH);
+			pnInfo3.add(getPnBts3(), BorderLayout.SOUTH);
 		}
 		return pnInfo3;
 	}
-	
+
 	private void finalizar() {
 		pedido.grabarPedido();
-		inicializar();
-		//COMPLETAR
+		inicializar1();
+		mostrarPn1();
 	}
-	
+
 	private JLabel getLbAviso() {
 		if (lbAviso == null) {
 			lbAviso = new JLabel("Pulse Finalizar para confirmar su pedido");
@@ -513,6 +610,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbAviso;
 	}
+
 	private JLabel getLbOk() {
 		if (lbOk == null) {
 			lbOk = new JLabel("");
@@ -521,6 +619,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbOk;
 	}
+
 	private JLabel getLbCodigo() {
 		if (lbCodigo == null) {
 			lbCodigo = new JLabel("El c\u00F3digo de recogida es:");
@@ -529,6 +628,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return lbCodigo;
 	}
+
 	private JTextField getTxCodigo() {
 		if (txCodigo == null) {
 			txCodigo = new JTextField();
@@ -540,6 +640,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return txCodigo;
 	}
+
 	private JTabbedPane getPanelPedido() {
 		if (panelPedido == null) {
 			panelPedido = new JTabbedPane(JTabbedPane.TOP);
@@ -550,6 +651,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return panelPedido;
 	}
+
 	private JScrollPane getScrollComida() {
 		if (scrollComida == null) {
 			scrollComida = new JScrollPane();
@@ -557,6 +659,7 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return scrollComida;
 	}
+
 	private JScrollPane getScrollBebida() {
 		if (scrollBebida == null) {
 			scrollBebida = new JScrollPane();
@@ -564,18 +667,172 @@ public class VentanaPrincipal extends JFrame {
 		}
 		return scrollBebida;
 	}
+
 	private JList<Articulo> getListComida() {
 		if (listComida == null) {
-			modeloListComida=new DefaultListModel<Articulo>();
+			modeloListComida = new DefaultListModel<Articulo>();
 			listComida = new JList<Articulo>(modeloListComida);
 		}
 		return listComida;
 	}
+
 	private JList<Articulo> getListBebida() {
 		if (listBebida == null) {
-			modeloListBebida=new DefaultListModel<Articulo>();
+			modeloListBebida = new DefaultListModel<Articulo>();
 			listBebida = new JList<Articulo>(modeloListBebida);
 		}
 		return listBebida;
+	}
+
+	private JTextField getTxPrecio() {
+		if (txPrecio == null) {
+			txPrecio = new JTextField();
+			txPrecio.setText("\"Precio: 0.0\"");
+			txPrecio.setBackground(Color.ORANGE);
+			txPrecio.setColumns(10);
+		}
+		return txPrecio;
+	}
+
+	private JButton getBtAnular1() {
+		if (btAnular1 == null) {
+			btAnular1 = new JButton("Anular");
+			btAnular1.setBackground(new Color(165, 42, 42));
+		}
+		return btAnular1;
+	}
+
+	private JButton getBtSig1() {
+		if (btSig1 == null) {
+			btSig1 = new JButton("Siguiente");
+			btSig1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarPn2();
+				}
+			});
+			btSig1.setBackground(new Color(34, 139, 34));
+		}
+		return btSig1;
+	}
+
+	private JButton getBtAnt2() {
+		if (btAnt2 == null) {
+			btAnt2 = new JButton("Anterior");
+		}
+		return btAnt2;
+	}
+
+	private JButton getBtSig2() {
+		if (btSig2 == null) {
+			btSig2 = new JButton("Siguiente");
+			btSig2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarPn3();
+				}
+			});
+		}
+		return btSig2;
+	}
+
+	private JButton getBtAnt3() {
+		if (btAnt3 == null) {
+			btAnt3 = new JButton("Anterior");
+		}
+		return btAnt3;
+	}
+
+	private JButton getBtSig3() {
+		if (btSig3 == null) {
+			btSig3 = new JButton("Siguiente");
+			btSig3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					finalizar();
+				}
+			});
+		}
+		return btSig3;
+	}
+
+	private JPanel getPanelFiltros() {
+		if (panelFiltros == null) {
+			panelFiltros = new JPanel();
+			panelFiltros.setLayout(new GridLayout(5, 1, 0, 0));
+			panelFiltros.add(getBtHamburguesas());
+			panelFiltros.add(getBtBebidas());
+			panelFiltros.add(getBtComplementos());
+			panelFiltros.add(getBtPostres());
+			panelFiltros.add(getBtTodo());
+		}
+		return panelFiltros;
+	}
+
+	private JButton getBtTodo() {
+		if (btTodo == null) {
+			btTodo = new JButton("Todo");
+			btTodo.setHorizontalTextPosition(SwingConstants.CENTER);
+			btTodo.setVerticalTextPosition(SwingConstants.BOTTOM);
+		}
+		return btTodo;
+	}
+
+	private JButton getBtHamburguesas() {
+		if (btHamburguesas == null) {
+			btHamburguesas = new JButton("Hamburguesas");
+			btHamburguesas.setHorizontalTextPosition(SwingConstants.CENTER);
+			btHamburguesas.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btHamburguesas.setIcon(new ImageIcon("bin/img/img filtros/Hamburguesa.png"));
+			btHamburguesas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					deshabilitaBotonesTablero("Hamburguesa");
+				}
+
+			});
+
+		}
+		return btHamburguesas;
+	}
+
+	private void deshabilitaBotonesTablero(String string) {
+		if (string != "Todo") {
+			for (int i = 0; i < pnArticulos.getComponents().length; i++) {
+				Articulo a = carta.getArticulos()[i];
+				if (a.getTipo().equals(string)) {
+					pnArticulos.getComponent(i).setEnabled(true);
+				}
+				pnArticulos.getComponent(i).setEnabled(false);
+			}
+		}
+		
+
+	}
+
+	private JButton getBtBebidas() {
+		if (btBebidas == null) {
+			btBebidas = new JButton("Bebidas");
+			btBebidas.setHorizontalTextPosition(SwingConstants.CENTER);
+			btBebidas.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btBebidas.setIcon(new ImageIcon("bin/img/img filtros/Bebida.png"));
+		}
+		return btBebidas;
+	}
+
+	private JButton getBtComplementos() {
+		if (btComplementos == null) {
+			btComplementos = new JButton("Complementos");
+			btComplementos.setHorizontalTextPosition(SwingConstants.CENTER);
+			btComplementos.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btComplementos.setIcon(new ImageIcon("bin/img/img filtros/Complemento.png"));
+		}
+		return btComplementos;
+	}
+
+	private JButton getBtPostres() {
+		if (btPostres == null) {
+			btPostres = new JButton("Postres");
+			btPostres.setHorizontalTextPosition(SwingConstants.CENTER);
+			btPostres.setVerticalTextPosition(SwingConstants.BOTTOM);
+			btPostres.setIcon(new ImageIcon("bin/img/img filtros/Postre.png"));
+		}
+		return btPostres;
 	}
 }
