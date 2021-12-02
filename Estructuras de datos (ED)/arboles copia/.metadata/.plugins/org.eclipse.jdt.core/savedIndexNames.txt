@@ -1,0 +1,18 @@
+INDEX VERSION 1.131+/Users/blanc/Documents/2-cursov2/Estructuras de datos (ED)/arboles copia/.metadata/.plugins/org.eclipse.jdt.core
+3937428881.index
+3807845235.index
+3927392623.index
+809686857.index
+43447799.index
+3738868409.index
+4278637543.index
+347979167.index
+1126724730.index
+1865797976.index
+2871164306.index
+348560279.index
+1790085440.index
+566548369.index
+2500417907.index
+2499036490.index
+962977717.index

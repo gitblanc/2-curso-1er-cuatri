@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package ColasPrioridad;
+
+/**
+ * @author blanc
+ *
+ */
+public class Libro implements Comparable<Libro>{
+
+	@Override
+	public int compareTo(Libro o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
