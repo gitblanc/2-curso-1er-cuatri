@@ -27,7 +27,7 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	@Override
 	/**
 	 * Condiciones: si el parámetro pasado es null devuelve -2. Si el vector está
-	 * lleno o ya existe el elemento devuelve -1. Sino aumenta el número de
+	 * lleno devuelve -1. Sino aumenta el número de
 	 * elementos, lo añade al final, hace un filtrado ascendente y devuelve 0.
 	 * 
 	 * @return int
@@ -35,7 +35,7 @@ public class BinaryHeapMin<T extends Comparable<T>> implements PriorityQueue<T> 
 	public int add(T elemento) {
 		if (elemento == null) {
 			return -2;
-		} else if (this.numElementos == this.monticulo.length || existsElemento(elemento)) {
+		} else if (this.numElementos == this.monticulo.length) {
 			return -1;
 		} else {
 			this.numElementos++;

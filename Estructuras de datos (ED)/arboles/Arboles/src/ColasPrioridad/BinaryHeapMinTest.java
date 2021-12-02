@@ -15,13 +15,20 @@ class BinaryHeapMinTest {
 
 		assertEquals(-2, bh.add(null));
 		assertEquals(0, bh.add(5));
-		assertEquals(-1, bh.add(5));
+		System.out.println(bh.toString());
+		assertEquals(0, bh.add(5));
+		System.out.println(bh.toString());
 		assertEquals(0, bh.add(7));
+		System.out.println(bh.toString());
 		assertEquals(0, bh.add(8));
+		System.out.println(bh.toString());
 		assertEquals(0, bh.add(9));
+		System.out.println(bh.toString());
 		assertEquals(0, bh.add(2));
+		System.out.println(bh.toString());
 		assertEquals(0, bh.add(0));
-		assertEquals("0	5	2	9	7	8", bh.toString());
+		System.out.println(bh.toString());
+		assertEquals("0	5	2	8	9	7	5", bh.toString());
 	}
 
 	@Test
