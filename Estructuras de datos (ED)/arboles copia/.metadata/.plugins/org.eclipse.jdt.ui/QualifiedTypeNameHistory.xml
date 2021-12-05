@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Comparable"/>
+    <fullyQualifiedTypeName name="BST.BSTree"/>
+    <fullyQualifiedTypeName name="BST.BSTNode"/>
+    <fullyQualifiedTypeName name="AVL.AVLNode"/>
+    <fullyQualifiedTypeName name="ColasPrioridad.PriorityQueue"/>
+    <fullyQualifiedTypeName name="ColasPrioridad.BinaryHeapMin"/>
+</qualifiedTypeNameHistroy>

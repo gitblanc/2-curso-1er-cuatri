@@ -1,0 +1,20 @@
+package ColasPrioridad;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class LibroTest {
+
+	@Test
+	void test() {
+		BinaryHeapMin<Libro> bh = new BinaryHeapMin<>(8);
+		assertEquals(0,bh.add(new Libro(1, "1 libro")));
+		assertEquals(0,bh.add(new Libro(2, "2 libro")));
+		assertEquals(0,bh.add(new Libro(3, "3 libro")));
+		assertEquals(0,bh.add(new Libro(4, "4 libro")));
+		assertEquals(0,bh.add(new Libro(5, "5 libro")));
+		assertEquals(0,bh.add(new Libro(6, "6 libro")));
+	}
+
+}

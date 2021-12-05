@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package ColasPrioridad;
+
+/**
+ * @author blanc
+ *
+ */
+public interface PriorityQueue <T extends Comparable<T>> {
+	
+	public int add(T elemento);
+	public T poll();
+	public int remove(T elemento);
+	public boolean isEmpty();
+	public void clear();
+	public int cambiarPrioridad(int pos, T elemento);
+	@Override
+	public String toString();
+	
+
+}
