@@ -1,0 +1,64 @@
+//Leer fichero
+
+import java.io.*;
+
+
+void leerFichero() {
+    String nombreFichero = ".....";
+    String linea="";
+    try {
+      BufferedReader fichero = new BufferedReader(new FileReader(nombreFichero));
+
+      //Mientras quede información
+      while (fichero.ready()) {
+        linea = fichero.readLine();
+        String[] trozos = linea.split(";");
+        ....
+      }
+      fichero.close();
+    }
+    catch (FileNotFoundException fnfe){
+        System.out.println("El archivo no se ha encontrado.");
+    }
+    catch(IOException ioe){
+        new RuntimeException("Error de entrada/salida.");
+    }
+ }
+
+//Mostrar el diálogo
+
+ClaseDialogo dialogo = new ClaseDialogo();
+dialogo.setLocationRelativeTo(null);
+dialogo.setModal(true);
+dialogo.setVisible(true);
+
+
+
+//Cargar la ayuda
+
+import javax.help.*;
+import java.net.*;
+
+
+void cargaAyuda(){
+
+   URL hsURL;
+   HelpSet hs;
+
+    try {
+	    	File fichero = new File("help/ayuda.hs");
+	    	hsURL = fichero.toURI().toURL();
+	        hs = new HelpSet(null, hsURL);
+	 }
+
+    catch(Exception e){
+      		System.out.println("Ayuda no encontrada");
+      		return;
+        }
+
+   HelpBroker hb = hs.createHelpBroker();
+
+   hb.enableHelpKey(getRootPane(),"html_inicio", hs);
+   hb.enableHelpOnButton(componente, "html_inicio", hs);
+   
+ }

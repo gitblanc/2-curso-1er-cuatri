@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE index
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/index_1_0.dtd">
+<index version="1.0">
+	<indexitem text="añadir una cabina" target="aniadir" />	
+	<indexitem text="editar una cabina" target="editar" />	
+	<indexitem text="excursiones" target="excursiones" />	
+	<indexitem text="eliminar una cabina" target="eliminar" />	
+	<indexitem text="descripcion de la aplicacion Sea Holidays" target="intro" />	
+	
+	<indexitem text="personalizacion" target="personalizacion" >	
+		<indexitem text="añadir" target="aniadir" />	
+		<indexitem text="editar" target="editar" />	
+		<indexitem text="eliminar" target="eliminar" />	
+	</indexitem>
+	<indexitem text="registro" target="registro" />
+	<indexitem text="resumen" target="resumen" />	
+	<indexitem text="selecciona un crucero" target="cruceros" />	
+	
+		
+	
+		
+</index>

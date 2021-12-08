@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE index
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/index_1_0.dtd">
+<index version="1.0">
+	<indexitem text="Oviedo book store" target="intro" />
+	<indexitem text="Sign in" target="signin" />		
+	<indexitem text="Add a book to the shopping cart" target="add" />	
+	<indexitem text="Finalize" target="finalize" />	
+</index>

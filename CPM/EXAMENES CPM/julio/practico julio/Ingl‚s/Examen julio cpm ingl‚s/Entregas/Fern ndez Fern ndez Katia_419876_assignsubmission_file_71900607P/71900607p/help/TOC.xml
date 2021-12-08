@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+
+<toc version="1.0">
+  
+  <tocitem text="Oviedo book store" target="intro" />
+  <tocitem text="Buy books">
+  		<tocitem text="Sign in" target="signin" />
+  		<tocitem text="Add to the shopping cart" target="add" />
+  		<tocitem text="Finalize the purchase" target="finalize" />
+  </tocitem>
+
+</toc>

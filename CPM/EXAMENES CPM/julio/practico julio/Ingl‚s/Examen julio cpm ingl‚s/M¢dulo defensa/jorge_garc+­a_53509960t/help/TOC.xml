@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+
+<toc version="1.0">
+  
+  <tocitem text="EII Modulo Sea Holidays" target="intro" />
+  <tocitem text="Seleccionar un crucero" target="cruceros" />
+  <tocitem text="Personalizar cabinas" target = "personalization">
+  	<tocitem text="Añadir cabina" target="aniadir" />
+  	<tocitem text="Editar cabinas" target="editar" />
+  	<tocitem text="Eliminar cabinas" target="eliminar" />
+  </tocitem>
+  <tocitem text="Excursiones" target="excursiones" />
+  <tocitem text="Datos personales" target="registro" />
+  <tocitem text="Resumen y pago" target="resumen" />
+  
+  
+  
+
+</toc>
