@@ -11,9 +11,14 @@ import java.lang.reflect.Array;
  */
 public class ClosedHashTable<T> extends AbstractHash<T> {
 
+	private static final double MIN_LF = 0.16;
+	private static final double MAXIM_LF = 0.5;
+
 	private int numElementos;
 	private HashNode<T> tabla[];
 	private int tipoExploracion;
+	private double minlf;
+	private double maxlf;
 
 	/**
 	 * 
@@ -22,13 +27,30 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 	public ClosedHashTable(int tam, int tipo) {
 		this.numElementos = 0;
 		this.tipoExploracion = tipo;
-		if (!isPositivePrime(tipo)) {
+		if (!isPositivePrime(tam)) {
 			tam = nextPrimeNumber(tam);
 		}
 		this.tabla = (HashNode<T>[]) Array.newInstance(HashNode.class, tam);
 		for (int i = 0; i < tam; i++) {
 			tabla[i] = new HashNode<T>();
 		}
+		this.minlf = MIN_LF;
+		this.maxlf = MAXIM_LF;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ClosedHashTable(int tam, int tipo, double min, double max) {
+		this.numElementos = 0;
+		this.tipoExploracion = tipo;
+		if (!isPositivePrime(tam)) {
+			tam = nextPrimeNumber(tam);
+		}
+		this.tabla = (HashNode<T>[]) Array.newInstance(HashNode.class, tam);
+		for (int i = 0; i < tam; i++) {
+			tabla[i] = new HashNode<T>();
+		}
+		this.minlf = min;
+		this.maxlf = max;
 	}
 
 	@Override
@@ -53,9 +75,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 																						// que el tamaño de la
 				// tabla
 				if (tipoExploracion == 1) {
-					pos = fHash(elemento) + intento % getSize();
+					pos = (fHash(elemento) + intento) % getSize();
 				} else if (tipoExploracion == 2) {
-					pos = fHash(elemento) + (intento * intento) % getSize();
+					pos = (fHash(elemento) + (intento * intento)) % getSize();
 				}
 				intento++;
 			}
@@ -64,9 +86,52 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 			}
 			tabla[pos].setInfo(elemento);
 			this.numElementos++;
+			if (calculateFactorCarga() >= MAXIM_LF) {
+				redispersion();
+			}
 			return 0;
 
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void redispersion() {
+		HashNode<T>[] aux = this.tabla;
+		int tam = this.tabla.length * 2;
+		if (!isPositivePrime(tam)) {
+			tam = nextPrimeNumber(tam);
+		}
+		this.tabla = (HashNode<T>[]) Array.newInstance(HashNode.class, tam);
+		this.numElementos = 0;
+		for (int i = 0; i < this.tabla.length; i++) {
+			tabla[i] = new HashNode<T>();
+		}
+		for (int k = 0; k < aux.length; k++) {
+			if (aux[k].getStatus() == HashNode.LLENO) {
+				add(aux[k].getInfo());
+			}
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private void redispersionInversa() {
+		HashNode<T>[] aux = this.tabla;
+		int tam = this.tabla.length / 2;
+		if (!isPositivePrime(tam)) {
+			tam = nextPrimeNumber(tam);
+		}
+		this.tabla = (HashNode<T>[]) Array.newInstance(HashNode.class, tam);
+		this.numElementos = 0;
+		for (int i = 0; i < this.tabla.length; i++) {
+			tabla[i] = new HashNode<T>();
+		}
+		for (int k = 0; k < aux.length; k++) {
+			if (aux[k].getStatus() == HashNode.LLENO) {
+				add(aux[k].getInfo());
+			}
+		}
+
 	}
 
 	private float calculateFactorCarga() {
@@ -84,7 +149,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 			return null;
 		} else {
 			int pos = fHash(elemento);
-			int intento = 1;
+			int intento = 0;
 			while (pos < getSize() && intento < getSize()) {// mientras esté llena y sea menor que el tamaño de la
 				if (tabla[pos].getStatus() == HashNode.LLENO) { // tabla
 					if (tabla[pos].getInfo().equals(elemento)) {
@@ -95,14 +160,17 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 						return null;
 					}
 				}
+				if (tipoExploracion == 1) {
+					pos = (fHash(elemento) + intento) % getSize();
+				} else if (tipoExploracion == 2) {
+					pos = (fHash(elemento) + (intento * intento)) % getSize();
+				}
 				intento++;
-				pos++;
 			}
 			return null;
 
 		}
 	}
-
 
 	@Override
 	public int remove(T elemento) {
@@ -124,6 +192,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 					if (tabla[pos].getInfo().equals(elemento)) {
 						tabla[pos].remove();
 						this.numElementos--;
+						if (calculateFactorCarga() <= MIN_LF) {
+							redispersionInversa();
+						}
 						return 0;
 					}
 				} else if (tabla[pos].getStatus() == HashNode.BORRADO) {
@@ -131,8 +202,12 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 						return -1;
 					}
 				}
+				if (tipoExploracion == 1) {
+					pos = (fHash(elemento) + intento) % getSize();
+				} else if (tipoExploracion == 2) {
+					pos = (fHash(elemento) + (intento * intento)) % getSize();
+				}
 				intento++;
-				pos++;
 			}
 			return -1;
 
@@ -152,6 +227,14 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		cadena.append(getNumOfElems());
 		cadena.append("]");
 		return cadena.toString();
+	}
+
+	public double getMaxlf() {
+		return maxlf;
+	}
+
+	public double getMinlf() {
+		return minlf;
 	}
 
 }
