@@ -1,8 +1,0 @@
-
-This order is for client Revisor with dni: 11
----------------------------------------------
-
-Book 31231231232 with price 25.0. Units = 5
-
-
-		Total price is 125.0.
