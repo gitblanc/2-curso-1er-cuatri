@@ -97,7 +97,7 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 	@SuppressWarnings("unchecked")
 	private void redispersion() {
 		HashNode<T>[] aux = this.tabla;
-		int tam = this.tabla.length * 2;
+		int tam = getSize() * 2;
 		if (!isPositivePrime(tam)) {
 			tam = nextPrimeNumber(tam);
 		}
@@ -117,9 +117,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 	@SuppressWarnings("unchecked")
 	private void redispersionInversa() {
 		HashNode<T>[] aux = this.tabla;
-		int tam = this.tabla.length / 2;
+		int tam = getSize() / 2;
 		if (!isPositivePrime(tam)) {
-			tam = nextPrimeNumber(tam);
+			tam = previousPrimeNumber(tam);//calcula el primo anterior
 		}
 		this.tabla = (HashNode<T>[]) Array.newInstance(HashNode.class, tam);
 		this.numElementos = 0;
