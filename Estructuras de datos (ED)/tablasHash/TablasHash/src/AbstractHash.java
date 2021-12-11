@@ -3,7 +3,7 @@
  */
 
 /**
- * @author blanc
+ * @author UO285176/blanc/Eduardo Blanco Bielsa
  *
  */
 public abstract class AbstractHash<T> {
@@ -20,6 +20,12 @@ public abstract class AbstractHash<T> {
 
 	abstract public String toString();
 
+	/**
+	 * Método que devuelve el HashCode de un elemento
+	 * 
+	 * @param elemento
+	 * @return int
+	 */
 	protected int fHash(T elemento) {
 		int pos = elemento.hashCode() % getSize();
 		if (pos < 0)// si es negativa
@@ -28,8 +34,13 @@ public abstract class AbstractHash<T> {
 			return pos;
 	}
 
-	// averigua si un número es primo o no
-	// suponemos que el numero es positivo
+	/**
+	 * Método que averigua si un número es primo o no suponiendo que el número es
+	 * positivo
+	 * 
+	 * @param numero
+	 * @return boolean
+	 */
 	protected boolean isPositivePrime(int numero) {
 		// desde el dos hasta la mitad del número
 
@@ -42,6 +53,12 @@ public abstract class AbstractHash<T> {
 
 	}
 
+	/**
+	 * Método que busca el siguiente número primo al pasado como parámetro
+	 * 
+	 * @param numero
+	 * @return int
+	 */
 	protected int nextPrimeNumber(int numero) {
 		numero++;
 		while (true) {
@@ -53,6 +70,13 @@ public abstract class AbstractHash<T> {
 		}
 	}
 
+	/**
+	 * Método que busca el número primo mayor por debajo del número pasado como
+	 * parámetro
+	 * 
+	 * @param numero
+	 * @return int
+	 */
 	protected int previousPrimeNumber(int numero) {
 		numero--;
 		while (numero > 3) {
