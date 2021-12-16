@@ -102,6 +102,9 @@ public class ClosedHashTable<T> extends AbstractHash<T> {
 		// Buscar la posición en la que iría elemento
 		if (elemento == null) {
 			return -2;
+		}
+		if (find(elemento) != null) {
+			return -1;
 		} else {
 			int pos = fHash(elemento);
 			int intento = 1;
